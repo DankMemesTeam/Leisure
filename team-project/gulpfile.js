@@ -1,7 +1,9 @@
-let gulp = require('gulp'),
-  nodemon = require('gulp-nodemon'),
-  plumber = require('gulp-plumber'),
-  livereload = require('gulp-livereload');
+const gulp = require('gulp');
+const nodemon = require('gulp-nodemon');
+// const plumber = require('gulp-plumber');
+const livereload = require('gulp-livereload');
+const mocha = require('gulp-mocha');
+const minify = require('gulp-minify');
 
 
 gulp.task('develop', function() {
@@ -19,6 +21,20 @@ gulp.task('develop', function() {
     this.stdout.pipe(process.stdout);
     this.stderr.pipe(process.stderr);
   });
+});
+
+gulp.task('test:unit', () => {
+  gulp.src('tests/**/*.js')
+    .pipe(mocha({
+      reporter: 'nyan',
+    }));
+});
+
+// Useless atm
+gulp.task('minify:js', () => {
+  gulp.src(['app/**/*.js', 'config/**/*.js'])
+    .pipe(minify())
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', [

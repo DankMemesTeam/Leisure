@@ -1,12 +1,11 @@
 const express = require('express');
 const glob = require('glob');
 
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compress = require('compression');
-const methodOverride = require('method-override');
 
 module.exports = function(app, config) {
   const env = process.env.NODE_ENV || 'development';
@@ -25,38 +24,40 @@ module.exports = function(app, config) {
   app.use(cookieParser());
   app.use(compress());
   app.use(express.static(config.root + '/public'));
-  app.use(methodOverride());
 
+
+  // Not going to be needed later as separate routers will call different controllers
+  // and controller call logic won`t be in app.js
   const controllers = glob.sync(config.root + '/app/controllers/*.js');
   controllers.forEach(function(controller) {
     require(controller)(app);
   });
 
   app.use(function(req, res, next) {
-    const err = new Error('Not Found');
+    const err = new Error('Not Found.');
     err.status = 404;
     next(err);
   });
 
-  if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-      res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: err,
-        title: 'error',
-      });
-    });
-  }
+  // if (app.get('env') === 'development') {
+  //   app.use(function(err, req, res, next) {
+  //     res.status(err.status || 500);
+  //     res.render('error', {
+  //       message: err.message,
+  //       error: err,
+  //       title: 'error',
+  //     });
+  //   });
+  // }
 
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-      res.render('error', {
-        message: err.message,
-        error: {},
-        title: 'error',
-      });
-  });
+  // app.use(function(err, req, res, next) {
+  //   res.status(err.status || 500);
+  //     res.render('error', {
+  //       message: err.message,
+  //       error: {},
+  //       title: 'error',
+  //     });
+  // });
 
   return app;
 };

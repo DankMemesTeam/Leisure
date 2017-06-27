@@ -2,16 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = function(app) {
-  app.use('/', router);
+  app.use('/contacts', router);
 };
 
-router.get('/', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
   // ENTRY POINT
-  console.log(req.params);
-  console.log('asdsadklsadjkl;fsdhjsfdjl;kfskjlfsdkdsjffsd;ljk');
-
-  res.render('index', {
+  res.render('contacts', {
     title: 'Generator-Express MVC',
+    id: req.params.id,
   });
 });
 
