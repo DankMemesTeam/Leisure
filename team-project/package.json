@@ -20,6 +20,7 @@
     "method-override": "^2.3.0",
     "morgan": "^1.6.1",
     "pug": "^2.0.0-rc.2",
+    "pug-bootstrap": "^0.0.15",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
