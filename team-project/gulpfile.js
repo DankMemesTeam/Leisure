@@ -1,14 +1,8 @@
-/* globals __dirname, process */
-
-// Contants should be moved to config file
-// eslint-disable-next-line no-process-env
-const serverPort = process.env.PORT || 3000;
+const config = require('./config/config').dev;
 
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
-
 const mocha = require('gulp-mocha');
-
 const minify = require('gulp-minify');
 
 const app = require('./config')();
@@ -21,19 +15,19 @@ gulp.task('server:restart', () => {
   }
 
   return pr.then(() => {
-    server = app.listen(serverPort, () =>
-      console.log('Express server listening on port ' + serverPort)
+    server = app.listen(config.port, () =>
+      console.log('Express server listening on port ' + config.port)
     );
   });
 });
 
-// gulp.task('dev', ['server:restart'], () => {
-//   return nodemon({
-//     ext: 'js',
-//     tasks: ['server:restart'],
-//     script: 'server.js',
-//   });
-// });
+gulp.task('dev', ['server:restart'], () => {
+  return nodemon({
+    ext: 'js',
+    tasks: ['server:restart'],
+    script: 'server.js',
+  });
+});
 
 gulp.task('test:unit', () => {
   gulp.src('tests/**/*.js')
@@ -50,5 +44,5 @@ gulp.task('minify:js', () => {
 });
 
 gulp.task('default', [
-  'develop',
+  'dev',
 ]);

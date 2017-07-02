@@ -2,7 +2,9 @@
 
 const path = require('path');
 const rootPath = path.normalize(__dirname + '/..');
-const env = process.env.NODE_ENV || 'development';
+
+// eslint-disable-next-line no-process-env
+const environmentPort = process.env.PORT;
 
 const config = {
   development: {
@@ -10,24 +12,18 @@ const config = {
     app: {
       name: 'team-project',
     },
-    port: process.env.PORT || 3000,
+    port: environmentPort || 3000,
   },
-
-  test: {
-    root: rootPath,
-    app: {
-      name: 'team-project',
-    },
-    port: process.env.PORT || 3000,
-  },
-
   production: {
     root: rootPath,
     app: {
       name: 'team-project',
     },
-    port: process.env.PORT || 3000,
+    port: environmentPort || 3001,
   },
 };
 
-module.exports = config[env];
+module.exports = {
+  dev: config.development,
+  prod: config.production,
+};
