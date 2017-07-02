@@ -682,6 +682,10 @@ cryptiles@2.x.x:
   dependencies:
     boom "2.x.x"
 
+cssmin@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/cssmin/-/cssmin-0.4.3.tgz#c9194077e0ebdacd691d5f59015b9d819f38d015"
+
 currently-unhandled@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/currently-unhandled/-/currently-unhandled-0.4.1.tgz#988df33feab191ef799a61369dd76c17adf957ea"
@@ -1021,6 +1025,14 @@ expand-tilde@^2.0.2:
   resolved "https://registry.yarnpkg.com/expand-tilde/-/expand-tilde-2.0.2.tgz#97e801aa052df02454de46b02bf621642cdc8502"
   dependencies:
     homedir-polyfill "^1.0.1"
+
+express-minify@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/express-minify/-/express-minify-0.2.0.tgz#69e74bc40d832e0a97c8472a3bb1f08e1b1c6245"
+  dependencies:
+    cssmin "^0.4.3"
+    on-headers "^1.0.1"
+    uglify-js "^2.6.1"
 
 express@^4.13.3:
   version "4.15.3"
@@ -2828,7 +2840,7 @@ on-finished@~2.3.0:
   dependencies:
     ee-first "1.1.1"
 
-on-headers@~1.0.1:
+on-headers@^1.0.1, on-headers@~1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/on-headers/-/on-headers-1.0.1.tgz#928f5d0f470d49342651ea6794b0857c100693f7"
 
