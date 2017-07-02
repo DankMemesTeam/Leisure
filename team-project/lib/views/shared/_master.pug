@@ -1,0 +1,26 @@
+extends ../../../node_modules/pug-bootstrap/_bootstrap
+block append styles
+    link(rel='stylesheet', href='/css/style.css')
+block body
+    block navbar
+        +navbar-static("Project name","navbar")
+            +nav_item("#", "active")
+                | Home
+            +nav_item("#")
+                | About
+            +nav_item("#")
+                | Contact
+            +nav_item_dropdown("#")(label="Dropdown")
+                +nav_item("#")
+                    | Action
+                +nav_item("#")
+                    | Another action
+                +nav_item("#")
+                    | Something else here
+                +nav_divider
+                +nav_item("#")
+                    | Separated link
+                +nav_item("#")
+                    | One more separated link
+    div.container.page-content
+        block page-content
