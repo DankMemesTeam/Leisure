@@ -1,0 +1,74 @@
+# Leisure project (XIANXIA)
+----
+- ## Items:
+	- ### `Post`
+		- News/Blog post/Guides/Tutorials etc
+		- Has author, title, content, categories, comments, likes/dislikes
+	- ### `User photos`
+		- User specific photos
+		- Has publisher and photo
+		- Has comments, likes/dislikes
+	- ### `Event`
+		- Has title, description
+		- Has options for registered users whether they are Interested/Going/Not going
+		- Has location (google maps based) in order to provide "Nearby events" functionality
+		- Has questions/answers section
+	- ### `Chat`
+		- #### Chat types
+			- User-to-user
+				- registers users send each other messages
+			- Public chat room
+				- chat room available for joining through a link/name
+				- has multiple users
+			- Private chat room
+				- chat room available for joining through an invitation or link/name but with password
+				- has multiple users
+----
+- ## Navbar (not authenticated)
+	- ### Home page
+	- ### Posts
+	- ### Events
+	- ### Log in/Register
+
+- ## Navbar (authenticated)
+	- ### Home page
+	- ### Posts
+	- ### Events
+	- ### My chats
+	- ### Profile dropdown (Logout, User profile, Settings)
+----
+- ## Guest user pages
+	- ### Home page
+		- Application description / Join us(?) / ...
+		- Shows some featured posts/events
+	- ### `Posts` page
+		- Shows posts ordered chronologically
+		- No searching/filtering etc
+		- Each post has only a short description
+	- ### `Events` page
+		- Shows posts ordered chronologically
+		- No searching/filtering etc
+		- Each post has only a short description
+	- ### Login/Register
+		- `...`
+----
+- ## Authenticated user pages
+	- ### Home page
+		- Shows the user`s feed
+			- `User photos` from followed users
+			- `Posts` from followed users
+			- `Events` from followed users (OPTIONAL)
+	- ### `Posts` page
+		- Shows posts ordered chronologically
+		- Provides searching/filtering by category, name etc...
+		- Provides details button (to view the entire post)
+		- Shows number of comments/likes/dislikes
+	- ### `Events` page
+		- Shows events ordered chronologically
+		- Provides searching/filtering by name, timestamp, location etc...
+		- Provides details button (to view the entire event page)
+	- ### `My Chats` page
+		- Shows current user`s joined chats
+		- Contains
+			- User-to-user chats
+			- "Joined" events chats
