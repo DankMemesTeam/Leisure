@@ -1,8 +1,11 @@
 const appConf = () => {
     const config = require('./config');
-    const app = require('./express-conf')(config);
+    const app = require('./express-conf')(config.dev);
 
-    require('../lib/controllers')(app);
+    // const controllers = require('../lib/controllers');
+
+    // Routers should take app, data, controllers and logger in the contructor
+    require('../lib/routers')(app);
 
     return app;
 };

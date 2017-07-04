@@ -1,13 +1,9 @@
-const { Router } = require('express');
-const router = new Router();
-
-module.exports = (app) => {
-  app.use('/', router);
-};
-
-router.get('/', (req, res, next) => {
-  // Insert controller here to render the pug
+const loadHomePage = (req, res) => {
   res.render('home', {
     title: 'Generator-Express MVC',
   });
-});
+};
+
+module.exports = {
+  loadHomePage,
+};
