@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 
-const collectionsModule = require('../database/index').collections;
+const collectionsModule = require('../database').collections;
 
 // Should be passed either the db or the specific collction to work with
 module.exports = (db) => {
@@ -14,8 +14,7 @@ module.exports = (db) => {
         .map((file) => path.join(__dirname, file))
         .forEach((modulePath) => {
             const normalizedName = normalizeModuleName(modulePath);
-            const collectionToUse = collectionsModule
-                .getCollection(db, normalizedName);
+            const collectionToUse = collectionsModule(db, normalizedName);
 
             const loadedModule = require(modulePath)(collectionToUse);
 

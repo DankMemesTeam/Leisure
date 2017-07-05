@@ -1,7 +1,5 @@
 const { MongoClient } = require('mongodb');
 
-const getConnection = (connectionString) => {
+module.exports = (connectionString) => {
     return MongoClient.connect(connectionString);
 };
-
-module.exports = { getConnection };

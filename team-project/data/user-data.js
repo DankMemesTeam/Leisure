@@ -1,8 +1,8 @@
-module.exports = (collection) => {
+module.exports = (usersCollection) => {
     return {
         getAllUsers() {
             return new Promise((resolve, reject) => {
-                collection.find({})
+                usersCollection.find({})
                     .then((users) => {
                         resolve(users);
                     });
