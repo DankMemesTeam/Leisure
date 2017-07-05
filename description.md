@@ -4,9 +4,9 @@
 	- ### `Post`
 		- News/Blog post/Guides/Tutorials etc
 		- Has author, title, content, categories, comments, likes/dislikes
-	- ### `User photos`
-		- User specific photos
-		- Has publisher and photo
+	- ### `User publications`
+		- User specific (photos || text)
+		- Has publisher and (photo || text)
 		- Has comments, likes/dislikes
 	- ### `Event`
 		- Has title, description
@@ -55,9 +55,9 @@
 - ## Authenticated user pages
 	- ### Home page
 		- Shows the user`s feed
-			- `User photos` from followed users
-			- `Posts` from followed users
-			- `Events` from followed users (OPTIONAL)
+			- `User publications` from followed users (text || photo)
+			- `Posts` from followed users (title, short description, link)
+			- (?)`Events` from followed users (OPTIONAL)
 	- ### `Posts` page
 		- Shows posts ordered chronologically
 		- Provides searching/filtering by category, name etc...
@@ -72,3 +72,30 @@
 		- Contains
 			- User-to-user chats
 			- "Joined" events chats
+		- User joins chats of selected events
+		- Upon clicking on chat, displays messages and option to send more messages for the chat
+	- ### `Post details` page
+		- (?) Photo 
+		- Title
+		- Description
+		- Content
+		- Comments
+		- (?) Rating
+		- Author
+	- ### `Event details` page
+		- Event (cover) photo
+		- Event title
+		- Event description
+		- (?) Join event chat
+		- Location
+		- (?) Participants
+	- ### `User profile` page
+		- Username
+		- Full name
+		- Gender/City/Location(?) etc
+		- Profile picture
+		- User publications/posts
+	- ### `About` / `Contacts` etc
+		- Some static content
+---
+- ### Potentially add more...
