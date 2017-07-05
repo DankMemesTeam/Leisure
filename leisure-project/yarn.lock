@@ -1521,17 +1521,6 @@ growl@1.9.2:
   version "1.9.2"
   resolved "https://registry.yarnpkg.com/growl/-/growl-1.9.2.tgz#0ea7743715db8d8de2c5ede1775e1b45ac85c02f"
 
-gulp-debug@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/gulp-debug/-/gulp-debug-3.1.0.tgz#4da91568b54915be803696caaac10c895b2c0a71"
-  dependencies:
-    chalk "^1.0.0"
-    gulp-util "^3.0.0"
-    plur "^2.0.0"
-    stringify-object "^3.0.0"
-    through2 "^2.0.0"
-    tildify "^1.1.2"
-
 gulp-livereload@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/gulp-livereload/-/gulp-livereload-3.8.1.tgz#00f744b2d749d3e9e3746589c8a44acac779b50f"
