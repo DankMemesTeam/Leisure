@@ -1,8 +1,9 @@
-module.exports = (app, homeController) => {
-    const { Router } = require('express');
-    const router = new Router();
+module.exports = ({ app, express, controllers }) => {
+    const router = new express.Router();
 
-    router.get('/', homeController.loadHomePage);
+    const { homeController } = controllers;
+
+    router.get('/', homeController().loadHomePage);
 
     app.use('/', router);
 };

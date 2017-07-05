@@ -22,6 +22,7 @@
     "gulp-livereload": "^3.8.1",
     "gulp-nodemon": "^2.2.1",
     "method-override": "^2.3.0",
+    "mongodb": "^2.2.29",
     "morgan": "^1.6.1",
     "pug": "^2.0.0-rc.2",
     "pug-bootstrap": "^0.0.15",

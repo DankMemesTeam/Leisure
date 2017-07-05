@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const compress = require('compression');
 const minify = require('express-minify');
 
-const expressConf = (config) => {
+module.exports = (config) => {
   const app = express();
 
   app.set('views', config.root + '/views');
@@ -32,5 +32,3 @@ const expressConf = (config) => {
 
   return app;
 };
-
-module.exports = expressConf;

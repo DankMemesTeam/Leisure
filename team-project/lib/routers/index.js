@@ -2,19 +2,14 @@
 
 const path = require('path');
 const fs = require('fs');
-const homeController = require('../controllers/home-controller');
 
-// Functions for loading all controller by name should be created
-const loadRouters = (app) => {
-    // fs.readdirSync(__dirname)
-    //     .filter((file) => file.includes('-router.js'))
-    //     .map((file) => path.join(__dirname, file))
-    //     .forEach((modulePath) => {
-    //         require(modulePath)(app);
-    //     });
-
-    // With the upper commented function every router will be provided only the needed controller !!!
-    require('./home-router')(app, homeController);
+module.exports = (app, express, data, controllers) => {
+    fs.readdirSync(__dirname)
+        .filter((file) => file.includes('-router.js'))
+        .map((file) => path.join(__dirname, file))
+        .forEach((modulePath) => {
+            require(modulePath)({ app, express, data, controllers });
+        });
 
     app.use((req, res, next) => {
         // Should be handled by controler... but for now this is okay
@@ -22,5 +17,3 @@ const loadRouters = (app) => {
             .render('page-not-found');
     });
 };
-
-module.exports = loadRouters;

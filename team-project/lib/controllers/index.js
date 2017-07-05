@@ -3,13 +3,29 @@
 const path = require('path');
 const fs = require('fs');
 
-const loadControllers = (app) => {
+module.exports = () => {
+    const controllers = {};
+
     fs.readdirSync(__dirname)
         .filter((file) => file.includes('-controller.js'))
         .map((file) => path.join(__dirname, file))
         .forEach((modulePath) => {
-            require(modulePath)(app);
+            const normalizedName = normalizeModuleName(modulePath);
+            const loadedModule = require(modulePath);
+
+            controllers[normalizedName] = loadedModule;
         });
+
+    return controllers;
 };
 
-module.exports = loadControllers;
+const normalizeModuleName = (modulePath) => {
+    const splittedPath = modulePath.split('\\');
+    const controllerNamePart = splittedPath[splittedPath.length - 1];
+
+    const cutIndex = controllerNamePart.indexOf('-controller');
+    const controllerName = controllerNamePart.substring(0, cutIndex);
+
+    const normalizedName = controllerName + 'Controller';
+    return normalizedName;
+};
