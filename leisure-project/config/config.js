@@ -14,7 +14,7 @@ const config = {
   development: {
     root: rootPath,
     app: {
-      name: 'team-project',
+      name: 'leisure-project',
     },
     port: environmentPort || 3000,
     connectionString: 'mongodb://localhost:27017/leisureDb',
@@ -22,7 +22,7 @@ const config = {
   production: {
     root: rootPath,
     app: {
-      name: 'team-project',
+      name: 'leisure-project',
     },
     port: environmentPort || 3001,
     // Not sure about the syntax about this one
