@@ -8,6 +8,12 @@ const minify = require('gulp-minify');
 const app = require('./config')();
 let server = null;
 
+gulp.task('start', () => {
+  server = app.listen(config.port, () =>
+    console.log('Express server listening on port ' + config.port)
+  );
+});
+
 gulp.task('server:restart', () => {
   const pr = Promise.resolve();
   if (server) {

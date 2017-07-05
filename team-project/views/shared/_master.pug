@@ -4,11 +4,11 @@ block append styles
 block body
     block navbar
         +navbar-static("Project name","navbar")
-            +nav_item("#", "active")
+            +nav_item("/", "active")
                 | Home
-            +nav_item("#")
+            +nav_item("/about")
                 | About
-            +nav_item("#")
+            +nav_item("/contacts")
                 | Contact
             +nav_item_dropdown("#")(label="Dropdown")
                 +nav_item("#")
