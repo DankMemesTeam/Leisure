@@ -1,9 +1,7 @@
-module.exports = () => {
-  return {
+module.exports = {
     loadHomePage(req, res) {
       res.render('home', {
         title: 'Generator-Express MVC',
       });
     },
-  };
 };

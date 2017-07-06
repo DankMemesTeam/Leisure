@@ -3,7 +3,7 @@ module.exports = ({ app, express, controllers }) => {
 
     const { homeController } = controllers;
 
-    router.get('/', homeController().loadHomePage);
+    router.get('/', homeController.loadHomePage);
 
     app.use('/', router);
 };

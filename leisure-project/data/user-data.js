@@ -1,6 +1,5 @@
 const assert = require('assert');
 
-// Assert actions should be in a separate validator class
 // Check out validator npm also -> good way to validate stuff
 module.exports = (usersCollection) => {
     return {
@@ -15,9 +14,9 @@ module.exports = (usersCollection) => {
                     });
             });
         },
-        getUserById(idObj) {
+        getUserById(id) {
             return new Promise((resolve, reject) => {
-                usersCollection.findOne(idObj)
+                usersCollection.findOne({ _id: id })
                     .then((user) => {
                         resolve(user);
                     });
