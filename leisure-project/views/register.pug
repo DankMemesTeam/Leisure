@@ -1,0 +1,10 @@
+extends ./shared/_master
+
+block append page-content
+    form(action="/auth/register" method="POST")
+        input.form-control(name="username", placeholder="Enter username")
+        input.form-control(name="password", type="password", placeholder="Enter password")
+        button.btn.btn-success
+            | Register
+
+//- COPY PASTA SO FAR

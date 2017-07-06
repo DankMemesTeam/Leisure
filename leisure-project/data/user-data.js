@@ -4,35 +4,28 @@ const assert = require('assert');
 module.exports = (usersCollection) => {
     return {
         getAllUsers() {
-            return new Promise((resolve, reject) => {
-                usersCollection.find({})
-                    .then((users) => {
-                        resolve(users);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-            });
+            return usersCollection
+                .then((collection) => {
+                    return collection.find({}, {});
+                });
         },
         getUserById(id) {
-            return new Promise((resolve, reject) => {
-                usersCollection.findOne({ _id: id })
-                    .then((user) => {
-                        resolve(user);
-                    });
-            });
+            return usersCollection
+                .then((collection) => {
+                    return collection.findOne({ _id: id });
+                });
+        },
+        findUserBy(query) {
+            return usersCollection
+                .then((collection) => {
+                    return collection.findOne(query);
+                });
         },
         createUser(userObject) {
-            return new Promise((resolve, reject) => {
-                usersCollection.insertOne(userObject)
-                    .then((response, err) => {
-                        assert.equal(null, err);
-                        // Not tested ... params may be the other way around
-                        assert.equal(1, response.insertedCount);
-
-                        resolve();
-                    });
-            });
+            return usersCollection
+                .then((collection) => {
+                    return collection.insertOne(userObject);
+                });
         },
     };
 };

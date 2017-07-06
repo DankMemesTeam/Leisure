@@ -5,8 +5,13 @@ module.exports = () => {
     const express = require('express');
     const db = require('../database').connection(config.dev.connectionString);
 
-    const loadedControllers = require('../lib/controllers')();
     const data = require('../data')(db);
+    // Since some controllers need data
+
+    const loadedControllers = require('../lib/controllers')(data);
+
+    // Load auth before routes, or rip
+    require('../lib/auth')(app, data, db, 'Secret');
 
     // Routers should take app, data, controllers and logger in the contructor
     require('../lib/routers')(app, express, data, loadedControllers);

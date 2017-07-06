@@ -22,5 +22,11 @@ block body
                     | Separated link
                 +nav_item("#")
                     | One more separated link
+            if user
+                +nav_item("/user")
+                    | Logged
+            else
+                +nav_item("/user")
+                    | Not logged
     div.container.page-content
         block page-content

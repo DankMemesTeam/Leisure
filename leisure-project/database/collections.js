@@ -17,7 +17,7 @@ const getCollection = (connection, collectionName) => {
                 const findAndModify =
                     (filter, update, options, callback) => {
                         return collection
-                        .findOneAndUpdate(filter, update, options, callback);
+                            .findOneAndUpdate(filter, update, options, callback);
                     };
 
                 const insertOne =

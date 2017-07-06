@@ -1,0 +1,11 @@
+extends ./shared/_master
+
+block append page-content
+    form(action="/auth/login" method="POST")
+        input.form-control(name="username", placeholder="Enter username")
+        input.form-control(name="password", type="text", placeholder="Enter password")
+        button.btn.btn-success
+            | Log in
+
+
+//- COPY PASTA SO FAR

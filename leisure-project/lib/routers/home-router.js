@@ -7,4 +7,3 @@ module.exports = ({ app, express, controllers }) => {
 
     app.use('/', router);
 };
-
