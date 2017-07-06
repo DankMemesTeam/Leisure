@@ -2,16 +2,19 @@
 
 const express = require('express');
 
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compress = require('compression');
 const minify = require('express-minify');
 
-module.exports = (config) => {
+module.exports = (config, logger) => {
   const app = express();
+  logger.debug('Creating Express application...');
 
   app.set('views', config.root + '/views');
+
   app.set('view engine', 'pug');
+  logger.debug('Setting Pug to default view engine...');
+
   app.use(express.static(config.root + '/public'));
 
   app.use(minify({
@@ -27,7 +30,7 @@ module.exports = (config) => {
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
-  app.use(cookieParser());
+
   app.use(compress());
 
   return app;

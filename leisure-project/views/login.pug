@@ -1,11 +1,16 @@
 extends ./shared/_master
 
 block append page-content
-    form(action="/auth/login" method="POST")
-        input.form-control(name="username", placeholder="Enter username")
-        input.form-control(name="password", type="text", placeholder="Enter password")
-        button.btn.btn-success
-            | Log in
-
-
-//- COPY PASTA SO FAR
+    .row
+        .container.col-md-6.col-md-offset-6.mx-auto
+            form.form-signin(action="/auth/login" method="POST")
+                h2.form-signin-heading
+                    | Please sign in
+                label.sr-only(for='usernameInput')
+                    | Username
+                input#usernameInput.form-control(name="username", placeholder='Username', required='', autofocus='')
+                label.sr-only(for='inputPassword')
+                    | Password
+                input#inputPassword.form-control(name="password", type='password', placeholder='Password', required='')
+                button.btn.btn-lg.btn-primary.btn-block(type='submit')
+                    | Sign in

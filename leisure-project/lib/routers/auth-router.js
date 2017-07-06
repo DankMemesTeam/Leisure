@@ -1,16 +1,17 @@
 const passport = require('passport');
 
-module.exports = ({ app, express, data, controllers }) => {
+module.exports = ({ app, express, controllers }) => {
     const router = new express.Router();
     const { authController } = controllers;
-    // console.log(authController);
 
     router.get('/login', authController.loadLoginPage);
     router.get('/register', authController.loadRegisterPage);
+
     router.get('/logout', (req, res) => {
         req.logout();
         res.redirect('/');
     });
+
     router.post('/login', passport.authenticate('local',
         {
             successRedirect: '/',
@@ -18,7 +19,7 @@ module.exports = ({ app, express, data, controllers }) => {
             failureFlash: false,
         }));
 
-    router.post('/register', authController.createUser);
+    router.post('/register', authController.registerUser);
 
     router.get('/test', authController.getUser);
 

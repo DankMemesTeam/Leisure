@@ -18,6 +18,7 @@ const config = {
     },
     port: environmentPort || 3000,
     connectionString: 'mongodb://localhost:27017/leisureDb',
+    secretString: 'Secret magical popcorn',
   },
   production: {
     root: rootPath,
@@ -30,6 +31,7 @@ const config = {
   },
 };
 
+// Should take dynamic process env
 module.exports = {
   dev: config.development,
   prod: config.production,

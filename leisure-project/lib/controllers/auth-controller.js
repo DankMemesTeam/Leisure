@@ -1,5 +1,3 @@
-const passport = require('passport');
-
 module.exports = ({ userData }) => {
     return {
         loadLoginPage(req, res) {
@@ -8,18 +6,19 @@ module.exports = ({ userData }) => {
         loadRegisterPage(req, res) {
             res.render('register');
         },
-        createUser(req, res) {
+        registerUser(req, res) {
             const user = req.body;
             userData.createUser(user)
                 .then(res.redirect('/'));
         },
         getUser(req, res) {
-            userData.findUserBy({ username: 'pesho' })
-                .then((usr) => console.log(usr));
+            userData.getAllUsers()
+            .then((users) => {
+                console.log(users);
+            });
         },
         logIn(req, res) {
-            console.log(req);
-            console.log('CALLED');
+            // Remove this function or add the strategy function from auth-conf
         },
     };
 };

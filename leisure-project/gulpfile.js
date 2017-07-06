@@ -1,16 +1,17 @@
 const config = require('./config/config').dev;
+const logger = require('./config/logger-conf');
 
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const mocha = require('gulp-mocha');
 const minify = require('gulp-minify');
 
-const app = require('./config')();
+const app = require('./config')(logger);
 let server = null;
 
 gulp.task('start', () => {
   server = app.listen(config.port, () =>
-    console.log('Express server listening on port ' + config.port)
+    logger.debug('Express server listening on port ' + config.port)
   );
 });
 
@@ -22,7 +23,7 @@ gulp.task('server:restart', () => {
 
   return pr.then(() => {
     server = app.listen(config.port, () =>
-      console.log('Express server listening on port ' + config.port)
+      logger.debug('Express server listening on port ' + config.port)
     );
   });
 });

@@ -1,6 +1,6 @@
-module.exports = () => {
+module.exports = (logger) => {
     const config = require('./config');
-    const app = require('./express-conf')(config.dev);
+    const app = require('./express-conf')(config.dev, logger);
 
     const express = require('express');
     const db = require('../database').connection(config.dev.connectionString);
@@ -11,10 +11,10 @@ module.exports = () => {
     const loadedControllers = require('../lib/controllers')(data);
 
     // Load auth before routes, or rip
-    require('../lib/auth')(app, data, db, 'Secret');
+    require('./auth-conf')(app, data, db, config.dev.secretString);
 
     // Routers should take app, data, controllers and logger in the contructor
-    require('../lib/routers')(app, express, data, loadedControllers);
+    require('../lib/routers')(app, express, loadedControllers);
 
     return app;
 };

@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 const getCollection = (connection, collectionName) => {
     return new Promise((resolve, reject) => {
         connection
@@ -5,13 +7,18 @@ const getCollection = (connection, collectionName) => {
                 const collection = db.collection(collectionName);
 
                 const find =
-                    (query, projection) => {
-                        return collection.find(query, projection);
+                    (query) => {
+                        return collection.find(query).toArray();
                     };
 
                 const findOne =
-                    (query, projection) => {
-                        return collection.findOne(query, projection);
+                    (query) => {
+                        return collection.findOne(query);
+                    };
+
+                const findById =
+                    (query) => {
+                        return collection.findOne(new ObjectId(query));
                     };
 
                 const findAndModify =
@@ -33,6 +40,7 @@ const getCollection = (connection, collectionName) => {
                 const wrappedCollection = {
                     find: find,
                     findOne: findOne,
+                    findById: findById,
                     findAndModify: findAndModify,
                     insertOne: insertOne,
                     deleteOne: deleteOne,

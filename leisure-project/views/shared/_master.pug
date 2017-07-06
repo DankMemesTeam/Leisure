@@ -24,7 +24,7 @@ block body
                     | One more separated link
             if user
                 +nav_item("/user")
-                    | Logged
+                    | Welcome #{user.username}
             else
                 +nav_item("/user")
                     | Not logged

@@ -1,4 +1,4 @@
-module.exports = () => {
+module.exports = ({}) => {
   return {
     loadHomePage(req, res) {
       res.render('home', {
