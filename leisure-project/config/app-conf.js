@@ -7,7 +7,7 @@ module.exports = (logger) => {
 
     const validator = require('../bin/validator')();
     const loadedModels = require('../lib/models')();
-    const data = require('../data')(db, validator, loadedModels);
+    const data = require('../data')(db, validator, loadedModels, logger);
 
     const loadedControllers = require('../lib/controllers')(data);
 

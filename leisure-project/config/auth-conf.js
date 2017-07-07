@@ -9,16 +9,16 @@ module.exports = (app, data, db, secretString) => {
     const userData = data.userData;
 
     passport.use('local', new Strategy((username, password, done) => {
-        userData.findUserBy({ username: username })
+        userData.findUserBy({ _username: username })
             .then((foundUser) => {
-                // Validation should be made by a validator passed in the constructor
                 if (!foundUser) {
-                    return done(null, false, { message: 'User with that name does not exist. ' });
+                    return done(null, false, 
+                    { message: 'User with that name does not exist. ' });
                 }
 
-                // FIX PASSWORD MISSMATCH / hashed not hashed
-                if (!hasher.verify(password, foundUser.password)) {
-                    return done(null, false, { message: 'Incorrect password.' });
+                if (!hasher.verify(password, foundUser._hashedPassword)) {
+                    return done(null, false,
+                    { message: 'Incorrect password.' });
                 }
 
                 return done(null, foundUser);

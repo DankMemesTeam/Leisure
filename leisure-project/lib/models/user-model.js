@@ -9,23 +9,23 @@ module.exports = class User {
         this._hashedPassword = hasher.generate((password));
     }
 
-    get username() {
-        return this._username;
-    }
+    // get username() {
+    //     return this._username;
+    // }
 
-    get firstName() {
-        return this._firstName;
-    }
+    // get firstName() {
+    //     return this._firstName;
+    // }
 
-    get lastName() {
-        return this._lastName;
-    }
+    // get lastName() {
+    //     return this._lastName;
+    // }
 
-    get email() {
-        return this._email;
-    }
+    // get email() {
+    //     return this._email;
+    // }
 
-    get password() {
-        return this._hashedPassword;
-    }
+    // get password() {
+    //     return this._hashedPassword;
+    // }
 };
