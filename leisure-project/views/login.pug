@@ -1,10 +1,11 @@
 extends ./shared/_master
-
+block append styles
+    link(rel='stylesheet', href='/css/auth-form.css')
 block append page-content
     .row
-        .container.col-md-6.col-md-offset-6.mx-auto
+        .container
             form.form-signin(action="/auth/login" method="POST")
-                h2.form-signin-heading
+                legend.form-signin-heading
                     | Please sign in
                 label.sr-only(for='usernameInput')
                     | Username

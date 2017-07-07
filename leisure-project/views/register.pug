@@ -1,14 +1,24 @@
 extends ./shared/_master
-
+block append styles
+    link(rel='stylesheet', href='/css/auth-form.css')
 block append page-content
     .row
-        .container.col-md-6.col-md-offset-6.mx-auto
+        .container
             form.form-signin(action="/auth/register" method="POST")
-                h2.form-signin-heading
+                legend.form-signin-heading
                     | Please register
                 label.sr-only(for='usernameInput')
                     | Username
                 input#usernameInput.form-control(name="username", placeholder='Username', required='', autofocus='')
+                label.sr-only(for='firstNameInput')
+                    | First name
+                input#firstNameInput.form-control(name="firstName", placeholder='First name', required='', autofocus='')
+                label.sr-only(for='lastNameInput')
+                    | Last name
+                input#lastNameInput.form-control(name="lastName", placeholder='Last name', required='', autofocus='')
+                label.sr-only(for='emailInput')
+                    | Email
+                input#emailInput.form-control(name="email", placeholder='Email', required='', autofocus='')
                 label.sr-only(for='inputPassword')
                     | Password
                 input#inputPassword.form-control(name="password", type='password', placeholder='Password', required='')
