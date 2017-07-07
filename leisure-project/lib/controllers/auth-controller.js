@@ -1,4 +1,4 @@
-module.exports = ({ userData, validator }) => {
+module.exports = ({ userData }) => {
     return {
         loadLoginPage(req, res) {
             res.render('login');
@@ -8,6 +8,7 @@ module.exports = ({ userData, validator }) => {
         },
         registerUser(req, res) {
             const user = req.body;
+
             userData.createUser(user)
                 .then(res.redirect('/'));
         },

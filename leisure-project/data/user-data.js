@@ -1,4 +1,4 @@
-module.exports = ({ usersCollection, validator, models, logger }) => {
+module.exports = (usersCollection, validator, models, logger) => {
     const { User } = models;
     // On insert - create user from userObject - validate and then insert
     return {
@@ -21,12 +21,17 @@ module.exports = ({ usersCollection, validator, models, logger }) => {
                 });
         },
         createUser(userObject) {
-            const user = new User(userObject.username, userObject.firstName,
-            userObject.lastName, userObject.email, userObject.password);
-
             return usersCollection
                 .then((collection) => {
-                    validator.validateUser(user);
+                    validator.validateUserFields(userObject);
+
+                    const user = new User(
+                        userObject.username,
+                        userObject.firstName,
+                        userObject.lastName,
+                        userObject.email,
+                        userObject.password);
+
                     return collection.insertOne(user);
                 })
                 .catch((err) => {
