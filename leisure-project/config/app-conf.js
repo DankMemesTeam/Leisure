@@ -5,7 +5,9 @@ module.exports = (logger) => {
     const express = require('express');
     const db = require('../database').connection(config.dev.connectionString);
 
-    const data = require('../data')(db);
+    const validator = require('../bin/validator')();
+    const loadedModels = require('../lib/models')();
+    const data = require('../data')(db, validator, loadedModels);
 
     const loadedControllers = require('../lib/controllers')(data);
 

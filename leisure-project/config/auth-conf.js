@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const MongoStore = require('connect-mongo')(session);
+const hasher = require('password-hash');
 
 module.exports = (app, data, db, secretString) => {
     const userData = data.userData;
@@ -15,7 +16,8 @@ module.exports = (app, data, db, secretString) => {
                     return done(null, false, { message: 'User with that name does not exist. ' });
                 }
 
-                if (foundUser.password !== password) {
+                // FIX PASSWORD MISSMATCH / hashed not hashed
+                if (!hasher.verify(password, foundUser.password)) {
                     return done(null, false, { message: 'Incorrect password.' });
                 }
 
