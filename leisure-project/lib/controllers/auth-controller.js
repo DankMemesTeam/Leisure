@@ -17,9 +17,6 @@ module.exports = ({ userData }) => {
                 console.log(users);
             });
         },
-        logIn(req, res) {
-            // Remove this function or add the strategy function from auth-conf
-        },
     };
 };
 

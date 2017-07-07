@@ -1,0 +1,57 @@
+nav.navbar.navbar-static-top.navbar-inverse(role='navigation')
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+          span.sr-only
+            | Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand.btn.last-item(href='/')
+          | Leisure
+      #navbar.collapse.navbar-collapse
+        ul.nav.navbar-nav
+          li
+            a(href='/posts')
+              | Posts
+          li
+            a(href='/events')
+              | Events
+          if user
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                | Chats 
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/user/chats')
+                    | Personal chats
+                li.divider(role="separator")
+                li
+                  a(href='/user/event-chats')
+                    | Event chats
+        ul.nav.navbar-nav.navbar-right
+          if user
+            li.dropdown.last-item
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                | Welcome #{user.username}! 
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/user/profile')
+                    | My profile
+                li.divider(role="separator")
+                li
+                  a(href='/user/settings')
+                    | Settings
+                li
+                  a(href='/auth/logout')
+                    | Logout
+          else
+            li
+              a(href='/auth/register')
+                span.glyphicon-glyphicon-user
+                | Register
+            li.last-item
+              a(href='/auth/login')
+                span.glyphicon-glyphicon-log-in
+                | Login
