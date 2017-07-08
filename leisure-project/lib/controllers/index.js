@@ -3,7 +3,7 @@
 const path = require('path');
 const fs = require('fs');
 
-module.exports = (data) => {
+module.exports = (data, hashGenerator, validator) => {
     const controllers = {};
 
     fs.readdirSync(__dirname)
@@ -11,7 +11,9 @@ module.exports = (data) => {
         .map((file) => path.join(__dirname, file))
         .forEach((modulePath) => {
             const normalizedName = normalizeModuleName(modulePath);
-            const loadedModule = require(modulePath)(data);
+            const loadedModule = require(modulePath)(data,
+                hashGenerator,
+                validator);
 
             controllers[normalizedName] = loadedModule;
         });

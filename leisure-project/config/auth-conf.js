@@ -3,9 +3,8 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const { Strategy } = require('passport-local');
 const MongoStore = require('connect-mongo')(session);
-const hasher = require('password-hash');
 
-module.exports = (app, data, db, secretString) => {
+module.exports = (app, data, db, secretString, hashGenerator) => {
     const userData = data.userData;
 
     passport.use('local', new Strategy((username, password, done) => {
@@ -13,15 +12,16 @@ module.exports = (app, data, db, secretString) => {
             .then((foundUser) => {
                 if (!foundUser) {
                     return done(null, false,
-                    { message: 'User with that name does not exist. ' });
+                        { message: 'User with that name does not exist. ' });
                 }
-
-                if (!hasher.verify(password, foundUser.hashedPassword)) {
-                    return done(null, false,
-                    { message: 'Incorrect password.' });
-                }
-
-                return done(null, foundUser);
+                hashGenerator.verify(password, foundUser.hashedPassword)
+                    .then(() => {
+                        return done(null, foundUser);
+                    })
+                    .catch(() => {
+                        return done(null, false,
+                            { message: 'Incorrect password.' });
+                    });
             });
     }));
 
