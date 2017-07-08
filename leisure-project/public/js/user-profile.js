@@ -10,4 +10,12 @@ $(() => {
 
         $('#charCount').html(remainingLength + ' remaining');
     });
+
+    // $('#commentInput').keyup(() => {
+    //     const keycode = event.keyCode || event.which;
+
+    //     if (keycode === '13') {
+    //         $.post('/user/')
+    //     }
+    // });
 });

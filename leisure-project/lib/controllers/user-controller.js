@@ -3,7 +3,10 @@ module.exports = ({ userData }) => {
         loadProfilePage(req, res) {
             userData.findUserBy({ username: req.params.username })
                 .then((foundUser) => {
-                    res.render('user-profile', foundUser);
+                    const isOwner = req.params.username === req.user.username;
+
+                    res.render('user-profile',
+                        { pageUser: foundUser, isOwner });
                 });
         },
         insertPost(req, res) {

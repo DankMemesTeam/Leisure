@@ -6,20 +6,18 @@ block append page-content
   .row
     .col-md-4
       .well
-        .photo-container        
-          if profileUrl
-            img(src=profileUrl)
+        .photo-container                  
+          if pageUser.profileUrl
+            img(src=pageUser.profileUrl)
           else
             img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
           hr
-          button.btn.btn-primary#update-picture-btn
-            | Update profile pic
     .col-md-8
       .well
         h2
-          | #{firstName} #{lastName}
+          | #{pageUser.firstName} #{pageUser.lastName}
         p.text-muted
-          | @#{username}
+          | @#{pageUser.username}
         ul.list-group
           li.list-group-item
             strong
@@ -27,18 +25,54 @@ block append page-content
             | Currently unknown
           li.list-group-item
             strong
-              | Birth date: #{birthDate}
+              | Birth date: 
+            | #{pageUser.birthDate}
           li.list-group-item
             strong
-              | High school: #{highSchool}
+              | High school: 
+            | #{pageUser.highSchool}
   .row
     .col-md-12
       .well
+        if isOwner
+          h2
+            | Post something
+          hr
+          form(action='/user/' + pageUser.username + '/posts', method='POST')
+            textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
+            h6#charCount.pull-right
+            button#post-btn.btn.btn-primary(type='submit')
+              | Publish
+          hr
         h2
           | Posts
         hr
-        form(action='/user/' + username + '/posts', method='POST')
-          textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
-          h6#charCount.pull-right
-          button#post-btn.btn.btn-info(type='submit')
-            | Publish
+        if pageUser.posts.length > 0
+          ul.list-group.posts-container
+            each post in pageUser.posts
+              li.list-group-item.post
+                h4
+                  strong
+                    | @#{pageUser.username} 
+                  | posted a status
+                h3.content-container
+                  | #{post.content}
+                div.interactions-container
+                  div.like-container
+                    div.btn
+                      i.fa.fa-thumbs-o-up.fa-2x(aria-hidden='true')
+                      |  Like
+                  div.comment-container
+                    div.btn
+                      i.fa.fa-comment-o.fa-2x(aria-hidden='true')
+                      |  Comment
+                div.comments-section
+                  div.input-comment
+                    input#commentInput.form-control(name="commentContent", placeholder='Write a comment...', autofocus='')
+                //- if post.comments.length > 0
+                //-   ul.list-group.comments-container
+                //-     each comments in post.comments
+                //-       li.group-item.comment
+                //-         strong
+                //-           | @#{comment.author} said: 
+                //-         | #{comment.content}
