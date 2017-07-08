@@ -1,7 +1,10 @@
 module.exports = ({ userData }) => {
     return {
         loadProfilePage(req, res) {
-            res.render('user-profile', userData);
+            userData.findUserBy({ username: req.params.username })
+                .then((foundUser) => {
+                    res.render('user-profile', foundUser);
+                });
         },
         insertPost(req, res) {
             const post = {
@@ -11,6 +14,17 @@ module.exports = ({ userData }) => {
 
             return userData.createPost(post)
                 .then(res.redirect('/user/' + req.user.username));
+        },
+        loadProfileSettingsPage(req, res) {
+            userData.findUserBy({ username: req.params.username })
+                .then((foundUser) => {
+                    if (foundUser.username !== req.user.username) {
+                        res.redirect(`/user/${req.params.username}`);
+                        return;
+                    }
+
+                    res.render('profile-settings', foundUser);
+                });
         },
     };
 };

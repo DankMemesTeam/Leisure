@@ -41,7 +41,7 @@ nav.navbar.navbar-static-top.navbar-inverse(role='navigation')
                     | My profile
                 li.divider(role="separator")
                 li
-                  a(href='/user/settings')
+                  a(href='/user/' + user.username +'/settings')
                     | Settings
                 li
                   a(href='/auth/logout')

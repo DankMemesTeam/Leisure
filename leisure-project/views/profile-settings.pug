@@ -16,7 +16,7 @@ block append page-content
         h2
           | #{firstName} #{lastName}
         p.text-muted
-          | @#{username}
+          | @#{username} ---- SETTINGS
         ul.list-group
           li.list-group-item
             strong
@@ -30,14 +30,3 @@ block append page-content
             strong
               | High school: 
             | Currently unknown
-  .row
-    .col-md-12
-      .well
-        h2
-          | Posts
-        hr
-        form(action='/user/' + username + '/posts', method='POST')
-          textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
-          h6#charCount.pull-right
-          button#post-btn.btn.btn-info(type='submit')
-            | Publish
