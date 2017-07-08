@@ -25,9 +25,9 @@ const getCollection = (connection, collectionName) => {
                     (filter, update, options, callback) => {
                         return collection
                             .findOneAndUpdate(filter,
-                                update,
-                                options,
-                                callback);
+                            update,
+                            options,
+                            callback);
                     };
 
                 const insertOne =
@@ -40,6 +40,10 @@ const getCollection = (connection, collectionName) => {
                         return collection.deleteOne(query);
                     };
 
+                const generateId = () => {
+                    return new ObjectId();
+                };
+
                 const wrappedCollection = {
                     find: find,
                     findOne: findOne,
@@ -47,6 +51,7 @@ const getCollection = (connection, collectionName) => {
                     findAndModify: findAndModify,
                     insertOne: insertOne,
                     deleteOne: deleteOne,
+                    generateId: generateId,
                 };
 
                 resolve(wrappedCollection);

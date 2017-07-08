@@ -1,3 +1,5 @@
+const { ObjectId } = require('mongodb');
+
 module.exports = (usersCollection, validator, models, logger) => {
     const { User } = models;
     // On insert - create user from userObject - validate and then insert
@@ -41,6 +43,8 @@ module.exports = (usersCollection, validator, models, logger) => {
         createPost(postObject) {
             return usersCollection
                 .then((collection) => {
+                    postObject.id = collection.generateId();
+
                     return collection.findAndModify(
                         { username: postObject.author },
                         { $addToSet: { posts: postObject } }
@@ -60,6 +64,33 @@ module.exports = (usersCollection, validator, models, logger) => {
                 })
                 .catch((err) => {
                     logger.error(err);
+                });
+        },
+        addPostComment(postAuthor, postId, comment) {
+            // Not sure if that`s the best way
+            return usersCollection
+                .then((collection) => {
+                    return collection.findOne({ username: postAuthor });
+                })
+                .then((foundUser) => {
+                    const posts = foundUser.posts || [];
+
+                    const postToComment = posts.find((post) => {
+                        return typeof(post.id) === 'object' &&
+                            post.id.equals(postId);
+                    });
+
+                    const postComments = postToComment.comments || [];
+                    postToComment.comments = postComments;
+                    postComments.push(comment);
+
+                    return usersCollection
+                        .then((collection) => {
+                            return collection.findAndModify(
+                                { username: postAuthor },
+                                { $set: { posts: posts } },
+                            )
+                        });
                 });
         }
     };

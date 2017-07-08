@@ -46,5 +46,21 @@ module.exports = ({ userData }) => {
                         });
                 });
         },
+        addCommentToPost(req, res) {
+            if (!req.user) {
+                res.redirect('/auth/login');
+                return;
+            }
+
+            const comment = {
+                author: req.user.username,
+                content: req.body.commentContent,
+            };
+
+            userData.addPostComment(req.params.username, req.params.postId, comment)
+                .then(() => {
+                    res.redirect(`/user/${req.params.username}`);
+                });
+        },
     };
 };
