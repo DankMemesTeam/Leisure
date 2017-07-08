@@ -11,9 +11,15 @@ module.exports = (logger) => {
     const loadedModels = require('../lib/models')();
     const data = require('../data')(db, validator, loadedModels, logger);
 
-    const loadedControllers = require('../lib/controllers')(data, hashGenerator);
+    const loadedControllers = require('../lib/controllers')(data,
+        hashGenerator,
+        validator);
 
-    require('./auth-conf')(app, data, db, config.dev.secretString, hashGenerator);
+    require('./auth-conf')(app,
+        data,
+        db,
+        config.dev.secretString,
+        hashGenerator);
 
     // Routers should take app, data, controllers and logger in the contructor
     require('../lib/routers')(app, express, loadedControllers);

@@ -24,7 +24,7 @@ module.exports = (usersCollection, validator, models, logger) => {
             return usersCollection
                 .then((collection) => {
                     // Add database-level validations here
-                    
+
                     const user = new User(
                         userObject.username,
                         userObject.firstName,

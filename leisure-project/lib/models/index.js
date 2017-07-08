@@ -26,6 +26,7 @@ const normalizeModuleName = (modulePath) => {
     const cutIndex = dataNamePart.indexOf('-model.js');
     let modelName = dataNamePart.substring(0, cutIndex);
 
-    modelName = modelName.substring(0, 1).toUpperCase() + modelName.substring(1);
+    modelName = modelName.substring(0, 1).toUpperCase() +
+        modelName.substring(1);
     return modelName;
 };
