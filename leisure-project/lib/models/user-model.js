@@ -2,11 +2,11 @@ const hasher = require('password-hash');
 
 module.exports = class User {
     constructor(username, firstName, lastName, email, password) {
-        this._username = username;
-        this._firstName = firstName;
-        this._lastName = lastName;
-        this._email = email;
-        this._hashedPassword = hasher.generate((password));
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.hashedPassword = hasher.generate((password));
     }
 
     // get username() {

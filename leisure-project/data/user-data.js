@@ -23,7 +23,7 @@ module.exports = (usersCollection, validator, models, logger) => {
         createUser(userObject) {
             return usersCollection
                 .then((collection) => {
-                    validator.validateUserFields(userObject);
+                    // validator.validateUserFields(userObject);
 
                     const user = new User(
                         userObject.username,

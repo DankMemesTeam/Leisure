@@ -11,6 +11,7 @@ module.exports = () => {
         .map((file) => path.join(__dirname, file))
         .forEach((modulePath) => {
             const normalizedName = normalizeModuleName(modulePath);
+
             const loadedModule = require(modulePath);
             models[normalizedName] = loadedModule;
         });
@@ -23,10 +24,8 @@ const normalizeModuleName = (modulePath) => {
     const dataNamePart = splittedPath[splittedPath.length - 1];
 
     const cutIndex = dataNamePart.indexOf('-model.js');
-    const modelName = dataNamePart.substring(0, cutIndex);
+    let modelName = dataNamePart.substring(0, cutIndex);
 
-    modelName[0] = modelName[0].toUpperCase();
-
-    const normalizedName = modelName;
-    return normalizedName;
+    modelName = modelName.substring(0, 1).toUpperCase() + modelName.substring(1);
+    return modelName;
 };

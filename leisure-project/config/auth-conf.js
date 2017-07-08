@@ -9,14 +9,14 @@ module.exports = (app, data, db, secretString) => {
     const userData = data.userData;
 
     passport.use('local', new Strategy((username, password, done) => {
-        userData.findUserBy({ _username: username })
+        userData.findUserBy({ username: username })
             .then((foundUser) => {
                 if (!foundUser) {
-                    return done(null, false, 
+                    return done(null, false,
                     { message: 'User with that name does not exist. ' });
                 }
 
-                if (!hasher.verify(password, foundUser._hashedPassword)) {
+                if (!hasher.verify(password, foundUser.hashedPassword)) {
                     return done(null, false,
                     { message: 'Incorrect password.' });
                 }

@@ -18,11 +18,11 @@ module.exports = () => {
     // needs better validation
     return {
         validateUserFields(user) {
-            validator.isAscii(user.username);
-            validator.isAscii(toTitleCase(user.firstName));
-            validator.isAscii(toTitleCase(user.lastName));
-            validator.isAscii(user.email);
-            validator.isAscii(user.password);
+            // validator.isAscii(user.username);
+            // validator.isAscii(toTitleCase(user.firstName));
+            // validator.isAscii(toTitleCase(user.lastName));
+            // validator.isAscii(user.email);
+            // validator.isAscii(user.password);
         },
     };
 };
