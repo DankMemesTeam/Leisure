@@ -29,11 +29,9 @@
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "password-hash": "^1.2.2",
     "pug": "^2.0.0-rc.2",
     "pug-bootstrap": "^0.0.15",
     "serve-favicon": "^2.3.0",
-    "validator": "^8.0.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
