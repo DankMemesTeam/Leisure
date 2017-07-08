@@ -1,6 +1,7 @@
 extends ./shared/_master
 block append styles
   link(rel='stylesheet', href='/css/user-profile.css')
+  script(src='/js/user-profile.js')
 block append page-content
   .row
     .col-md-4
@@ -35,3 +36,8 @@ block append page-content
         h2
           | Posts
         hr
+        form(action='/user/' + user.username + '/posts', method='POST')
+          textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
+          h6#charCount.pull-right
+          button#post-btn.btn.btn-info(type='submit')
+            | Publish

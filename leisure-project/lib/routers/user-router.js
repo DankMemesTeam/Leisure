@@ -3,6 +3,7 @@ module.exports = ({ app, express, controllers }) => {
     const { userController } = controllers;
 
     router.get('/:username', userController.loadProfilePage);
+    router.post('/:username/posts', userController.insertPost);
 
     app.use('/user', router);
 };

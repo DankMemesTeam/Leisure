@@ -38,5 +38,17 @@ module.exports = (usersCollection, validator, models, logger) => {
                     logger.error(err);
                 });
         },
+        createPost(postObject) {
+            return usersCollection
+                .then((collection) => {
+                    return collection.findAndModify(
+                        { username: postObject.author },
+                        { $addToSet: { posts: postObject } }
+                    );
+                })
+                .catch((err) => {
+                    logger.error(err);
+                });
+        },
     };
 };
