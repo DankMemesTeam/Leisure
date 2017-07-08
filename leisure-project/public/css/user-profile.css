@@ -1,0 +1,12 @@
+.photo-container{
+    text-align: center;
+}
+
+.photo-container img{
+    max-width: 60%;
+    max-height:80%;
+}
+
+.list-group-item{
+    margin-bottom: 1%;
+}

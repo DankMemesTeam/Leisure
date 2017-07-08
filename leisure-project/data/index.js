@@ -14,7 +14,6 @@ module.exports = (db, validator, loadedModels, logger) => {
         .map((file) => path.join(__dirname, file))
         .forEach((modulePath) => {
             const normalizedName = normalizeModuleName(modulePath);
-            console.log('MODEL NAME ' + normalizedName);
             const collectionToUse = collectionsModule(db, normalizedName);
 
             const loadedModule = require(modulePath)(collectionToUse, validator,
