@@ -23,14 +23,14 @@ module.exports = (usersCollection, validator, models, logger) => {
         createUser(userObject) {
             return usersCollection
                 .then((collection) => {
-                    // validator.validateUserFields(userObject);
-
+                    // Add database-level validations here
+                    
                     const user = new User(
                         userObject.username,
                         userObject.firstName,
                         userObject.lastName,
                         userObject.email,
-                        userObject.password);
+                        userObject.hashedPassword);
 
                     return collection.insertOne(user);
                 })

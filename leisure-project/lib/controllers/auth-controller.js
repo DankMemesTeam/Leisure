@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 module.exports = ({ userData }) => {
     return {
         loadLoginPage(req, res) {
@@ -8,6 +10,8 @@ module.exports = ({ userData }) => {
         },
         registerUser(req, res) {
             const user = req.body;
+
+            user.hashedPassword = 'muchHash';
 
             userData.createUser(user)
                 .then(res.redirect('/'));
