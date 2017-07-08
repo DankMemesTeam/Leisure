@@ -66,3 +66,13 @@ block append page-content
                     div.btn
                       i.fa.fa-comment-o.fa-2x(aria-hidden='true')
                       |  Comment
+                div.comments-section
+                  div.input-comment
+                    input#commentInput.form-control(name="commentContent", placeholder='Write a comment...', autofocus='')
+                //- if post.comments.length > 0
+                //-   ul.list-group.comments-container
+                //-     each comments in post.comments
+                //-       li.group-item.comment
+                //-         strong
+                //-           | @#{comment.author} said: 
+                //-         | #{comment.content}
