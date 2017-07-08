@@ -7,26 +7,68 @@ block append page-content
     .col-md-4
       .well
         .photo-container
-          img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+          if profileUrl
+            img(src=profileUrl)
+          else
+            img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
           hr
-          button.btn.btn-primary#update-picture-btn
-            | Update profile pic
+          form(action="/user/test" method="POST" enctype="multipart/form-data")
+            label.btn.btn-default.btn-file.btn-primary
+              | Upload profile picture
+              input(type='file' name='profile_picture' accept='image/*' style='display:none')#upload-profile-picture
+            br
+            button.btn.btn-md.btn-primary(type='submit')
+              | Upload
     .col-md-8
       .well
         h2
           | #{firstName} #{lastName}
         p.text-muted
-          | @#{username} ---- SETTINGS
+          | @#{username}
         ul.list-group
           li.list-group-item
             strong
-              | Date joined: 
-            | Currently unknown
+              | Profile picture URL: 
+            form(action='/user/' + username + '/settings' method='POST').form-inline
+              div.form-group
+                input#profileUrl(type='text' name='profileUrl' placeholder='http://.....').form-control
+                button(type='submit').btn.btn-primary
+                  | Edit
+          li.list-group-item
+            strong
+              | First name: 
+            | #{firstName}
+            form(action='/user/' + username + '/settings' method='POST').form-inline
+              div.form-group
+                input#firstName(type='text' name='firstName' placeholder='Edit first name').form-control
+                button(type='submit').btn.btn-primary
+                  | Edit
+        ul.list-group
+          li.list-group-item
+            strong
+              | Last name: 
+            | #{lastName}
+            form(action='/user/' + username + '/settings' method='POST').form-inline
+              div.form-group
+                input#lastName(type='text' name='lastName' placeholder='Edit last name').form-control
+                button(type='submit').btn.btn-primary
+                  | Edit
+        ul.list-group
           li.list-group-item
             strong
               | Birth date: 
-            | Currently unknown
+            | #{birthDate}
+            form(action='/user/' + username + '/settings' method='POST').form-inline
+              div.form-group
+                input#birthDate(type='text' name='birthDate' placeholder='Edit birth date').form-control
+                button(type='submit').btn.btn-primary
+                  | Edit
           li.list-group-item
             strong
               | High school: 
-            | Currently unknown
+            | #{highSchool}
+            form(action='/user/' + username + '/settings' method='POST').form-inline
+              div.form-group
+                input#highSchool(type='text' name='highSchool' placeholder='Edit high school').form-control
+                button(type='submit').btn.btn-primary
+                  | Edit

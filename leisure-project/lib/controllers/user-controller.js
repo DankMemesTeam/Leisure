@@ -26,5 +26,22 @@ module.exports = ({ userData }) => {
                     res.render('profile-settings', foundUser);
                 });
         },
+        editUserProfile(req, res) {
+            userData.findUserBy({ username: req.params.username })
+                .then((foundUser) => {
+                    if (foundUser.username !== req.user.username) {
+                        res.redirect(`/user/${req.params.username}`);
+                        return;
+                    }
+
+                    const data = req.body;
+                    console.log(req.body);
+
+                    userData.editUser(foundUser.username, data)
+                        .then(() => {
+                            res.redirect(`/user/${req.params.username}/settings`);
+                        });
+                });
+        },
     };
 };

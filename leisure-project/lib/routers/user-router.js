@@ -3,10 +3,9 @@ module.exports = ({ app, express, controllers }) => {
     const { userController } = controllers;
 
     router.get('/:username/settings', userController.loadProfileSettingsPage);
-
-    router.get('/:username', userController.loadProfilePage);
+    router.post('/:username/settings', userController.editUserProfile);
     router.post('/:username/posts', userController.insertPost);
-
+    router.get('/:username', userController.loadProfilePage);
 
     app.use('/user', router);
 };

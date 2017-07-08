@@ -6,8 +6,11 @@ block append page-content
   .row
     .col-md-4
       .well
-        .photo-container
-          img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+        .photo-container        
+          if profileUrl
+            img(src=profileUrl)
+          else
+            img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
           hr
           button.btn.btn-primary#update-picture-btn
             | Update profile pic
@@ -24,12 +27,10 @@ block append page-content
             | Currently unknown
           li.list-group-item
             strong
-              | Birth date: 
-            | Currently unknown
+              | Birth date: #{birthDate}
           li.list-group-item
             strong
-              | High school: 
-            | Currently unknown
+              | High school: #{highSchool}
   .row
     .col-md-12
       .well

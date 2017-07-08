@@ -50,5 +50,17 @@ module.exports = (usersCollection, validator, models, logger) => {
                     logger.error(err);
                 });
         },
+        editUser(username, data) {
+            return usersCollection
+                .then((collection) => {
+                    return collection.findAndModify(
+                        { username: username },
+                        { $set: data },
+                    );
+                })
+                .catch((err) => {
+                    logger.error(err);
+                });
+        }
     };
 };
