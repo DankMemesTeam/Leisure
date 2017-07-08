@@ -1,8 +1,4 @@
-const bcrypt = require('bcrypt');
-
-module.exports = ({ userData }) => {
-    const hashingSaltRounds = 10;
-
+module.exports = ({ userData }, hashGenerator) => {    
     return {
         loadLoginPage(req, res) {
             res.render('login');
@@ -13,7 +9,7 @@ module.exports = ({ userData }) => {
         registerUser(req, res) {
             const user = req.body;
 
-            bcrypt.hash(user.password, hashingSaltRounds)
+            hashGenerator.generateHash(user.password)
                 .then((hashedPassword) => {
                     user.hashedPassword = hashedPassword;
 
