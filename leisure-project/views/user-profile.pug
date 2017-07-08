@@ -9,14 +9,15 @@ block append page-content
         .photo-container
           img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
           hr
-          button.btn.btn-primary#update-picture-btn
-            | Update profile pic
+          if isOwner
+            button.btn.btn-primary#update-picture-btn
+              | Update profile pic
     .col-md-8
       .well
         h2
-          | #{firstName} #{lastName}
+          | #{pageUser.firstName} #{pageUser.lastName}
         p.text-muted
-          | @#{username}
+          | @#{pageUser.username}
         ul.list-group
           li.list-group-item
             strong
@@ -36,8 +37,9 @@ block append page-content
         h2
           | Posts
         hr
-        form(action='/user/' + username + '/posts', method='POST')
-          textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
-          h6#charCount.pull-right
-          button#post-btn.btn.btn-info(type='submit')
-            | Publish
+        if isOwner
+          form(action='/user/' + pageUser.username + '/posts', method='POST')
+            textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
+            h6#charCount.pull-right
+            button#post-btn.btn.btn-primary(type='submit')
+              | Publish
