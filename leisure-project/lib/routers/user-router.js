@@ -4,8 +4,9 @@ module.exports = ({ app, express, controllers }) => {
 
     router.get('/:username/settings', userController.loadProfileSettingsPage);
     router.post('/:username/settings', userController.editUserProfile);
-    router.post('/:username/:postId', userController.addCommentToPost);
     router.post('/:username/posts', userController.insertPost);
+
+    router.post('/:username/:postId', userController.addCommentToPost);
     router.get('/:username', userController.loadProfilePage);
 
     app.use('/user', router);
