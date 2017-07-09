@@ -6,8 +6,8 @@ block append page-content
   .row
     .col-md-4
       .well
-        .photo-container         
-          if pageUser
+        .photo-container
+          if pageUser.profileUrl
             img(src=pageUser.profileUrl)
           else
             img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
@@ -59,9 +59,9 @@ block append page-content
                   | #{post.content}
                 div.interactions-container
                   div.like-container
-                    div.btn
+                    div.btn#like-btn
                       i.fa.fa-thumbs-o-up.fa-2x(aria-hidden='true')
-                      |  Like
+                      |  Like #{post.likes.length}
                   div.comment-container
                     div.btn
                       i.fa.fa-comment-o.fa-2x(aria-hidden='true')
@@ -69,7 +69,7 @@ block append page-content
                 div.comments-section
                   div.input-comment
                     //- tova e malko iznasilena rabota ama....
-                    form(action='/user/' + pageUser.username + '/' + post.id method='POST')
+                    form#comment-form(action='/user/' + pageUser.username + '/' + post.id method='POST')
                       input#commentInput.form-control(name="commentContent", placeholder='Write a comment...')
                 if post.comments
                   ul.list-group.comments-container

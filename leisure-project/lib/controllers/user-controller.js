@@ -12,6 +12,7 @@ module.exports = ({ userData }) => {
         insertPost(req, res) {
             const post = {
                 author: req.user.username,
+                likes: [],
                 content: req.body.postInput,
             };
 
@@ -52,6 +53,17 @@ module.exports = ({ userData }) => {
                 return;
             }
 
+            if (req.body.action) {
+                userData.addLike(req.params.username, req.params.postId, req.user.username)
+                    .then((result) => {
+                        res.redirect(`/`);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                return;
+            }
             const comment = {
                 author: req.user.username,
                 content: req.body.commentContent,

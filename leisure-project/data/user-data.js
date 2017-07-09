@@ -50,6 +50,33 @@ module.exports = (usersCollection, validator, models, logger) => {
                     },
                 });
         },
+        addLike(postAuthor, postId, likerUsername) {
+            return usersCollection.findOne({
+                username: postAuthor,
+                'posts.id': usersCollection.generateId(postId),
+                'posts.$.likes': { username: likerUsername },
+            })
+                .then((result) => {
+                    console.log(result);
+                    if (result.likes.length === 0) {
+                        console.log('ADD LIKE USER DATA   ' + likerUsername);
+                        return usersCollection.findAndModify({
+                            username: postAuthor,
+                            'posts.id': usersCollection.generateId(postId),
+                        },
+                            { $addToSet: { 'posts.$.likes': { username: likerUsername } } }
+                        );
+                    } else {
+                        console.log('TAKE LIKE USER DATA');
+                        return usersCollection.findAndModify({
+                            username: postAuthor,
+                            'posts.id': usersCollection.generateId(postId),
+                        },
+                            { $pull: { 'posts.$.likes': { username: likerUsername } } }
+                        );
+                    }
+                });
+        },
     };
 
 
