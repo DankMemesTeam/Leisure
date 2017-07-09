@@ -38,8 +38,8 @@ block append page-content
           h2
             | Post something
           hr
-          form(action='/user/' + pageUser.username + '/posts', method='POST')
-            textarea#postInput.form-control(name='postInput', placeholder='Type in your message', rows='5')
+          form(action='/user/' + pageUser.username + '/statuses', method='POST')
+            textarea#statusInput.form-control(name='statusInput', placeholder='Type in your message', rows='5')
             h6#charCount.pull-right
             button#post-btn.btn.btn-primary(type='submit')
               | Publish
@@ -47,21 +47,22 @@ block append page-content
         h2
           | Posts
         hr
-        if pageUser.posts.length > 0
+        if statuses.length > 0
           ul.list-group.posts-container
-            each post in pageUser.posts
+            each status in statuses
               li.list-group-item.post
                 h4
                   strong
                     | @#{pageUser.username} 
                   | posted a status
                 h3.content-container
-                  | #{post.content}
+                  | #{status.content}
                 div.interactions-container
                   div.like-container
-                    div.btn#like-btn
+                    //- little bit of a problem here ... will fix tho
+                    div.btn.dislike-btn
                       i.fa.fa-thumbs-o-up.fa-2x(aria-hidden='true')
-                      |  Like #{post.likes.length}
+                        |  Like #{status.likes.length}
                   div.comment-container
                     div.btn
                       i.fa.fa-comment-o.fa-2x(aria-hidden='true')
@@ -69,12 +70,12 @@ block append page-content
                 div.comments-section
                   div.input-comment
                     //- tova e malko iznasilena rabota ama....
-                    form#comment-form(action='/user/' + pageUser.username + '/' + post.id method='POST')
-                      input#commentInput.form-control(name="commentContent", placeholder='Write a comment...')
-                if post.comments
-                  ul.list-group.comments-container
-                    each comments in post.comments
-                      li.group-item.comment
-                        strong
-                          | @#{comments.author} said: 
-                        | #{comments.content}
+                    form.comment-form(action='/user/' + pageUser.username + '/' + status._id, method='POST')
+                      input.commentInput.form-control(name="commentContent", placeholder='Write a comment...')
+                  if status.comments
+                    ul.list-group.comments-container
+                      each comments in status.comments
+                        li.list-group-item.comment
+                          strong
+                            | @#{comments.author} said: 
+                          | #{comments.content}

@@ -1,23 +1,16 @@
-module.exports = ({ userData }) => {
+module.exports = ({ userData, statusData }) => {
     return {
         loadProfilePage(req, res) {
-            userData.findUserBy({ username: req.params.username })
-                .then((foundUser) => {
+            Promise.all(
+                [userData.findUserBy({ username: req.params.username }),
+                statusData.findStatusesByUser(req.params.username),
+                ])
+                .then((result) => {
                     const isOwner = req.params.username === req.user.username;
-
+                    
                     res.render('user-profile',
-                        { pageUser: foundUser, isOwner });
+                        { pageUser: result[0], statuses: result[1], isOwner });
                 });
-        },
-        insertPost(req, res) {
-            const post = {
-                author: req.user.username,
-                likes: [],
-                content: req.body.postInput,
-            };
-
-            return userData.createPost(post)
-                .then(res.redirect('/user/' + req.user.username));
         },
         loadProfileSettingsPage(req, res) {
             userData.findUserBy({ username: req.params.username })
@@ -38,41 +31,12 @@ module.exports = ({ userData }) => {
                         return;
                     }
 
-                    const data = req.body;
-                    console.log(req.body);
-
-                    userData.editUser(foundUser.username, data)
+                    userData.editUser(foundUser.username, req.body)
                         .then(() => {
                             res.redirect(`/user/${req.params.username}/settings`);
                         });
                 });
         },
-        addCommentToPost(req, res) {
-            if (!req.user) {
-                res.redirect('/auth/login');
-                return;
-            }
 
-            if (req.body.action) {
-                userData.addLike(req.params.username, req.params.postId, req.user.username)
-                    .then((result) => {
-                        res.redirect(`/`);
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                    });
-
-                return;
-            }
-            const comment = {
-                author: req.user.username,
-                content: req.body.commentContent,
-            };
-
-            userData.addPostComment(req.params.username, req.params.postId, comment)
-                .then(() => {
-                    res.redirect(`/user/${req.params.username}`);
-                });
-        },
     };
 };

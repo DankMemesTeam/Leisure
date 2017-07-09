@@ -31,6 +31,10 @@
     padding-bottom: 2%;
 }
 
+.dislike-btn{
+    background-color: #a5c7ff;
+}
+
 .posts-container{
     max-width: 100%;
 }

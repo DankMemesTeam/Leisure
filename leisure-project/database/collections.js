@@ -7,13 +7,13 @@ const getCollection = (connection, collectionName) => {
     });
 
     const find =
-        (query) => {
-            return collection.find(query).toArray();
+        (query, projection) => {
+            return collection.find(query, projection).toArray();
         };
 
     const findOne =
-        (query) => {
-            return collection.findOne(query);
+        (query, projection) => {
+            return collection.findOne(query, projection);
         };
 
     const findById =
