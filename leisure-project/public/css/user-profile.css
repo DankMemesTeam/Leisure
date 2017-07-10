@@ -31,8 +31,18 @@
     padding-bottom: 2%;
 }
 
-.dislike-btn{
+.liked{
     background-color: #a5c7ff;
+}
+
+.inline-block{
+    display: inline-block;
+}
+
+.counter{
+    display: inline-block;
+    margin-left: 5%;
+    font-size: 2em;
 }
 
 .posts-container{

@@ -22,7 +22,7 @@ block append page-content
           li.list-group-item
             strong
               | Date joined: 
-            | Currently unknown
+            | #{pageUser.dateJoined}
           li.list-group-item
             strong
               | Birth date: 
@@ -59,10 +59,17 @@ block append page-content
                   | #{status.content}
                 div.interactions-container
                   div.like-container
-                    //- little bit of a problem here ... will fix tho
-                    div.btn.dislike-btn
-                      i.fa.fa-thumbs-o-up.fa-2x(aria-hidden='true')
-                        |  Like #{status.likes.length}
+                    //- just for the moment...i know it is ugly af
+                    if status.likes.includes(currentUser.username)
+                      div.btn.rate-btn.liked
+                        i.fa.fa-thumbs-o-up.fa-2x(aria-hidden='true')
+                        span.counter
+                          | #{status.likes.length}
+                    else
+                      div.btn.rate-btn
+                        i.fa.fa-thumbs-o-up.fa-2x(aria-hidden='true')
+                        span.counter
+                          | #{status.likes.length}
                   div.comment-container
                     div.btn
                       i.fa.fa-comment-o.fa-2x(aria-hidden='true')

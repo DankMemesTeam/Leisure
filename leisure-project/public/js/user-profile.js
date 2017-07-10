@@ -2,6 +2,9 @@
 
 $(() => {
     const maxCharacters = 200;
+    const likePathExtension = '/like';
+    const dislikePathExtension = '/dislike';
+
     $('#charCount').html(maxCharacters + ' remaining');
 
     $('#postInput').keyup(() => {
@@ -11,46 +14,34 @@ $(() => {
         $('#charCount').html(remainingLength + ' remaining');
     });
 
-    $('.like-btn').click((ev) => {
+    $('.rate-btn').click((ev) => {
         // Don't even ask...
-        const postUrl = $(ev.target).first().parents('.interactions-container')
+        let postUrl = $(ev.target).first().parents('.interactions-container')
             .next().children().first().children().first().attr('action');
 
         const $target = $(ev.target).parent();
-        console.log($target);
-        $.ajax({
-            url: postUrl + '/like',
-            type: 'POST',
-            dataType: 'application/json',
-            data: {},
-            error: function(data) {
-                $target.addClass('dislike-btn');
-                $target.removeClass('like-btn');
-            },
-            success: function(data) {
-                console.log('like-nah');
-            },
-        });
-    });
 
-    $('.dislike-btn').click((ev) => {
-        // Don't even ask...
-        const postUrl = $(ev.target).first().parents('.interactions-container')
-            .next().children().first().children().first().attr('action');
-        
-        const $target = $(ev.target).parent();
-        console.log($target);
+        if ($target.hasClass('liked')) {
+            $target.removeClass('liked');
+            postUrl = postUrl + '/dislike';
+        } else {
+            $target.addClass('liked');
+            postUrl = postUrl + '/like';
+        }
+
         $.ajax({
-            url: postUrl + '/dislike',
+            url: postUrl,
             type: 'POST',
             dataType: 'application/json',
             data: {},
-            error: function(data) {
-                $target.addClass('like-btn');
-                $target.removeClass('dislike-btn');
-            },
-            success: function(data) {
-                console.log('dislike-nah');
+            error: (data) => {
+                const $counter = $(ev.target).next();
+
+                if (postUrl.includes(likePathExtension)) {
+                    $counter.text(+$counter.text() + 1);
+                } else {
+                    $counter.text(+$counter.text() - 1);
+                }
             },
         });
     });
