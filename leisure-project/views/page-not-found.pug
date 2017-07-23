@@ -1,5 +1,23 @@
-extends ../node_modules/pug-bootstrap/_bootstrap
-
-block body
-    h1
-        | Sorry but the page you are looking for is missing :(
+extends ./shared/_master
+block append styles
+    link(rel='stylesheet', href='/css/not-found-page/404-style.css')
+block append page-content
+    .scene
+        .text 404
+        .text Page Not Found!
+        br
+        br
+        .text DO NOT TOUCH
+        .sheep
+            span.top
+            .body
+            .head
+                .eye.one
+                .eye.two
+                .ear.one
+                .ear.two
+            .legs
+            .leg
+            .leg
+            .leg
+            .leg

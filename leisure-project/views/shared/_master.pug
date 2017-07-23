@@ -1,13 +1,24 @@
-extends ../../node_modules/pug-bootstrap/_bootstrap
 block append head
     title
         | Leisure Project Website
 block append styles
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    meta(http-equiv='x-ua-compatible', content='ie=edge')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css')
+    link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
+    //- Why doesn't it work the same way if those are gone
+    link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
+    link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')  
     link(rel='stylesheet', href='/css/style.css')
-    script(src=' https://use.fontawesome.com/2d804f2dcd.js')
-    script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
 block body
     block nav
         include ./_nav.pug
     div.container.page-content
         block page-content
+    div.footer
+        block footer
+            include ./_footer.pug
+            script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+            script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js')

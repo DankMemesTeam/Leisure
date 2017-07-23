@@ -1,7 +1,14 @@
 body{
   background-color: #efefef;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .last-item{
   margin-right: 15px;
+}
+
+.page-content {
+  flex: 1 0 auto;
 }

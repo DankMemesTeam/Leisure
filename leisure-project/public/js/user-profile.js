@@ -1,4 +1,5 @@
 /* globals $ */
+$('.button-collapse').sideNav();
 
 $(() => {
     const maxCharacters = 200;

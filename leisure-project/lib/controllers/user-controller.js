@@ -7,7 +7,7 @@ module.exports = ({ userData, statusData }) => {
                 ])
                 .then((result) => {
                     const isOwner = req.params.username === req.user.username;
-
+                    
                     res.render('user-profile',
                         { pageUser: result[0], currentUser: req.user,
                              statuses: result[1], isOwner });
