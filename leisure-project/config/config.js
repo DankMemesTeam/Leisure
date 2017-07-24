@@ -19,6 +19,7 @@ const config = {
     port: environmentPort || 3000,
     connectionString: 'mongodb://localhost:27017/leisureDb',
     secretString: 'Secret magical popcorn',
+    defaultProfilePic: '/images/default-user.png',
   },
   production: {
     root: rootPath,
@@ -28,6 +29,7 @@ const config = {
     port: environmentPort || 3001,
     // Not sure about the syntax about this one
     connectionString: environment.connectionString,
+    defaultProfilePic: '/images/default-user.png',
   },
 };
 

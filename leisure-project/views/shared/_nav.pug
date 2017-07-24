@@ -56,10 +56,10 @@ nav
       li.user-details.cyan.darken-2
         .row
           .col.col.s4.m4.l4
-            if user && user.profileUrl
-              img.circle.z-depth-2.responsive-img.activator(src=user.profileUrl)
+            if user
+              img.circle.z-depth-2.responsive-img.activator(src=user.profilePic)
             else
-              img.circle.z-depth-2.responsive-img.activator(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+              img.circle.z-depth-2.responsive-img.activator(src='/images/default-user.png')
           .col.col.s8.m8.l8
             if user
               a.waves-effect.waves-cyan(href='/user/' + user.username)

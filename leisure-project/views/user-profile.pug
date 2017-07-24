@@ -18,10 +18,7 @@ block append page-content
               .card-image.waves-effect.waves-block.waves-light
                 img.activator(src='/images/user-profile-bg.jpg', alt='user background')
               figure.card-profile-image
-                if pageUser.profileUrl
-                  img.circle.z-depth-2.responsive-img.activator(src=pageUser.profileUrl)
-                else
-                  img.circle.z-depth-2.responsive-img.activator(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+                img.circle.z-depth-2.responsive-img.activator(src=pageUser.profilePic)
               .card-content
                 .row
                   .col.s3.offset-s2
@@ -93,10 +90,7 @@ block append page-content
                     #UpdateStatus.tab-content.col.s12.grey.lighten-4
                       .row
                         .col.s2
-                          if pageUser.profileUrl
-                            img.circle.responsive-img.valign.profile-image-post(src=pageUser.profileUrl)
-                          else
-                            img.circle.responsive-img.valign.profile-image-post(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+                          img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
                         .input-field.col.s10
                           textarea#textarea.materialize-textarea(row='2')
                           label(for='textarea') What's on your mind?
@@ -141,7 +135,7 @@ block append page-content
                       .card-profile-title
                         .row
                           .col.s1
-                            img.circle.responsive-img.valign.profile-post-uer-image(src='/images/avatar.jpg', alt='')
+                            img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
                           .col.s10
                             p.grey-text.text-darken-4.margin John Doe
                             span.grey-text.text-darken-1.ultra-small Shared publicly  -  26 Jun 2015

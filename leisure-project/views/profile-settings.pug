@@ -7,10 +7,7 @@ block append page-content
     .col-md-4
       .well
         .photo-container
-          if profileUrl
-            img(src=profileUrl)
-          else
-            img(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+          img(src=profilePic)
           hr
           form(action="/user/test" method="POST" enctype="multipart/form-data")
             label.btn.btn-default.btn-file.btn-primary
@@ -31,7 +28,7 @@ block append page-content
               | Profile picture URL: 
             form(action='/user/' + username + '/settings' method='POST').form-inline
               div.form-group
-                input#profileUrl(type='text' name='profileUrl' placeholder='http://.....').form-control
+                input#profilePic(type='text' name='profilePic' placeholder='Enter picture url').form-control
                 button(type='submit').btn.btn-primary
                   | Edit
           li.list-group-item
