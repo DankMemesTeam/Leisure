@@ -1,0 +1,33 @@
+extends ./shared/_master
+
+block append page-content
+    h1
+        | Title: #{article.title}
+    h3
+        | Publisher: #{article.author}
+    hr
+    h3
+        | Description: #{article.description}
+    hr
+    p
+        | Content: #{article.content}
+    div.row
+        form.col.s12(action="/articles/" + article._id + "/comments" method="POST")
+            div.row
+                div.input-field.col.s6
+                    input#comment-content(type="text" name="text")
+                    label(for="comment-content")
+                        | Add comment
+            div.row
+                button.btn.waves-effect.waves-light(type="submit")
+                    | Send
+                    i.material-icons.right
+                        | send
+    ul.collection
+        | Comments:
+        each comment in article.comments
+            li
+                | #{comment.author} ----> #{comment.text}
+        else
+            h3
+                | There are currently no comments on this article

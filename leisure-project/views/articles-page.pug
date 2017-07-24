@@ -1,5 +1,23 @@
 extends ./shared/_master
 
 block append page-content
-    h1
-        | Articles displayed here.
+    a.waves-effect.waves-light.btn(href="/articles/add")
+        | Add new article
+    each article in articles
+        ul.collection
+            li.collection-item.avatar
+                img.circle(src="https://ih1.redbubble.net/image.92221274.3543/st%2Csmall%2C215x235-pad%2C210x230%2Cf8f8f8.lite-1.jpg")
+                a.title(href="#")
+                    | #{article.title}
+                p 
+                    | Published by: #{article.author}
+                p
+                    | #{article.comments.length} comments
+                p 
+                    | #{article.description}
+                a.secondary-content(href="/articles/" + article._id)
+                    i.material-icons
+                        | open_in_new
+    else
+        h1
+            | No articles found.
