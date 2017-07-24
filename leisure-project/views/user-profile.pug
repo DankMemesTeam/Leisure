@@ -4,6 +4,7 @@ block append styles
   link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')
 block append footer
   script(src='/js/user-profile.js')
+include ./mixins/status.pug
 block append page-content
   #main
     // START WRAPPER
@@ -105,26 +106,4 @@ block append page-content
                 // profile-page-wall-posts
                 #profile-page-wall-posts.row
                     each status in statuses
-                      .col.s12
-                        #profile-page-wall-post.card.z-depth-3
-                          .card-profile-title
-                            .row
-                              .col.s3.m1
-                                img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
-                              .col.s9
-                                p.grey-text.text-darken-4.margin
-                                  | #{pageUser.firstName} #{pageUser.lastName}
-                                span.grey-text.text-darken-1.ultra-small Shared publicly  -  #{status.dateCreated}
-                            .row
-                              .col.s12
-                                p
-                                  | #{status.content}
-                            .card-action
-                              .row
-                                .col.s4.card-action-share
-                                  a(href='#') Like
-                                  a(href='#') Share
-                              .divider
-                              .row
-                                .input-field.col.s8.margin
-                                  input#profile-comments.validate.margin(type='text' placeholder='Comment')
+                      +status(pageUser, status, currentUser)

@@ -62,3 +62,7 @@ header .brand-logo img{
     right: -20px;
   }
 }
+
+.comment-username {
+    margin-right: 0 !important;
+}

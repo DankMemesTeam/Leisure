@@ -1,0 +1,33 @@
+mixin status(pageUser, status, currentUser)
+    .col.s12
+        #profile-page-wall-post.card.z-depth-3
+            .card-profile-title
+                .row
+                    .col.s3.m1
+                        img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
+                    .col.s9
+                        p.grey-text.text-darken-4.margin
+                            | #{pageUser.firstName} #{pageUser.lastName}
+                        span.grey-text.text-darken-1.ultra-small Shared publicly  -  #{status.dateCreated}
+                .row
+                    .col.s12
+                        p
+                            | #{status.content}
+                .card-action
+                    .row
+                        .col.s4.card-action-share
+                            a(href='#') Like
+                            a(href='#') Share
+                    .divider
+                    .row
+                        .commentInput-field.col.s8.margin
+                            form.comment-form(action='/users/' + pageUser.username + '/' + status._id, method='POST')
+                                input.commentInput#profile-comments.validate.margin(name="commentContent", type='text' placeholder='Write a comment')
+                    .row
+                        if status.comments.length > 0
+                            ul.collection
+                                each comment in status.comments
+                                    li.collection-item
+                                        a.comment-username(href='/users/' + comment.author)
+                                            | #{comment.author} 
+                                        | said: #{comment.content}.
