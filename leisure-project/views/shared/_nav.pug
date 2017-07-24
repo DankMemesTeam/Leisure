@@ -21,13 +21,13 @@ if user
         | Event chats
 nav
   .nav-wrapper
-    a.brand-logo.center(href='/') Leisure
+    a.brand-logo.center.not-selectable(href='/') Leisure
     a.button-collapse(href='#', data-activates='mobile-demo')
       i.material-icons menu
     ul.hide-on-med-and-down
       li
-        a(href='/posts')
-          | Posts
+        a(href='/articles')
+          | Articles
       li
         a(href='/events')
           | Events
@@ -51,12 +51,37 @@ nav
           a(href='/auth/login')
             span.glyphicon-glyphicon-log-in
             | Login
+    //- Side navbar
     ul#mobile-demo.side-nav
-      li
-        a(href='sass.html') Sass
-      li
-        a(href='badges.html') Components
-      li
-        a(href='collapsible.html') Javascript
-      li
-        a(href='mobile.html') Mobile
+      li.user-details.cyan.darken-2
+        .row
+          .col.col.s4.m4.l4
+            if user.profileUrl
+              img.circle.z-depth-2.responsive-img.activator(src=user.profileUrl)
+            else
+              img.circle.z-depth-2.responsive-img.activator(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
+          .col.col.s8.m8.l8
+            a.waves-effect.waves-cyan(href='/user/' + user.username)
+              | #{user.firstName + ' ' + user.lastName}
+            p.user-roal Project manager
+      li.bold
+        a.waves-effect.waves-cyan(href='/user/' + user.username)
+          i.material-icons account_box
+          |  My profile
+      li.bold
+        a.waves-effect.waves-cyan(href='/user/' + user.username +'/settings')
+          i.material-icons settings
+          |  Settings 
+      li.bold
+        a.waves-effect.waves-cyan(href='/auth/logout')
+          i.material-icons exit_to_app
+          |  Logout
+      li.divider
+      li.bold
+        a.waves-effect.waves-cyan(href='/articles')
+          i.material-icons text_format
+          |  Articles
+      li.bold
+        a.waves-effect.waves-cyan(href='/events')
+          i.material-icons event
+          |  Events 

@@ -5,10 +5,28 @@ body{
   flex-direction: column;
 }
 
+.not-selectable{
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+nav{
+  background-color: #74c183;
+}
+
 .last-item{
   margin-right: 15px;
 }
 
 .page-content {
   flex: 1 0 auto;
+}
+
+.page-footer{
+  background-color: #74c183;
 }
