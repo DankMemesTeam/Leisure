@@ -5,9 +5,9 @@ module.exports = ({ app, express, controllers }) => {
     router
         .get('/', articlesController.loadArticlesPage)
         .get('/add', articlesController.loadArticleAddingPage)
+        .get('/:id', articlesController.loadDetailsPage)        
         .post('/add', articlesController.addArticle)
-        .post('/:id/comments', articlesController.addComment)
-        .get('/:id', articlesController.loadDetailsPage);
+        .post('/:id/comments', articlesController.addComment);
 
 
     app.use('/articles', router);

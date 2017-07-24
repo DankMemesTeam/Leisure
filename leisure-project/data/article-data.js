@@ -17,6 +17,15 @@ module.exports = (articleCollection, validator, models, logger) => {
         getAllArticles(pageNumber, pageSize) {
             return articleCollection.find();
         },
+        findArticles(query) {
+            return articleCollection.find({
+                $or: [
+                    { author: { $in: [query] } },
+                    { title: { $in: [query] } },
+                    { tags: { $in: [query] } },
+                ],
+            });
+        },
         getArticleById(id) {
             return articleCollection.findById(id);
         },

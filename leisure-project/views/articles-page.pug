@@ -1,8 +1,21 @@
 extends ./shared/_master
 
 block append page-content
-    a.waves-effect.waves-light.btn(href="/articles/add")
-        | Add new article
+    div.row
+        a.waves-effect.waves-light.btn(href="/articles/add")
+            | Add new article
+
+    nav
+        div.nav-wrapper
+            form
+                div.input-field
+                    input#search-article(type="search" name="query")
+                    label.label-icon(for="search-article")
+                        i.material-icons
+                            | search
+                    i.material-icons
+                        | close
+
     each article in articles
         ul.collection
             li.collection-item.avatar

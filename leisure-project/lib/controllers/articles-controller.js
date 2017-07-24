@@ -1,7 +1,14 @@
 module.exports = ({ articleData, categoryData }) => {
     return {
         loadArticlesPage(req, res) {
-            return articleData.getAllArticles()
+            if (!req.query.query) {
+                return articleData.getAllArticles()
+                    .then((articles) => {
+                        res.render('articles-page', { articles });
+                    });
+            }
+
+            return articleData.findArticles(req.query.query)
                 .then((articles) => {
                     res.render('articles-page', { articles });
                 });
@@ -24,7 +31,7 @@ module.exports = ({ articleData, categoryData }) => {
         addArticle(req, res) {
             if (!req.user) {
                 return res.redirect('/auth/login');
-            }            
+            }
 
             const articleObj = req.body;
             articleObj.author = req.user.username;
