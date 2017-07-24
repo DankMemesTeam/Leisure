@@ -66,3 +66,11 @@ header .brand-logo img{
 .comment-username {
     margin-right: 0 !important;
 }
+
+.hidden{
+    display: none;
+}
+
+.liked{
+    background-color: #ff9bbf;
+}

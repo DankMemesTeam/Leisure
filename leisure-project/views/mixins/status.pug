@@ -15,9 +15,18 @@ mixin status(pageUser, status, currentUser)
                             | #{status.content}
                 .card-action
                     .row
-                        .col.s4.card-action-share
-                            a(href='#') Like
-                            a(href='#') Share
+                        .col.s12.m12.card-action-share.left
+                            .row
+                                div.hidden
+                                    | #{'/users/' + pageUser.username + '/' + status._id}
+                                if status.likes.includes(currentUser.username)
+                                    .col.s4.m2.btn.rate-btn.liked
+                                        | Like
+                                else
+                                    .col.s4.m2.offset-s1.btn.rate-btn
+                                        | Like
+                                .col.s4.m2.btn.small-margin
+                                    | Share
                     .divider
                     .row
                         .commentInput-field.col.s8.margin

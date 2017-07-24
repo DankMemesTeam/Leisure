@@ -7,19 +7,12 @@ $(() => {
 
     $('#charCount').html(maxCharacters + ' remaining');
 
-    $('#postInput').keyup(() => {
-        const currentLength = $('#postInput').val().length;
-        const remainingLength = maxCharacters - currentLength;
-
-        $('#charCount').html(remainingLength + ' remaining');
-    });
-
     $('.rate-btn').click((ev) => {
-        // Don't even ask...
-        let postUrl = $(ev.target).first().parents('.interactions-container')
-            .next().children().first().children().first().attr('action');
+        let postUrl = $(ev.target).first().parent()
+            .children().first().text();
+        console.log(postUrl);
 
-        const $target = $(ev.target).parent();
+        const $target = $(ev.target);
 
         if ($target.hasClass('liked')) {
             $target.removeClass('liked');
@@ -35,13 +28,13 @@ $(() => {
             dataType: 'application/json',
             data: {},
             error: (data) => {
-                const $counter = $(ev.target).next();
+                // const $counter = $(ev.target).next();
 
-                if (postUrl.includes(likePathExtension)) {
-                    $counter.text(+$counter.text() + 1);
-                } else {
-                    $counter.text(+$counter.text() - 1);
-                }
+                // if (postUrl.includes(likePathExtension)) {
+                //     $counter.text(+$counter.text() + 1);
+                // } else {
+                //     $counter.text(+$counter.text() - 1);
+                // }
             },
         });
     });
