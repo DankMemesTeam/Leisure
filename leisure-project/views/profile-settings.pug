@@ -4,18 +4,6 @@ block append styles
   script(src='/js/user-profile.js')
 block append page-content
   .row
-    .col-md-4
-      .well
-        .photo-container
-          img(src=profilePic)
-          hr
-          form(action="/users/test" method="POST" enctype="multipart/form-data")
-            label.btn.btn-default.btn-file.btn-primary
-              | Upload profile picture
-              input(type='file' name='profile_picture' accept='image/*' style='display:none')#upload-profile-picture
-            br
-            button.btn.btn-md.btn-primary(type='submit')
-              | Upload
     .col-md-8
       .well
         h2

@@ -8,7 +8,7 @@ mixin status(pageUser, status, currentUser)
                     .col.s9
                         p.grey-text.text-darken-4.margin
                             | #{pageUser.firstName} #{pageUser.lastName}
-                        span.grey-text.text-darken-1.ultra-small Shared publicly  -  #{status.dateCreated}
+                        span.grey-text.text-darken-1.ultra-small Shared publicly  -   #{status.dateCreated.getDate() + '/' + (status.dateCreated.getMonth() + 1) + '/' + status.dateCreated.getUTCFullYear()}
                 .row
                     .col.s12
                         p
@@ -39,4 +39,4 @@ mixin status(pageUser, status, currentUser)
                                     li.collection-item
                                         a.comment-username(href='/users/' + comment.author)
                                             | #{comment.author} 
-                                        | said: #{comment.content}.
+                                        | said: #{comment.content}

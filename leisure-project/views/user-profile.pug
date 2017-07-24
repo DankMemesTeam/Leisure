@@ -48,15 +48,16 @@ block append page-content
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
-                        i.material-icons card_travel
-                        |  Project
-                      .col.s7.grey-text.text-darken-4.right-align ABC Name
+                        i.material-icons query_builder
+                        |  Date joined
+                      .col.s7.grey-text.text-darken-4.right-align
+                        | #{pageUser.dateJoined.getDate() + '/' + (pageUser.dateJoined.getMonth() + 1) + '/' + pageUser.dateJoined.getUTCFullYear()}
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
-                        i.material-icons poll
-                        |  Skills
-                      .col.s7.grey-text.text-darken-4.right-align HTML, CSS
+                        i.material-icons language
+                        |  Age
+                      .col.s7.grey-text.text-darken-4.right-align 18
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
@@ -68,14 +69,19 @@ block append page-content
                       .col.s5.grey-text.darken-1
                         i.material-icons cake
                         |  Birth date
-                      .col.s7.grey-text.text-darken-4.right-align 18th June, 1991
+                      if pageUser.birthDate
+                        .col.s7.grey-text.text-darken-4.right-align
+                          | #{pageUser.birthDate}
+                      else
+                        .col.s7.grey-text.text-darken-4.right-align
+                          | Not set
                 // / Profile About Details
                 // Profile About
                 .card.green.darken-2
                   .card-content.white-text.center-align
                     p.card-title
                       i.material-icons group_add
-                      |  3685
+                      |  #{pageUser.followers.length}
                     p Followers
                 // Profile About
               #profile-page-wall.col.s12.m8
@@ -85,7 +91,7 @@ block append page-content
                     .col.s12
                       ul.tabs.tab-profile.z-depth-3.green.lighten-2
                         li.tab.col.s3
-                          a.white-text.waves-effect.waves-light.active(href='#UpdateStatus')
+                          a.white-text.waves-effect.waves-light.active(href='#')
                             i.material-icons border_color
                             |  Update Status
                       // UpdateStatus
