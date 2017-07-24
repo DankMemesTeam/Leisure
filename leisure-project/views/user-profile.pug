@@ -89,46 +89,42 @@ block append page-content
                             |  Update Status
                       // UpdateStatus
                       #UpdateStatus.tab-content.col.s12.grey.lighten-4
-                        .row
-                          .col.s3.m2
-                            img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
-                          .input-field.col.s9
-                            textarea#textarea.materialize-textarea(row='2')
-                            label(for='textarea') What's on your mind?
-                        .row
-                          .col.s12.m6.right-align.right
-                            // Dropdown Trigger
-                            a.waves-effect.waves-light.btn
-                              i.material-icons.left rate_review
-                              | Post
+                        form(action='/users/' + pageUser.username + '/statuses', method='POST')
+                          .row
+                            .col.s3.m2
+                              img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
+                            .input-field.col.s9
+                              textarea#statusInput.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
+                          .row
+                            .col.s12.m6.right-align.right
+                              // Dropdown Trigger
+                              button.waves-effect.waves-light.btn(type='submit')
+                                i.material-icons.left rate_review
+                                | Post
                 // / profile-page-wall-share
                 // profile-page-wall-posts
                 #profile-page-wall-posts.row
-                  .col.s12
-                    // medium
-                    #profile-page-wall-post.card.z-depth-3
-                      .card-profile-title
-                        .row
-                          .col.s3.m1
-                            img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
-                          .col.s9
-                            p.grey-text.text-darken-4.margin
-                              | #{pageUser.firstName} #{pageUser.lastName}
-                            span.grey-text.text-darken-1.ultra-small Shared publicly  -  26 Jun 2015
-                        .row
-                          .col.s12
-                            p
-                              | I am a very simple wall post. I am good at containing 
-                              a(href='#') #small
-                              |  bits of 
-                              a(href='#') #information
-                              | .  I require little more information to use effectively.
-                        .card-action
-                          .row
-                            .col.s4.card-action-share
-                              a(href='#') Like
-                              a(href='#') Share
-                          .divider
-                          .row
-                            .input-field.col.s8.margin
-                              input#profile-comments.validate.margin(type='text' placeholder='Comment')
+                    each status in statuses
+                      .col.s12
+                        #profile-page-wall-post.card.z-depth-3
+                          .card-profile-title
+                            .row
+                              .col.s3.m1
+                                img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
+                              .col.s9
+                                p.grey-text.text-darken-4.margin
+                                  | #{pageUser.firstName} #{pageUser.lastName}
+                                span.grey-text.text-darken-1.ultra-small Shared publicly  -  #{status.dateCreated}
+                            .row
+                              .col.s12
+                                p
+                                  | #{status.content}
+                            .card-action
+                              .row
+                                .col.s4.card-action-share
+                                  a(href='#') Like
+                                  a(href='#') Share
+                              .divider
+                              .row
+                                .input-field.col.s8.margin
+                                  input#profile-comments.validate.margin(type='text' placeholder='Comment')

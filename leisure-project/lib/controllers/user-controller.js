@@ -17,7 +17,7 @@ module.exports = ({ userData, statusData }) => {
             userData.findUserBy({ username: req.params.username })
                 .then((foundUser) => {
                     if (foundUser.username !== req.user.username) {
-                        res.redirect(`/user/${req.params.username}`);
+                        res.redirect(`/users/${req.params.username}`);
                         return;
                     }
 
@@ -28,13 +28,13 @@ module.exports = ({ userData, statusData }) => {
             userData.findUserBy({ username: req.params.username })
                 .then((foundUser) => {
                     if (foundUser.username !== req.user.username) {
-                        res.redirect(`/user/${req.params.username}`);
+                        res.redirect(`/users/${req.params.username}`);
                         return;
                     }
 
                     userData.editUser(foundUser.username, req.body)
                         .then(() => {
-                            res.redirect(`/user/${req.params.username}/settings`);
+                            res.redirect(`/users/${req.params.username}/settings`);
                         });
                 });
         },

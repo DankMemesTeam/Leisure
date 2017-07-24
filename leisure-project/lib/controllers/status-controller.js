@@ -7,7 +7,7 @@ module.exports = ({ statusData }) => {
             };
 
             return statusData.createStatus(status)
-                .then(res.redirect('/user/' + req.user.username));
+                .then(res.redirect('/users/' + req.user.username));
         },
         addCommentToStatus(req, res) {
             if (!req.user) {
@@ -23,7 +23,7 @@ module.exports = ({ statusData }) => {
             statusData.addStatusComment(req.params.username,
                 req.params.statusId, comment)
                 .then(() => {
-                    res.redirect(`/user/${req.params.username}`);
+                    res.redirect(`/users/${req.params.username}`);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -33,7 +33,7 @@ module.exports = ({ statusData }) => {
             return statusData.likeStatus(req.params.username,
                 req.params.statusId, req.user.username)
                 .then(() => {
-                    res.redirect(`/user/${req.params.username}`);
+                    res.redirect(`/users/${req.params.username}`);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -43,7 +43,7 @@ module.exports = ({ statusData }) => {
             return statusData.dislikeStatus(req.params.username,
                 req.params.statusId, req.user.username)
                 .then(() => {
-                    res.redirect(`/user/${req.params.username}`);
+                    res.redirect(`/users/${req.params.username}`);
                 })
                 .catch((err) => {
                     console.log(err);
