@@ -11,5 +11,5 @@ module.exports = ({ app, express, controllers }) => {
     router.post('/:username/:statusId/dislike', statusController.dislikeStatus);
     router.get('/:username', userController.loadProfilePage);
 
-    app.use('/user', router);
+    app.use('/users', router);
 };

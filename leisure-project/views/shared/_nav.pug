@@ -1,10 +1,10 @@
 if user
   ul#user-options.dropdown-content
     li
-      a(href='/user/' + user.username)
+      a(href='/users/' + user.username)
         | My profile
     li
-      a(href='/user/' + user.username +'/settings')
+      a(href='/users/' + user.username +'/settings')
         | Settings
     li.divider
     li
@@ -13,11 +13,11 @@ if user
 
   ul#chat-dropdown.dropdown-content
     li
-      a(href='/user/chats')
+      a(href= '/users/' + user.username + '/chats')
         | Personal chats
     li.divider(role="separator")
     li
-      a(href='/user/event-chats')
+      a(href= '/users/' + user.username + '/event-chats')
         | Event chats
 nav
   .nav-wrapper
@@ -62,7 +62,7 @@ nav
               img.circle.z-depth-2.responsive-img.activator(src='/images/default-user.png')
           .col.col.s8.m8.l8
             if user
-              a.waves-effect.waves-cyan(href='/user/' + user.username)
+              a.waves-effect.waves-cyan(href='/users/' + user.username)
                 | #{user.firstName + ' ' + user.lastName}
               p.user-roal Project manager
             else
@@ -71,11 +71,11 @@ nav
               p.user-roal Random guy
       if user
         li.bold
-          a.waves-effect.waves-cyan(href='/user/' + user.username)
+          a.waves-effect.waves-cyan(href='/users/' + user.username)
             i.material-icons account_box
             |  My profile
         li.bold
-          a.waves-effect.waves-cyan(href='/user/' + user.username +'/settings')
+          a.waves-effect.waves-cyan(href='/users/' + user.username +'/settings')
             i.material-icons settings
             |  Settings 
         li.bold

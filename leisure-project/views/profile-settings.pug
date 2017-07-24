@@ -9,7 +9,7 @@ block append page-content
         .photo-container
           img(src=profilePic)
           hr
-          form(action="/user/test" method="POST" enctype="multipart/form-data")
+          form(action="/users/test" method="POST" enctype="multipart/form-data")
             label.btn.btn-default.btn-file.btn-primary
               | Upload profile picture
               input(type='file' name='profile_picture' accept='image/*' style='display:none')#upload-profile-picture
@@ -26,7 +26,7 @@ block append page-content
           li.list-group-item
             strong
               | Profile picture URL: 
-            form(action='/user/' + username + '/settings' method='POST').form-inline
+            form(action='/users/' + username + '/settings' method='POST').form-inline
               div.form-group
                 input#profilePic(type='text' name='profilePic' placeholder='Enter picture url').form-control
                 button(type='submit').btn.btn-primary
@@ -35,7 +35,7 @@ block append page-content
             strong
               | First name: 
             | #{firstName}
-            form(action='/user/' + username + '/settings' method='POST').form-inline
+            form(action='/users/' + username + '/settings' method='POST').form-inline
               div.form-group
                 input#firstName(type='text' name='firstName' placeholder='Edit first name').form-control
                 button(type='submit').btn.btn-primary
@@ -45,7 +45,7 @@ block append page-content
             strong
               | Last name: 
             | #{lastName}
-            form(action='/user/' + username + '/settings' method='POST').form-inline
+            form(action='/users/' + username + '/settings' method='POST').form-inline
               div.form-group
                 input#lastName(type='text' name='lastName' placeholder='Edit last name').form-control
                 button(type='submit').btn.btn-primary
@@ -55,7 +55,7 @@ block append page-content
             strong
               | Birth date: 
             | #{birthDate}
-            form(action='/user/' + username + '/settings' method='POST').form-inline
+            form(action='/users/' + username + '/settings' method='POST').form-inline
               div.form-group
                 input#birthDate(type='text' name='birthDate' placeholder='Edit birth date').form-control
                 button(type='submit').btn.btn-primary
@@ -64,7 +64,7 @@ block append page-content
             strong
               | High school: 
             | #{highSchool}
-            form(action='/user/' + username + '/settings' method='POST').form-inline
+            form(action='/users/' + username + '/settings' method='POST').form-inline
               div.form-group
                 input#highSchool(type='text' name='highSchool' placeholder='Edit high school').form-control
                 button(type='submit').btn.btn-primary

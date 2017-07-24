@@ -1,20 +1,16 @@
-.container {
-	width: 60%;
-	margin: 0 auto;
+.login-container{
+	margin-right: auto !important;
+	margin-left: auto !important;
 }
 
-.form {
-	width: 100%;
-	font-family: Roboto;
-	position: relative;
-	transition: top 0.3s ease-in-out, transform 0.3s ease-in-out;
+.col{
+	max-width: 100%;
 }
 
-input {
-	margin-bottom: 2%;
+.login-form{
+	max-width: 100%;
 }
 
-.form-signin-heading{
-	font-size: 3em;
-	text-align: center;
+.margin{
+	margin: 0 !important;
 }
