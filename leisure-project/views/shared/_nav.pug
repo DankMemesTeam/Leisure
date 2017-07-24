@@ -56,26 +56,41 @@ nav
       li.user-details.cyan.darken-2
         .row
           .col.col.s4.m4.l4
-            if user.profileUrl
+            if user && user.profileUrl
               img.circle.z-depth-2.responsive-img.activator(src=user.profileUrl)
             else
               img.circle.z-depth-2.responsive-img.activator(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
           .col.col.s8.m8.l8
-            a.waves-effect.waves-cyan(href='/user/' + user.username)
-              | #{user.firstName + ' ' + user.lastName}
-            p.user-roal Project manager
-      li.bold
-        a.waves-effect.waves-cyan(href='/user/' + user.username)
-          i.material-icons account_box
-          |  My profile
-      li.bold
-        a.waves-effect.waves-cyan(href='/user/' + user.username +'/settings')
-          i.material-icons settings
-          |  Settings 
-      li.bold
-        a.waves-effect.waves-cyan(href='/auth/logout')
-          i.material-icons exit_to_app
-          |  Logout
+            if user
+              a.waves-effect.waves-cyan(href='/user/' + user.username)
+                | #{user.firstName + ' ' + user.lastName}
+              p.user-roal Project manager
+            else
+              a.waves-effect.waves-cyan(href='auth/login')
+                | Guest
+              p.user-roal Random guy
+      if user
+        li.bold
+          a.waves-effect.waves-cyan(href='/user/' + user.username)
+            i.material-icons account_box
+            |  My profile
+        li.bold
+          a.waves-effect.waves-cyan(href='/user/' + user.username +'/settings')
+            i.material-icons settings
+            |  Settings 
+        li.bold
+          a.waves-effect.waves-cyan(href='/auth/logout')
+            i.material-icons exit_to_app
+            |  Logout
+      else
+        li.bold
+          a.waves-effect.waves-cyan(href='/auth/register')
+            i.material-icons account_box
+            |  Register
+        li.bold
+          a.waves-effect.waves-cyan(href='/auth/login')
+            i.material-icons settings
+            |  Login 
       li.divider
       li.bold
         a.waves-effect.waves-cyan(href='/articles')
