@@ -14,21 +14,23 @@ block append page-content
         .container
           #profile-page.section
             // profile-page-header
-            #profile-page-header.card
+            #profile-page-header.z-depth-2.card
               .card-image.waves-effect.waves-block.waves-light
                 img.activator(src='/images/user-profile-bg.jpg', alt='user background')
               figure.card-profile-image
                 img.circle.z-depth-2.responsive-img.activator(src=pageUser.profilePic)
               .card-content
                 .row
-                  .col.s3.offset-s2
-                    h4.card-title.grey-text.text-darken-4
-                      | #{pageUser.firstName} #{pageUser.lastName}
-                    p.medium-small.grey-text Project Manager
                   .col.s1.right-align.right
                     a.btn-floating.activator.waves-effect.waves-light.darken-2.right
                       i.material-icons 
                         | perm_identity
+                .row
+                  .col.s12
+                    h4.card-title.grey-text.text-darken-4
+                      | #{pageUser.firstName} #{pageUser.lastName}
+                    p.medium-small.grey-text Project Manager
+
             // profile-page-content
             #profile-page-content.row
               // profile-page-sidebar
@@ -45,26 +47,25 @@ block append page-content
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
-                        i.material-icons
-                          | card_travel
+                        i.material-icons card_travel
                         |  Project
                       .col.s7.grey-text.text-darken-4.right-align ABC Name
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
-                        i.mdi-social-poll
+                        i.material-icons poll
                         |  Skills
                       .col.s7.grey-text.text-darken-4.right-align HTML, CSS
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
-                        i.mdi-social-domain
+                        i.material-icons domain
                         |  Lives in
                       .col.s7.grey-text.text-darken-4.right-align NY, USA
                   li.collection-item
                     .row
                       .col.s5.grey-text.darken-1
-                        i.mdi-social-cake
+                        i.material-icons cake
                         |  Birth date
                       .col.s7.grey-text.text-darken-4.right-align 18th June, 1991
                 // / Profile About Details
@@ -72,75 +73,48 @@ block append page-content
                 .card.green.darken-2
                   .card-content.white-text.center-align
                     p.card-title
-                      i.mdi-social-group-add
+                      i.material-icons group_add
                       |  3685
                     p Followers
                 // Profile About
               #profile-page-wall.col.s12.m8
                 // profile-page-wall-share
                 if isOwner
-                  #profile-page-wall-share.row
-                  .col.s12
-                    ul.tabs.tab-profile.z-depth-1.green.lighten-2
-                      li.tab.col.s3
-                        a.white-text.waves-effect.waves-light.active(href='#UpdateStatus')
-                          i.mdi-editor-border-color
-                          |  Update Status
-                    // UpdateStatus
-                    #UpdateStatus.tab-content.col.s12.grey.lighten-4
-                      .row
-                        .col.s2
-                          img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
-                        .input-field.col.s10
-                          textarea#textarea.materialize-textarea(row='2')
-                          label(for='textarea') What's on your mind?
-                      .row
-                        .col.s12.m6.share-icons
-                          a(href='#')
-                            i.mdi-image-camera-alt
-                          a(href='#')
-                            i.mdi-action-account-circle
-                          a(href='#')
-                            i.mdi-hardware-keyboard-alt
-                          a(href='#')
-                            i.mdi-communication-location-on
-                        .col.s12.m6.right-align
-                          // Dropdown Trigger
-                          a.dropdown-button.btn(href='#', data-activates='profliePost')
-                            i.mdi-action-language
-                            |  Public
-                          // Dropdown Structure
-                          ul#profliePost.dropdown-content
-                            li
-                              a(href='#!')
-                                i.mdi-action-language
-                                |  Public
-                            li
-                              a(href='#!')
-                                i.mdi-action-face-unlock
-                                |  Friends
-                            li
-                              a(href='#!')
-                                i.mdi-action-lock-outline
-                                |  Only Me
-                          a.waves-effect.waves-light.btn
-                            i.mdi-maps-rate-review.left
-                            | Post
+                  .row
+                    .col.s12
+                      ul.tabs.tab-profile.z-depth-3.green.lighten-2
+                        li.tab.col.s3
+                          a.white-text.waves-effect.waves-light.active(href='#UpdateStatus')
+                            i.material-icons border_color
+                            |  Update Status
+                      // UpdateStatus
+                      #UpdateStatus.tab-content.col.s12.grey.lighten-4
+                        .row
+                          .col.s3.m2
+                            img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
+                          .input-field.col.s9
+                            textarea#textarea.materialize-textarea(row='2')
+                            label(for='textarea') What's on your mind?
+                        .row
+                          .col.s12.m6.right-align.right
+                            // Dropdown Trigger
+                            a.waves-effect.waves-light.btn
+                              i.material-icons.left rate_review
+                              | Post
                 // / profile-page-wall-share
                 // profile-page-wall-posts
                 #profile-page-wall-posts.row
                   .col.s12
                     // medium
-                    #profile-page-wall-post.card
+                    #profile-page-wall-post.card.z-depth-3
                       .card-profile-title
                         .row
-                          .col.s1
+                          .col.s3.m1
                             img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
-                          .col.s10
-                            p.grey-text.text-darken-4.margin John Doe
+                          .col.s9
+                            p.grey-text.text-darken-4.margin
+                              | #{pageUser.firstName} #{pageUser.lastName}
                             span.grey-text.text-darken-1.ultra-small Shared publicly  -  26 Jun 2015
-                          .col.s1.right-align
-                            i.mdi-navigation-expand-more
                         .row
                           .col.s12
                             p
@@ -149,16 +123,12 @@ block append page-content
                               |  bits of 
                               a(href='#') #information
                               | .  I require little more information to use effectively.
-                      .card-image.profile-medium
-                        img.responsive-img.profile-post-image.profile-medium(src='/images/2.jpg', alt='sample')
-                        span.card-title Card Title
-                      .card-content
-                        p
-                          | I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
-                      .card-action.row
-                        .col.s4.card-action-share
-                          a(href='#') Like
-                          a(href='#') Share
-                        .input-field.col.s8.margin
-                          input#profile-comments.validate.margin(type='text')
-                          label(for='profile-comments') Comments
+                        .card-action
+                          .row
+                            .col.s4.card-action-share
+                              a(href='#') Like
+                              a(href='#') Share
+                          .divider
+                          .row
+                            .input-field.col.s8.margin
+                              input#profile-comments.validate.margin(type='text' placeholder='Comment')
