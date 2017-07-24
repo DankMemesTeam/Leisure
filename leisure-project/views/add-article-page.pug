@@ -4,6 +4,14 @@ block append page-content
     div.row
         form.col.s12(method="POST")
             div.row
+                div.input-field
+                    select(name="category")
+                        each cat in categories
+                            option(value=cat.name)
+                                | #{cat.name}
+                    label(for="category-selection")
+                        | Select category
+            div.row
                 div.input-field.col.s6
                     input#title(type="text" name="title")
                     label(for="title")

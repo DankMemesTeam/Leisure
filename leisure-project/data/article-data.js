@@ -8,6 +8,7 @@ module.exports = (articleCollection, validator, models, logger) => {
                 articleObject.title,
                 articleObject.description,
                 articleObject.content,
+                articleObject.category,
             );
 
             return articleCollection.insertOne(article);

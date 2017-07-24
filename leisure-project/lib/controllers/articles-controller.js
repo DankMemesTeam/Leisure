@@ -1,4 +1,4 @@
-module.exports = ({ articleData }) => {
+module.exports = ({ articleData, categoryData }) => {
     return {
         loadArticlesPage(req, res) {
             return articleData.getAllArticles()
@@ -11,7 +11,15 @@ module.exports = ({ articleData }) => {
                 return res.redirect('/auth/login');
             }
 
-            return res.render('add-article-page');
+            return categoryData.initCategories()
+                .then(() => {
+                    return categoryData.getAllCategoryNames();
+                })
+                .then((names) => {
+                    return res.render('add-article-page', {
+                        categories: names,
+                    });
+                });
         },
         addArticle(req, res) {
             if (!req.user) {
@@ -19,9 +27,15 @@ module.exports = ({ articleData }) => {
             }
 
             const articleObj = req.body;
+            console.log(req.body);
             articleObj.author = req.user.username;
 
+
             return articleData.createArticle(articleObj)
+                .then((inserted) => {
+                    articleObj._id = inserted.insertedId;
+                    return categoryData.addArticleToCategory(articleObj, 'Programming');
+                })
                 .then(() => {
                     res.redirect('/articles');
                 });
@@ -42,7 +56,7 @@ module.exports = ({ articleData }) => {
 
             return articleData.addCommentToArticle(req.params.id, comment)
                 .then(() => {
-                    res.redirect(`/articles/${req.params.id}`);    
+                    res.redirect(`/articles/${req.params.id}`);
                 });
         }
     };

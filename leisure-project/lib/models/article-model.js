@@ -1,5 +1,5 @@
 module.exports = class Article {
-    constructor(author, title, description, content, tags, category) {
+    constructor(author, title, description, content, category, tags) {
         this.dateCreated = new Date();
         this.author = author;
         this.title = title;
@@ -7,7 +7,7 @@ module.exports = class Article {
         this.content = content;
         this.likes = [];
         this.comments = [];
+        this.category = category;        
         this.tags = tags;
-        this.category = category;
     }
 };
