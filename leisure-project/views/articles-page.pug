@@ -15,6 +15,8 @@ block append page-content
                     | #{article.comments.length} comments
                 p 
                     | #{article.description}
+                p
+                    | Category : #{article.category}
                 a.secondary-content(href="/articles/" + article._id)
                     i.material-icons
                         | open_in_new

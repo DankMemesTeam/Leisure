@@ -1,6 +1,10 @@
 extends ./shared/_master
 
 block append page-content
+    div.row
+    each tag in article.tags
+        div.chip
+            | ##{tag}
     h1
         | Title: #{article.title}
     h3

@@ -24,17 +24,17 @@ module.exports = ({ articleData, categoryData }) => {
         addArticle(req, res) {
             if (!req.user) {
                 return res.redirect('/auth/login');
-            }
+            }            
 
             const articleObj = req.body;
-            console.log(req.body);
             articleObj.author = req.user.username;
+            articleObj.tags = req.body.tags.split(/[ ,]+/);
 
 
             return articleData.createArticle(articleObj)
                 .then((inserted) => {
                     articleObj._id = inserted.insertedId;
-                    return categoryData.addArticleToCategory(articleObj, 'Programming');
+                    return categoryData.addArticleToCategory(articleObj, articleObj.category);
                 })
                 .then(() => {
                     res.redirect('/articles');

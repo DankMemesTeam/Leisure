@@ -1,8 +1,9 @@
 extends ./shared/_master
 
 block append page-content
+
     div.row
-        form.col.s12(method="POST")
+        form.col.s12#article-submit-form(method="POST")
             div.row
                 div.input-field
                     select(name="category")
@@ -11,6 +12,9 @@ block append page-content
                                 | #{cat.name}
                     label(for="category-selection")
                         | Select category
+            div.row
+                div.chips-placeholder.input-field.col.s6
+            
             div.row
                 div.input-field.col.s6
                     input#title(type="text" name="title")
@@ -31,3 +35,9 @@ block append page-content
                     | Publish
                     i.material-icons.right
                         | send
+
+
+block append footer
+    script(src='/js/add-article.js')
+
+                        
