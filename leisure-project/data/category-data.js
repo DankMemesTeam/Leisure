@@ -46,7 +46,8 @@ module.exports = (categoryCollection, validator, models, logger) => {
                 _id: articleObject._id,
                 title: articleObject.title,
                 description: articleObject.description,
-                author: articleObject.author,                                
+                author: articleObject.author,
+                category: categoryName,
             };
 
             const update = {
@@ -64,7 +65,7 @@ module.exports = (categoryCollection, validator, models, logger) => {
             const query = {};
             const projection = {
                 name: 1,
-            }
+            };
             return categoryCollection.find(query, projection);
         },
         getCategoryArticles(categoryName) {

@@ -1,16 +1,38 @@
 module.exports = ({ articleData, categoryData }) => {
+    const renderArticlesPage = (res, articles, categories) => {
+        return res.render('articles-page', {
+            articles,
+            categories,
+        });
+    };
+
     return {
         loadArticlesPage(req, res) {
+            let articlesPromise;
+
             if (!req.query.query) {
-                return articleData.getAllArticles()
-                    .then((articles) => {
-                        res.render('articles-page', { articles });
-                    });
+                articlesPromise = articleData.getAllArticles();
+            } else {
+                articlesPromise = articleData.findArticles(req.query.query);
             }
 
-            return articleData.findArticles(req.query.query)
-                .then((articles) => {
-                    res.render('articles-page', { articles });
+            return Promise.all([
+                articlesPromise,
+                categoryData.getAllCategoryNames(),
+            ])
+                .then(([articles, categories]) => {
+                    return renderArticlesPage(res, articles, categories);
+                });
+        },
+        loadCategoryPage(req, res) {
+            return Promise.all([
+                categoryData.getCategoryArticles(req.params.category),
+                categoryData.getAllCategoryNames(),
+            ])
+                .then(([categoryContent, categories]) => {
+                    return renderArticlesPage(res,
+                        categoryContent.articles,
+                        categories);
                 });
         },
         loadArticleAddingPage(req, res) {
@@ -41,7 +63,8 @@ module.exports = ({ articleData, categoryData }) => {
             return articleData.createArticle(articleObj)
                 .then((inserted) => {
                     articleObj._id = inserted.insertedId;
-                    return categoryData.addArticleToCategory(articleObj, articleObj.category);
+                    return categoryData.addArticleToCategory(articleObj,
+                        articleObj.category);
                 })
                 .then(() => {
                     res.redirect('/articles');
@@ -65,6 +88,6 @@ module.exports = ({ articleData, categoryData }) => {
                 .then(() => {
                     res.redirect(`/articles/${req.params.id}`);
                 });
-        }
+        },
     };
 };

@@ -38,7 +38,7 @@ module.exports = (articleCollection, validator, models, logger) => {
                 $addToSet: {
                     comments: comment,
                 },
-            }
+            };
 
             return articleCollection.findAndModify(filter, update);
         },

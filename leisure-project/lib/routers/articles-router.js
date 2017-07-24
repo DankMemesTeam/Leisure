@@ -5,7 +5,8 @@ module.exports = ({ app, express, controllers }) => {
     router
         .get('/', articlesController.loadArticlesPage)
         .get('/add', articlesController.loadArticleAddingPage)
-        .get('/:id', articlesController.loadDetailsPage)        
+        .get('/categories/:category', articlesController.loadCategoryPage)
+        .get('/:id', articlesController.loadDetailsPage)
         .post('/add', articlesController.addArticle)
         .post('/:id/comments', articlesController.addComment);
 

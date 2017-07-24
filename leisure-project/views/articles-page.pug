@@ -15,6 +15,25 @@ block append page-content
                             | search
                     i.material-icons
                         | close
+    
+    div.row
+        ul.dropdown-content#categories-dropdown            
+            li
+                a(href='/articles')
+                    | All
+            each cat in categories
+                li
+                    a(href='/articles/categories/' + cat.name)
+                        | #{cat.name}
+            else
+                li
+                    a(href='/articles')
+                        | No categories found
+
+        a.btn.dropdown-button(data-activates="categories-dropdown")
+            | Categories
+            i.material-icons.right
+                | arrow_drop_down
 
     each article in articles
         ul.collection
@@ -24,8 +43,6 @@ block append page-content
                     | #{article.title}
                 p 
                     | Published by: #{article.author}
-                p
-                    | #{article.comments.length} comments
                 p 
                     | #{article.description}
                 p

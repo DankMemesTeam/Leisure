@@ -7,7 +7,7 @@ module.exports = class Article {
         this.content = content;
         this.likes = [];
         this.comments = [];
-        this.category = category;        
+        this.category = category;
         this.tags = tags;
     }
 };
