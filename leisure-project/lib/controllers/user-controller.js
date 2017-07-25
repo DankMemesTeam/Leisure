@@ -6,11 +6,13 @@ module.exports = ({ userData, statusData }) => {
                 statusData.findStatusesByUser(req.params.username),
                 ])
                 .then((result) => {
-                    const isOwner = req.params.username === req.user.username;
+                    const isOwner = req.user && req.user.username === req.params.username;
 
                     res.render('user-profile',
-                        { pageUser: result[0], currentUser: req.user,
-                             statuses: result[1], isOwner });
+                        {
+                            pageUser: result[0], currentUser: req.user,
+                            statuses: result[1], isOwner,
+                        });
                 });
         },
         loadProfileSettingsPage(req, res) {
