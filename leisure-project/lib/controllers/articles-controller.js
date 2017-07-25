@@ -116,7 +116,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return articleData.likeArticle(req.params.id, req.user.username)
                 .then(() => {
-                    res.redirect(`/articles/${req.params.id}`);
+                    return res.sendStatus(200);
                 });
         },
         unlikeArticle(req, res) {
@@ -128,7 +128,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return articleData.unlikeArticle(req.params.id, req.user.username)
                 .then(() => {
-                    res.redirect(`/articles/${req.params.id}`);
+                    return res.sendStatus(200);
                 });
         },
     };

@@ -31,19 +31,17 @@ block append page-content
                         i.material-icons.right
                             | send
         div.row
-            if article.likes.includes(currentUser)
-                form(action="/articles/" + article._id + "/unlike" method="POST")                    
-                    button.btn.waves-effect.waves-light(type="submit")
-                        | Unlike
-                        i.material-icons.right
-                            | thumb_down
-            else
-                form(action="/articles/" + article._id + "/like" method="POST")    
-                    button.btn.waves-effect.waves-light(type="submit")
-                        | Like
-                        i.material-icons.right
-                            | thumb_up
-    p
+            if article.likes.includes(currentUser)                  
+                button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                    | Unlike
+                    i.material-icons.right
+                        | thumb_down
+            else 
+                button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                    | Like
+                    i.material-icons.right
+                        | thumb_up
+    p#likes-count
         | #{article.likes.length} likes.
     ul.collection
         | Comments:
@@ -58,3 +56,6 @@ block append page-content
         else
             h5
                 | There are currently no comments on this article
+
+block append footer
+    script(src='/js/article-details.js')
