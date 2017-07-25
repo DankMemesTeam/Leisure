@@ -9,7 +9,8 @@ module.exports = (logger) => {
     const hashGenerator = require('../bin/hash-generator');
 
     const loadedModels = require('../lib/models')();
-    const data = require('../data')(db, validator, loadedModels, logger);
+    const dataConfig = require('./data-conf');
+    const data = require('../data')(db, validator, loadedModels, logger, dataConfig);
 
     const loadedControllers = require('../lib/controllers')(data,
         hashGenerator,

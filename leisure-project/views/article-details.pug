@@ -1,0 +1,44 @@
+extends ./shared/_master
+
+block append page-content
+    div.row
+    each tag in article.tags
+        div.chip
+            | ##{tag}
+    h1
+        | #{article.title}
+    p
+        | Published by: 
+        a(href="/user/" + article.author.username)
+            | #{article.author.username}
+    hr
+    p
+        | Summary: #{article.description}
+    hr
+    p
+        | Content: #{article.content}
+    div.row
+        form.col.s12(action="/articles/" + article._id + "/comments" method="POST")
+            div.row
+                div.input-field.col.s6
+                    input#comment-content(type="text" name="text")
+                    label(for="comment-content")
+                        | Add comment
+            div.row
+                button.btn.waves-effect.waves-light(type="submit")
+                    | Send
+                    i.material-icons.right
+                        | send
+    ul.collection
+        | Comments:
+        each comment in article.comments
+            li.collection-item.avatar
+                img.circle(src=comment.author.profilePic)
+                a.title(href="/user/" + comment.author.username)
+                    | #{comment.author.username}
+                p
+                    | #{comment.text}
+
+        else
+            h5
+                | There are currently no comments on this article

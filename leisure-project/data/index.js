@@ -6,7 +6,7 @@ const fs = require('fs');
 const collectionsModule = require('../database').collections;
 
 // Should be passed either the db or the specific collction to work with
-module.exports = (db, validator, loadedModels, logger) => {
+module.exports = (db, validator, loadedModels, logger, dataConfig) => {
     const data = {};
 
     fs.readdirSync(__dirname)
@@ -16,8 +16,11 @@ module.exports = (db, validator, loadedModels, logger) => {
             const normalizedName = normalizeModuleName(modulePath);
             const collectionToUse = collectionsModule(db, normalizedName);
 
-            const loadedModule = require(modulePath)(collectionToUse, validator,
-            loadedModels, logger);
+            const loadedModule = require(modulePath)(collectionToUse,
+                validator,
+                loadedModels,
+                logger,
+                dataConfig);
 
             data[normalizedName] = loadedModule;
         });
