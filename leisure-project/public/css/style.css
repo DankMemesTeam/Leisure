@@ -5,6 +5,20 @@ body{
   flex-direction: column;
 }
 
+.main-nav{
+  line-height: 54px;
+  height: 54px;
+}
+
+#mobile-demo{
+  width:210px;
+}
+
+.user-details{
+  padding-top:7px;
+  padding-bottom: 7px;
+}
+
 .not-selectable{
   -webkit-user-select: none; /* Chrome/Safari */        
   -moz-user-select: none; /* Firefox */
@@ -23,11 +37,16 @@ nav{
   margin-right: 15px;
 }
 
+.container{
+  width: 90% !important;
+}
+
 .page-content {
   flex: 1 0 auto;
 }
 
 .page-footer{
+  padding-top: 0;
   background-color: #74c183;
 }
 

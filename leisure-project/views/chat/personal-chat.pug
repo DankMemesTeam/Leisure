@@ -1,0 +1,33 @@
+extends ../shared/_master
+
+block append page-content
+    #mail-app.section
+        .row
+            .col.s12.m12
+                nav.red
+            .col.s12
+                #email-sidebar.col.s2.m1.card-panel
+                    ul
+                        li
+                            img.circle.responsive-img.valign.profile-image(src='images/avatar.jpg', alt='')
+                        li
+                            a(href='#!')
+                                i.mdi-content-archive.active
+                        li
+                            a(href='#!')
+                                i.mdi-social-group
+                        li
+                            a(href='#!')
+                                i.mdi-maps-local-offer
+                        li
+                            a(href='#!')
+                                i.mdi-alert-error
+                #email-list.col.s10.m4.l4.card-panel.z-depth-1
+                    ul.collection
+                        li.collection-item.avatar.email-unread
+                            i.mdi-social-group.icon.blue-text
+                            span.email-title Social
+                            p.truncate.grey-text.ultra-small You have Google+ request from john doe.
+                            a.secondary-content(href='#!')
+                                span.new.badge.blue 4
+                #email-details.col.s12.m7.l7.card-panel

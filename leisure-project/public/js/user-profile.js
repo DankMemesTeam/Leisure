@@ -1,11 +1,23 @@
 /* globals $ */
 
 $(() => {
-    const maxCharacters = 200;
     const likePathExtension = '/like';
     const dislikePathExtension = '/dislike';
 
-    $('#charCount').html(maxCharacters + ' remaining');
+    $('.message-btn').click((ev) => {
+        // Should think of better way to do this!
+        const url = window.location.href.split('/');
+        const username = url[url.length - 1];
+
+        $.ajax({
+            url: '/users/' + username + '/chats',
+            type: 'POST',
+            dataType: 'application/json',
+            data: {
+                pageUser: username,
+            },
+        });
+    });
 
     $('.rate-btn').click((ev) => {
         let postUrl = $(ev.target).first().parent()

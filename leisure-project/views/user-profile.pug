@@ -6,110 +6,109 @@ block append footer
   script(src='/js/user-profile.js')
 include ./mixins/status.pug
 block append page-content
-  #main
-    // START WRAPPER
-    .wrapper
-      // START CONTENT
-      section#content
-        // start container
-        .container
-          #profile-page.section
-            // profile-page-header
-            #profile-page-header.z-depth-2.card
-              .card-image.waves-effect.waves-block.waves-light
-                img.activator(src='/images/user-profile-bg.jpg', alt='user background')
-              figure.card-profile-image
-                img.circle.z-depth-2.responsive-img.activator(src=pageUser.profilePic)
-              .card-content
-                .row
-                  .col.s1.right-align.right
-                    a.btn-floating.activator.waves-effect.waves-light.darken-2.right
-                      i.material-icons 
-                        | perm_identity
-                .row
-                  .col.s12
-                    h4.card-title.grey-text.text-darken-4
-                      | #{pageUser.firstName} #{pageUser.lastName}
-                    p.medium-small.grey-text Project Manager
+  #profile-page.section
+    // profile-page-header
+    #profile-page-header.z-depth-2.card
+      .card-image.waves-effect.waves-block.waves-light
+        img.activator(src='/images/user-profile-bg.jpg', alt='user background')
+      figure.card-profile-image
+        img.circle.z-depth-2.responsive-img.activator(src=pageUser.profilePic)
+      .card-content
+        .row
+          .col.s1.right-align.right
+            a.btn-floating.activator.waves-effect.waves-light.darken-2.right
+              i.material-icons 
+                | perm_identity
+        .row
+          .col.s12
+            h4.card-title.grey-text.text-darken-4
+              | #{pageUser.firstName} #{pageUser.lastName}
+            p.medium-small.grey-text Project Manager
 
-            // profile-page-content
-            #profile-page-content.row
-              // profile-page-sidebar
-              #profile-page-sidebar.col.s12.m4.l4
-                // Profile About
-                .card.green.lighten-4
-                  .card-content.white-text
-                    span.card-title About Me!
-                    p
-                      | I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
-                // Profile About
-                // Profile About Details
-                ul#profile-page-about-details.collection.z-depth-1
-                  li.collection-item
-                    .row
-                      .col.s5.grey-text.darken-1
-                        i.material-icons query_builder
-                        |  Date joined
-                      .col.s7.grey-text.text-darken-4.right-align
-                        | #{pageUser.dateJoined.getDate() + '/' + (pageUser.dateJoined.getMonth() + 1) + '/' + pageUser.dateJoined.getUTCFullYear()}
-                  li.collection-item
-                    .row
-                      .col.s5.grey-text.darken-1
-                        i.material-icons language
-                        |  Age
-                      .col.s7.grey-text.text-darken-4.right-align 18
-                  li.collection-item
-                    .row
-                      .col.s5.grey-text.darken-1
-                        i.material-icons domain
-                        |  Lives in
-                      .col.s7.grey-text.text-darken-4.right-align NY, USA
-                  li.collection-item
-                    .row
-                      .col.s5.grey-text.darken-1
-                        i.material-icons cake
-                        |  Birth date
-                      if pageUser.birthDate
-                        .col.s7.grey-text.text-darken-4.right-align
-                          | #{pageUser.birthDate}
-                      else
-                        .col.s7.grey-text.text-darken-4.right-align
-                          | Not set
-                // / Profile About Details
-                // Profile About
-                .card.green.darken-2
-                  .card-content.white-text.center-align
-                    p.card-title
-                      i.material-icons group_add
-                      |  #{pageUser.followers.length}
-                    p Followers
-                // Profile About
-              #profile-page-wall.col.s12.m8
-                // profile-page-wall-share
-                if isOwner
+    // profile-page-content
+    #profile-page-content.row
+      // profile-page-sidebar
+      #profile-page-sidebar.col.s12.m4.l4
+        // Profile About
+        .card.green.lighten-4
+          .card-content.white-text
+            span.card-title About Me!
+            p
+              | I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.
+        // Profile About
+        // Profile About Details
+        ul#profile-page-about-details.collection.z-depth-1
+          li.collection-item
+            .row
+              .col.s5.grey-text.darken-1
+                i.material-icons query_builder
+                |  Date joined
+              .col.s7.grey-text.text-darken-4.right-align
+                | #{pageUser.dateJoined.getDate() + '/' + (pageUser.dateJoined.getMonth() + 1) + '/' + pageUser.dateJoined.getUTCFullYear()}
+          li.collection-item
+            .row
+              .col.s5.grey-text.darken-1
+                i.material-icons language
+                |  Age
+              .col.s7.grey-text.text-darken-4.right-align 18
+          li.collection-item
+            .row
+              .col.s5.grey-text.darken-1
+                i.material-icons domain
+                |  Lives in
+              .col.s7.grey-text.text-darken-4.right-align NY, USA
+          li.collection-item
+            .row
+              .col.s5.grey-text.darken-1
+                i.material-icons cake
+                |  Birth date
+              if pageUser.birthDate
+                .col.s7.grey-text.text-darken-4.right-align
+                  | #{pageUser.birthDate}
+              else
+                .col.s7.grey-text.text-darken-4.right-align
+                  | Not set
+        // / Profile About Details
+        // Profile About
+        .card.green.darken-2
+          .card-content.white-text.center-align
+            p.card-title
+              i.material-icons group_add
+              |  #{pageUser.followers.length}
+            p Followers
+        if !isOwner
+          .card.blue.lighten-2
+            .card-content.white-text.center-align
+              p.btn.message-btn.card-title
+                i.material-icons group_add
+                |  Message
+        // Profile About
+      #profile-page-wall.col.s12.m8
+        // profile-page-wall-share
+        if isOwner
+          .row
+            .col.s12
+              ul.tabs.tab-profile.z-depth-3.green.lighten-2
+                li.tab.col.s3
+                  a.white-text.waves-effect.waves-light.active(href='#')
+                    i.material-icons border_color
+                    |  Update Status
+              // UpdateStatus
+              #UpdateStatus.tab-content.col.s12.grey.lighten-4
+                form(action='/users/' + pageUser.username + '/statuses', method='POST')
                   .row
-                    .col.s12
-                      ul.tabs.tab-profile.z-depth-3.green.lighten-2
-                        li.tab.col.s3
-                          a.white-text.waves-effect.waves-light.active(href='#')
-                            i.material-icons border_color
-                            |  Update Status
-                      // UpdateStatus
-                      #UpdateStatus.tab-content.col.s12.grey.lighten-4
-                        form(action='/users/' + pageUser.username + '/statuses', method='POST')
-                          .row
-                            .col.s3.m2
-                              img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
-                            .input-field.col.s9
-                              textarea#statusInput.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
-                          .row
-                            .col.s12.m6.right-align.right
-                              // Dropdown Trigger
-                              button.waves-effect.waves-light.btn(type='submit')
-                                i.material-icons.left rate_review
-                                | Post
-                // / profile-page-wall-share
-                // profile-page-wall-posts
-                #profile-page-wall-posts.row
-                    each status in statuses
-                      +status(pageUser, status, currentUser)
+                    .col.s3.m2
+                      img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
+                    .input-field.col.s9
+                      textarea#statusInput.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
+                  .row
+                    .col.s12.m6.right-align.right
+                      // Dropdown Trigger
+                      button.waves-effect.waves-light.btn(type='submit')
+                        i.material-icons.left rate_review
+                        | Post
+        // / profile-page-wall-share
+        // profile-page-wall-posts
+        #profile-page-wall-posts.row
+            each status in statuses
+              +status(pageUser, status, currentUser)

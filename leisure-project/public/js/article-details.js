@@ -73,8 +73,7 @@ $('#rate-btn').on('click', (ev) => {
                 let currentCount = getNumberValue($('#likes-count').html());
                 $('#likes-count').html(--currentCount + ' likes.');
             });
-    }
-    else {
+    } else {
         sendRating('like')
             .then(() => {
                 $target.html('Unlike' + getIcon('thumb_down'));

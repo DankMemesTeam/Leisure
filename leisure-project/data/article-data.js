@@ -44,7 +44,7 @@ module.exports = (articleCollection, validator, models, logger) => {
         },
         likeArticle(articleId, likerUsername) {
             const filter = {
-                _id: articleCollection.generateId(articleId)
+                _id: articleCollection.generateId(articleId),
             };
 
             const update = {
@@ -57,7 +57,7 @@ module.exports = (articleCollection, validator, models, logger) => {
         },
         unlikeArticle(articleId, unlikerUsername) {
             const filter = {
-                _id: articleCollection.generateId(articleId)
+                _id: articleCollection.generateId(articleId),
             };
 
             const update = {

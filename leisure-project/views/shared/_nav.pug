@@ -19,84 +19,81 @@ if user
     li
       a(href= '/users/' + user.username + '/event-chats')
         | Event chats
-nav
-  .nav-wrapper
-    a.brand-logo.center.not-selectable(href='/') Leisure
-    a.button-collapse(href='#', data-activates='mobile-demo')
-      i.material-icons menu
-    ul.hide-on-med-and-down
+nav.main-nav
+  a.brand-logo.center.not-selectable(href='/') Leisure
+  a.button-collapse(href='#', data-activates='mobile-demo')
+    i.material-icons menu
+  ul.hide-on-med-and-down
+    li
+      a(href='/articles')
+        | Articles
+    li
+      a(href='/events')
+        | Events
+    if user
+      li.dropdown
+        a.dropdown-button(href='#', data-activates='chat-dropdown')
+          | Chats 
+          span.caret
+  ul.right.hide-on-med-and-down
+    if user
       li
-        a(href='/articles')
-          | Articles
+        a.dropdown-button(href='#!', data-activates='user-options')
+          | Welcome #{user.firstName}
+          i.material-icons.right arrow_drop_down
+    else
       li
-        a(href='/events')
-          | Events
-      if user
-        li.dropdown
-          a.dropdown-button(href='#', data-activates='chat-dropdown')
-            | Chats 
-            span.caret
-    ul.right.hide-on-med-and-down
-      if user
-        li
-          a.dropdown-button(href='#!', data-activates='user-options')
-            | Welcome #{user.firstName}
-            i.material-icons.right arrow_drop_down
-      else
-        li
-          a(href='/auth/register')
-            span.glyphicon-glyphicon-user
-            | Register
-        li.last-item
-          a(href='/auth/login')
-            span.glyphicon-glyphicon-log-in
-            | Login
-    //- Side navbar
-    ul#mobile-demo.side-nav
-      li.user-details.cyan.darken-2
-        .row
-          .col.col.s4.m4.l4
-            if user
-              img.circle.z-depth-2.responsive-img.activator(src=user.profilePic)
-            else
-              img.circle.z-depth-2.responsive-img.activator(src='/images/default-user.png')
-          .col.col.s8.m8.l8
-            if user
-              a.waves-effect.waves-cyan(href='/users/' + user.username)
-                | #{user.firstName + ' ' + user.lastName}
-              p.user-roal Project manager
-            else
-              a.waves-effect.waves-cyan(href='auth/login')
-                | Guest
-              p.user-roal Random guy
-      if user
-        li.bold
-          a.waves-effect.waves-cyan(href='/users/' + user.username)
-            i.material-icons account_box
-            |  My profile
-        li.bold
-          a.waves-effect.waves-cyan(href='/users/' + user.username +'/settings')
-            i.material-icons settings
-            |  Settings 
-        li.bold
-          a.waves-effect.waves-cyan(href='/auth/logout')
-            i.material-icons exit_to_app
-            |  Logout
-      else
-        li.bold
-          a.waves-effect.waves-cyan(href='/auth/register')
-            i.material-icons account_box
-            |  Register
-        li.bold
-          a.waves-effect.waves-cyan(href='/auth/login')
-            i.material-icons settings
-            |  Login 
-      li.divider
+        a(href='/auth/register')
+          span.glyphicon-glyphicon-user
+          | Register
+      li.last-item
+        a(href='/auth/login')
+          span.glyphicon-glyphicon-log-in
+          | Login
+  //- Side navbar
+  ul#mobile-demo.side-nav
+    li.cyan.darken-2
+      .row.user-details
+        .col.col.s4.m4.l4
+          if user
+            img.circle.z-depth-2.responsive-img.activator(src=user.profilePic)
+          else
+            img.circle.z-depth-2.responsive-img.activator(src='/images/default-user.png')
+        .col.col.s8.m8.l8
+          if user
+            a.waves-effect.waves-cyan(href='/users/' + user.username)
+              | #{user.firstName + ' ' + user.lastName}
+          else
+            a.waves-effect.waves-cyan(href='auth/login')
+              | Guest
+    if user
       li.bold
-        a.waves-effect.waves-cyan(href='/articles')
-          i.material-icons text_format
-          |  Articles
+        a.waves-effect.waves-cyan(href='/users/' + user.username)
+          i.material-icons account_box
+          |  My profile
       li.bold
-        a.waves-effect.waves-cyan(href='/events')
-          i.material-icons event
-          |  Events 
+        a.waves-effect.waves-cyan(href='/users/' + user.username +'/settings')
+          i.material-icons settings
+          |  Settings 
+      li.bold
+        a.waves-effect.waves-cyan(href='/auth/logout')
+          i.material-icons exit_to_app
+          |  Logout
+    else
+      li.bold
+        a.waves-effect.waves-cyan(href='/auth/register')
+          i.material-icons account_box
+          |  Register
+      li.bold
+        a.waves-effect.waves-cyan(href='/auth/login')
+          i.material-icons settings
+          |  Login 
+    li.divider
+    li.bold
+      a.waves-effect.waves-cyan(href='/articles')
+        i.material-icons text_format
+        |  Articles
+    li.bold
+      a.waves-effect.waves-cyan(href='/events')
+        i.material-icons event
+        |  Events 
