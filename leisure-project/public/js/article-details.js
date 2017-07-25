@@ -32,6 +32,7 @@ const sendComment = (commentText) => {
         $.ajax({
             url: '/articles/' + articleId,
             type: 'POST',
+            dataType: 'json',
             data: comment,
             success: resolve,
             error: reject,
