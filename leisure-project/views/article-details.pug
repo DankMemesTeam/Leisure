@@ -9,7 +9,7 @@ block append page-content
         | #{article.title}
     p
         | Published by: 
-        a(href="/user/" + article.author.username)
+        a(href="/users/" + article.author.username)
             | #{article.author.username}
     hr
     p
@@ -17,24 +17,40 @@ block append page-content
     hr
     p
         | Content: #{article.content}
-    div.row
-        form.col.s12(action="/articles/" + article._id + "/comments" method="POST")
-            div.row
-                div.input-field.col.s6
-                    input#comment-content(type="text" name="text")
-                    label(for="comment-content")
-                        | Add comment
-            div.row
-                button.btn.waves-effect.waves-light(type="submit")
-                    | Send
-                    i.material-icons.right
-                        | send
+    if currentUser
+        div.row
+            form.col.s12(action="/articles/" + article._id method="POST")
+                div.row
+                    div.input-field.col.s6
+                        input#comment-content(type="text" name="text")
+                        label(for="comment-content")
+                            | Add comment
+                div.row
+                    button.btn.waves-effect.waves-light(type="submit")
+                        | Send
+                        i.material-icons.right
+                            | send
+        div.row
+            if article.likes.includes(currentUser)
+                form(action="/articles/" + article._id + "/unlike" method="POST")                    
+                    button.btn.waves-effect.waves-light(type="submit")
+                        | Unlike
+                        i.material-icons.right
+                            | thumb_down
+            else
+                form(action="/articles/" + article._id + "/like" method="POST")    
+                    button.btn.waves-effect.waves-light(type="submit")
+                        | Like
+                        i.material-icons.right
+                            | thumb_up
+    p
+        | #{article.likes.length} likes.
     ul.collection
         | Comments:
         each comment in article.comments
             li.collection-item.avatar
                 img.circle(src=comment.author.profilePic)
-                a.title(href="/user/" + comment.author.username)
+                a.title(href="/users/" + comment.author.username)
                     | #{comment.author.username}
                 p
                     | #{comment.text}

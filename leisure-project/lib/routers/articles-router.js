@@ -8,8 +8,9 @@ module.exports = ({ app, express, controllers }) => {
         .get('/categories/:category', articlesController.loadCategoryPage)
         .get('/:id', articlesController.loadDetailsPage)
         .post('/add', articlesController.addArticle)
-        .post('/:id/comments', articlesController.addComment);
-
+        .post('/:id/like', articlesController.likeArticle)
+        .post('/:id/unlike', articlesController.unlikeArticle)
+        .post('/:id', articlesController.addComment);
 
     app.use('/articles', router);
 };

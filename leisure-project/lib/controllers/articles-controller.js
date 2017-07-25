@@ -79,10 +79,17 @@ module.exports = ({ articleData, categoryData, userData }) => {
         loadDetailsPage(req, res) {
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
-                    res.render('article-details', { article });
+                    res.render('article-details', {
+                        article,
+                        currentUser: req.user
+                            ? req.user.username
+                            : null,
+                    });
                 });
         },
         addComment(req, res) {
+            console.log('Add comment called');
+
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
@@ -94,10 +101,32 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return userData.findUserBy({ username: req.user.username })
                 .then((foundUser) => {
-                    console.log(foundUser);
                     comment.author.profilePic = foundUser.profilePic;
                     return articleData.addCommentToArticle(req.params.id, comment);
                 })
+                .then(() => {
+                    res.redirect(`/articles/${req.params.id}`);
+                });
+        },
+        likeArticle(req, res) {
+            console.log('Like called');
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
+            return articleData.likeArticle(req.params.id, req.user.username)
+                .then(() => {
+                    res.redirect(`/articles/${req.params.id}`);
+                });
+        },
+        unlikeArticle(req, res) {
+            console.log('Unlike called');
+
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
+            return articleData.unlikeArticle(req.params.id, req.user.username)
                 .then(() => {
                     res.redirect(`/articles/${req.params.id}`);
                 });

@@ -19,6 +19,8 @@ mixin status(pageUser, status, currentUser)
                             .row
                                 div.hidden
                                     | #{'/users/' + pageUser.username + '/' + status._id}
+                                p
+                                    | #{status.likes.length} likes
                                 if status.likes.includes(currentUser.username)
                                     .col.s4.m2.btn.rate-btn.liked
                                         | Like

@@ -42,5 +42,31 @@ module.exports = (articleCollection, validator, models, logger) => {
 
             return articleCollection.findAndModify(filter, update);
         },
+        likeArticle(articleId, likerUsername) {
+            const filter = {
+                _id: articleCollection.generateId(articleId)
+            };
+
+            const update = {
+                $addToSet: {
+                    likes: likerUsername,
+                },
+            };
+
+            return articleCollection.findAndModify(filter, update);
+        },
+        unlikeArticle(articleId, unlikerUsername) {
+            const filter = {
+                _id: articleCollection.generateId(articleId)
+            };
+
+            const update = {
+                $pull: {
+                    likes: unlikerUsername,
+                },
+            };
+
+            return articleCollection.findAndModify(filter, update);
+        },
     };
 };
