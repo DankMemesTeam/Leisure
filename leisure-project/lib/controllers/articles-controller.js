@@ -88,7 +88,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         addComment(req, res) {
-            console.log('Add comment called');
 
             if (!req.user) {
                 return res.redirect('/auth/login');
@@ -105,8 +104,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return articleData.addCommentToArticle(req.params.id, comment);
                 })
                 .then(() => {
-                    res.redirect(`/articles/${req.params.id}`);
-                });
+                    console.log('Responding');
+                    return res.json(comment);
+                });                
         },
         likeArticle(req, res) {
             console.log('Like called');

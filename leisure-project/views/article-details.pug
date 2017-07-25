@@ -18,18 +18,20 @@ block append page-content
     p
         | Content: #{article.content}
     if currentUser
+        //- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a    
         div.row
-            form.col.s12(action="/articles/" + article._id method="POST")
-                div.row
-                    div.input-field.col.s6
-                        input#comment-content(type="text" name="text")
-                        label(for="comment-content")
-                            | Add comment
-                div.row
-                    button.btn.waves-effect.waves-light(type="submit")
-                        | Send
-                        i.material-icons.right
-                            | send
+            div.row
+                div.input-field.col.s6
+                    input#comment-content(type="text" name="text")
+                    label(for="comment-content")
+                        | Add comment
+            div.row
+                button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                    | Send
+                    i.material-icons.right
+                        | send
+
+        //- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a
         div.row
             if article.likes.includes(currentUser)                  
                 button.btn.waves-effect.waves-light#rate-btn(type="submit")
@@ -43,7 +45,7 @@ block append page-content
                         | thumb_up
     p#likes-count
         | #{article.likes.length} likes.
-    ul.collection
+    ul#comments-list.collection
         | Comments:
         each comment in article.comments
             li.collection-item.avatar
