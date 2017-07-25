@@ -18,8 +18,8 @@ block append page-content
               .card-image.waves-effect.waves-block.waves-light
                 img.activator(src='/images/user-profile-bg.jpg', alt='user background')
               figure.card-profile-image
-                if pageUser.profileUrl
-                  img.circle.z-depth-2.responsive-img.activator(src=pageUser.profileUrl)
+                if pageUser.profilePictureUrl
+                  img.circle.z-depth-2.responsive-img.activator(src=pageUser.profilePictureUrl)
                 else
                   img.circle.z-depth-2.responsive-img.activator(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
               .card-content
@@ -93,8 +93,8 @@ block append page-content
                     #UpdateStatus.tab-content.col.s12.grey.lighten-4
                       .row
                         .col.s2
-                          if pageUser.profileUrl
-                            img.circle.responsive-img.valign.profile-image-post(src=pageUser.profileUrl)
+                          if pageUser.profilePictureUrl
+                            img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePictureUrl)
                           else
                             img.circle.responsive-img.valign.profile-image-post(src='http://s3.amazonaws.com/37assets/svn/765-default-avatar.png')
                         .input-field.col.s10

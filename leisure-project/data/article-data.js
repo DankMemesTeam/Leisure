@@ -20,7 +20,7 @@ module.exports = (articleCollection, validator, models, logger) => {
         findArticles(query) {
             return articleCollection.find({
                 $or: [
-                    { author: { $in: [query] } },
+                    { 'author.username': { $in: [query] } },
                     { title: { $in: [query] } },
                     { tags: { $in: [query] } },
                 ],

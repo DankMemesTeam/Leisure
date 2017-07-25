@@ -1,19 +1,14 @@
-module.exports = (categoryCollection, validator, models, logger) => {
+module.exports = (categoryCollection, validator,
+    models, logger, { categories }) => {
     return {
         initCategories() {
-            const categories = [
-                'Programming',
-                'Science',
-                'Math',
-                'Other',
-            ];
-
             const promises = [];
 
             return categoryCollection.find({})
                 .then((result) => {
                     if (result.length === 0) {
-                        for (const cat of categories) {
+                        for (const cat of categories.initialCategories) {
+                            console.log(cat);
                             promises.push(
                                 categoryCollection.insertOne({
                                     name: cat,

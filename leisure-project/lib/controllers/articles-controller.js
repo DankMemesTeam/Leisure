@@ -1,4 +1,4 @@
-module.exports = ({ articleData, categoryData }) => {
+module.exports = ({ articleData, categoryData, userData }) => {
     const renderArticlesPage = (res, articles, categories) => {
         return res.render('articles-page', {
             articles,
@@ -56,15 +56,21 @@ module.exports = ({ articleData, categoryData }) => {
             }
 
             const articleObj = req.body;
-            articleObj.author = req.user.username;
+            articleObj.author = {
+                username: req.user.username,
+            };
+
             articleObj.tags = req.body.tags.split(/[ ,]+/);
 
+            return Promise.all([
+                articleData.createArticle(articleObj),
+                userData.findUserBy({ username: req.user.username }),
+            ])
+                .then(([insertedObject, foundUser]) => {
+                    articleObj._id = insertedObject.insertedId;
+                    articleObj.author.profilePictureUrl = foundUser.profilePictureUrl;
 
-            return articleData.createArticle(articleObj)
-                .then((inserted) => {
-                    articleObj._id = inserted.insertedId;
-                    return categoryData.addArticleToCategory(articleObj,
-                        articleObj.category);
+                    return categoryData.addArticleToCategory(articleObj, articleObj.category);
                 })
                 .then(() => {
                     res.redirect('/articles');
@@ -82,9 +88,15 @@ module.exports = ({ articleData, categoryData }) => {
             }
 
             const comment = req.body;
-            comment.author = req.user.username;
+            comment.author = {
+                username: req.user.username,
+            };
 
-            return articleData.addCommentToArticle(req.params.id, comment)
+            return userData.findUserBy({ username: req.user.username })
+                .then((foundUser) => {
+                    comment.author.profilePictureUrl = foundUser.profilePictureUrl;
+                    return articleData.addCommentToArticle(req.params.id, comment);
+                })
                 .then(() => {
                     res.redirect(`/articles/${req.params.id}`);
                 });

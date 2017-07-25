@@ -2,21 +2,6 @@ extends ./shared/_master
 
 block append page-content
     div.row
-        a.waves-effect.waves-light.btn(href="/articles/add")
-            | Add new article
-
-    nav
-        div.nav-wrapper
-            form
-                div.input-field
-                    input#search-article(type="search" name="query")
-                    label.label-icon(for="search-article")
-                        i.material-icons
-                            | search
-                    i.material-icons
-                        | close
-    
-    div.row
         ul.dropdown-content#categories-dropdown            
             li
                 a(href='/articles')
@@ -30,10 +15,26 @@ block append page-content
                     a(href='/articles')
                         | No categories found
 
-        a.btn.dropdown-button(data-activates="categories-dropdown")
+    div.row
+        a.waves-effect.waves-light.btn.left(href="/articles/add")
+            | Add new article
+            i.material-icons.right
+                | add
+        a.btn.dropdown-button.right(data-activates="categories-dropdown")
             | Categories
             i.material-icons.right
                 | arrow_drop_down
+
+    nav
+        div.nav-wrapper
+            form
+                div.input-field
+                    input#search-article(type="search" name="query")
+                    label.label-icon(for="search-article")
+                        i.material-icons
+                            | search
+                    i.material-icons
+                        | close
 
     each article in articles
         ul.collection
@@ -42,7 +43,7 @@ block append page-content
                 a.title(href="#")
                     | #{article.title}
                 p 
-                    | Published by: #{article.author}
+                    | Published by: #{article.author.username}
                 p 
                     | #{article.description}
                 p

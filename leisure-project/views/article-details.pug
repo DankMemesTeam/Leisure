@@ -6,12 +6,14 @@ block append page-content
         div.chip
             | ##{tag}
     h1
-        | Title: #{article.title}
-    h3
-        | Publisher: #{article.author}
+        | #{article.title}
+    p
+        | Published by: 
+        a(href="/user/" + article.author.username)
+            | #{article.author.username}
     hr
-    h3
-        | Description: #{article.description}
+    p
+        | Summary: #{article.description}
     hr
     p
         | Content: #{article.content}
@@ -30,8 +32,13 @@ block append page-content
     ul.collection
         | Comments:
         each comment in article.comments
-            li
-                | #{comment.author} ----> #{comment.text}
+            li.collection-item.avatar
+                img.circle(src=comment.author.profilePictureUrl)
+                a.title(href="/user/" + comment.author.username)
+                    | #{comment.author.username}
+                p
+                    | #{comment.text}
+
         else
-            h3
+            h5
                 | There are currently no comments on this article
