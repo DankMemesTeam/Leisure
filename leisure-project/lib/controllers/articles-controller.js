@@ -117,7 +117,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         unlikeArticle(req, res) {
-
             if (!req.user) {
                 return res.redirect('/auth/login');
             }

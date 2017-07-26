@@ -31,6 +31,11 @@ block append page-content
       // profile-page-sidebar
       #profile-page-sidebar.col.s12.m4.l4
         // Profile About
+        if currentUser && !isOwner
+          .card-content.white-text.center-align
+            p.btn.message-btn.card-title
+              i.material-icons markunread
+              |  Message
         .card.green.lighten-4
           .card-content.white-text
             span.card-title About Me!
@@ -77,12 +82,6 @@ block append page-content
               i.material-icons group_add
               |  #{pageUser.followers.length}
             p Followers
-        if currentUser && !isOwner
-          .card.blue.lighten-2
-            .card-content.white-text.center-align
-              p.btn.message-btn.card-title
-                i.material-icons group_add
-                |  Message
         // Profile About
       #profile-page-wall.col.s12.m8
         // profile-page-wall-share
