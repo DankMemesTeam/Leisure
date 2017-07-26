@@ -1,4 +1,4 @@
-extends ./shared/_master
+extends ../shared/_master
 
 block append page-content
     div.row
@@ -18,35 +18,35 @@ block append page-content
     p
         | Content: #{article.content}
     if currentUser
-        //- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a    
+        div.row
+            .col.s3.s2
+                if article.likes.includes(currentUser)                  
+                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                        | Unlike
+                        i.material-icons.right
+                            | thumb_down
+                else 
+                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                        | Like
+                        i.material-icons.right
+                            | thumb_up
+            .col.s3.m2
+                p#likes-count.bold
+                    | #{article.likes.length} likes.
         div.row
             div.row
                 div.input-field.col.s6
                     input#comment-content(type="text" name="text")
                     label(for="comment-content")
                         | Add comment
-            div.row
-                button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
-                    | Send
-                    i.material-icons.right
-                        | send
-
-        //- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a- a
-        div.row
-            if article.likes.includes(currentUser)                  
-                button.btn.waves-effect.waves-light#rate-btn(type="submit")
-                    | Unlike
-                    i.material-icons.right
-                        | thumb_down
-            else 
-                button.btn.waves-effect.waves-light#rate-btn(type="submit")
-                    | Like
-                    i.material-icons.right
-                        | thumb_up
-    p#likes-count
-        | #{article.likes.length} likes.
+                .col.s4.m2
+                    button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                        | Send
+                        i.material-icons.right
+                            | send
+    p
+        | Comment section: 
     ul#comments-list.collection
-        | Comments:
         each comment in article.comments
             li.collection-item.avatar
                 img.circle(src=comment.author.profilePic)

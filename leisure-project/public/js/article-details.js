@@ -60,7 +60,7 @@ const createComment = (comment) => {
     $li.append($a);
     $li.append($p);
 
-    $('#comments-list').append($li);
+    $('#comments-list').prepend($li);
 };
 
 $('#rate-btn').on('click', (ev) => {
