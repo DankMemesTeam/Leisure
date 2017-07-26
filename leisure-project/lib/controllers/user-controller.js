@@ -50,7 +50,6 @@ module.exports = ({ userData, statusData }) => {
                     return statusData.getFeed(usersFollowed.followed);
                 })
                 .then((statuses) => {
-                    console.log(statuses);
                     return res.render('user/user-feed', { statuses: statuses });
                 });
         },

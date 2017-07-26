@@ -31,6 +31,9 @@ nav.main-nav
       a(href='/events')
         | Events
     if user
+      li
+        a(href='/feed')
+          | Feed
       li.dropdown
         a.dropdown-button(href='#', data-activates='chat-dropdown')
           | Chats 
