@@ -42,9 +42,9 @@ const createComment = (comment, $collection) => {
     $a.html(comment.author);
 
     $li.append($a);
-    $li.append('said: ' + comment.content);
+    $li.append(' said: ' + comment.content);
 
-    $collection.append($li);
+    $collection.prepend($li);
 };
 
 $(() => {
@@ -102,6 +102,7 @@ $(() => {
             .then((comment) => {
                 const $collection = $(ev.target).parent().parent().next().children('ul');
                 createComment(comment, $collection);
+                $(ev.target).children('input').val('');
             });
     });
 });

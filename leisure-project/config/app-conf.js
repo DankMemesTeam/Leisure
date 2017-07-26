@@ -16,14 +16,16 @@ module.exports = (logger) => {
         hashGenerator,
         validator);
 
-    require('./auth-conf')(app,
+    const application = require('./auth-conf')(app,
         data,
         db,
         config.dev.secretString,
         hashGenerator);
 
-    // Routers should take app, data, controllers and logger in the contructor
-    require('../lib/routers')(app, express, loadedControllers);
+    require('../lib/routers')(application, express, loadedControllers);
 
-    return app;
+    const server =
+    require('./socket-conf')(application, data, loadedControllers.chatController);
+
+    return server;
 };

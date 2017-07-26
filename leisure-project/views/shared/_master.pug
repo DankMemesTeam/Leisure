@@ -9,6 +9,7 @@ block styles
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     link(rel='stylesheet', href='/css/style.css')
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
 block body
     block nav
         include ./_nav.pug
@@ -16,6 +17,7 @@ block body
         block page-content
 block footer
     include ./_footer.pug
-    script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+    if currentUser
+        script(src='/socket.io/socket.io.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js')
     script(src='/js/main.js')

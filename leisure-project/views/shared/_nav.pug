@@ -38,6 +38,8 @@ nav.main-nav
   ul.right.hide-on-med-and-down
     if user
       li
+        div#username.hidden
+          | #{user.username}
         a.dropdown-button(href='#!', data-activates='user-options')
           | Welcome #{user.firstName}
           i.material-icons.right arrow_drop_down

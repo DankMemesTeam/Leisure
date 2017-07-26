@@ -15,7 +15,7 @@ module.exports = (db, validator, loadedModels, logger, dataConfig) => {
         .forEach((modulePath) => {
             const normalizedName = normalizeModuleName(modulePath);
             const collectionToUse = collectionsModule(db, normalizedName);
-
+            
             const loadedModule = require(modulePath)(collectionToUse,
                 validator,
                 loadedModels,
