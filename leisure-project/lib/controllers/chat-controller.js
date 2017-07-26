@@ -12,7 +12,6 @@ module.exports = ({ userData, chatData }) => {
 
             return chatData.createChatroom(participants)
                 .then((resultChatroom) => {
-                    console.log(res);
                     // why does it not redirect
                     res.redirect(`/users/${req.user.username}/chats`);
                 });
