@@ -5,8 +5,6 @@ const getNumberValue = (str) => {
 };
 
 const sendRate = (url) => {
-    console.log(url);
-
     return new Promise((resolve, reject) => {
         $.ajax({
             url: url,
@@ -15,6 +13,38 @@ const sendRate = (url) => {
             error: reject,
         });
     });
+};
+
+const sendComment = (commentText, url) => {
+    const comment = {
+        commentContent: commentText,
+    };
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url,
+            type: 'POST',
+            dataType: 'json',
+            data: comment,
+            success: resolve,
+            error: reject,
+        });
+    });
+};
+
+const createComment = (comment, $collection) => {
+    const $li = $('<li></li>');
+    $li.addClass('collection-item');
+
+    const $a = $('<a></a>');
+    $a.addClass('comment-username');
+    $a.attr('href', '/users/' + comment.author);
+    $a.html(comment.author);
+
+    $li.append($a);
+    $li.append('said: ' + comment.content);
+
+    $collection.append($li);
 };
 
 $(() => {
@@ -59,6 +89,19 @@ $(() => {
                     $target.html('Like');
                     $target.prev().html(--statusLikes + ' likes.');
                 }
+            });
+    });
+
+    $('.comment-form').submit((ev) => {
+        ev.preventDefault();
+
+        const commentText = $(ev.target).children('input').val().trim();
+        const url = $(ev.target).attr('action');
+
+        sendComment(commentText, url)
+            .then((comment) => {
+                const $collection = $(ev.target).parent().parent().next().children('ul');
+                createComment(comment, $collection);
             });
     });
 });

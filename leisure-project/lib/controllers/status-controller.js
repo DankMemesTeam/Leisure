@@ -23,7 +23,7 @@ module.exports = ({ statusData }) => {
             statusData.addStatusComment(req.params.username,
                 req.params.statusId, comment)
                 .then(() => {
-                    res.redirect(`/users/${req.params.username}`);
+                    return res.json(comment);
                 })
                 .catch((err) => {
                     console.log(err);
