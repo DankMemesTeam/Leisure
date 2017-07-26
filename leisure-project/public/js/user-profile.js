@@ -1,52 +1,4 @@
 /* globals $ */
-
-const getNumberValue = (str) => {
-    return Number.parseInt(str.match(/\d+/)[0], 10);
-};
-
-const sendRate = (url) => {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url: url,
-            type: 'POST',
-            success: resolve,
-            error: reject,
-        });
-    });
-};
-
-const sendComment = (commentText, url) => {
-    const comment = {
-        commentContent: commentText,
-    };
-
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            url,
-            type: 'POST',
-            dataType: 'json',
-            data: comment,
-            success: resolve,
-            error: reject,
-        });
-    });
-};
-
-const createComment = (comment, $collection) => {
-    const $li = $('<li></li>');
-    $li.addClass('collection-item');
-
-    const $a = $('<a></a>');
-    $a.addClass('comment-username');
-    $a.attr('href', '/users/' + comment.author);
-    $a.html(comment.author);
-
-    $li.append($a);
-    $li.append('said: ' + comment.content);
-
-    $collection.append($li);
-};
-
 const followOrUnfollow = (action) => {
     const url = window.location.href;
 
@@ -60,10 +12,6 @@ const followOrUnfollow = (action) => {
             error: reject,
         });
     });
-};
-
-const getIcon = (type) => {
-    return '<i class="material-icons right">' + type + '</i>';
 };
 
 $(() => {
@@ -82,48 +30,6 @@ $(() => {
         });
     });
 
-    $('.rate-btn').click((ev) => {
-        const $target = $(ev.target);
-
-        let postUrl = $target.first().parent()
-            .children().first().text();
-
-        if ($target.hasClass('liked')) {
-            postUrl = postUrl + '/dislike';
-        } else {
-            postUrl = postUrl + '/like';
-        }
-
-        sendRate(postUrl)
-            .then(() => {
-                let statusLikes = getNumberValue($target.prev().html());
-
-                $target.toggleClass('liked');
-
-                if ($target.hasClass('liked')) {
-                    $target.html('Unlike');
-                    $target.prev().html(++statusLikes + ' likes.');
-                }
-                else {
-                    $target.html('Like');
-                    $target.prev().html(--statusLikes + ' likes.');
-                }
-            });
-    });
-
-    $('.comment-form').submit((ev) => {
-        ev.preventDefault();
-
-        const commentText = $(ev.target).children('input').val().trim();
-        const url = $(ev.target).attr('action');
-
-        sendComment(commentText, url)
-            .then((comment) => {
-                const $collection = $(ev.target).parent().parent().next().children('ul');
-                createComment(comment, $collection);
-            });
-    });
-
     $('#follow-user-btn').click((ev) => {
         const $btn = $('#follow-user-btn');
 
@@ -131,7 +37,7 @@ $(() => {
 
         if ($btn.hasClass('followed')) {
             followOrUnfollow('follow')
-                .then(() => {                    
+                .then(() => {
                     $btn.html('Unfollow' + getIcon('remove_red_eye'));
                 });
         }

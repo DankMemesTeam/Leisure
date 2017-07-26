@@ -4,7 +4,9 @@ module.exports = (statusCollection, validator, models, logger) => {
     return {
         findStatusesByUser(username) {
             return statusCollection.find(
-                { author: username }
+                {
+                    'author.username': username,
+                },
             );
         },
         createStatus(statusObject) {
@@ -39,7 +41,7 @@ module.exports = (statusCollection, validator, models, logger) => {
         },
         getFeed(followedUsernames) {
             return statusCollection.find(
-                { author: { $in: followedUsernames } },
+                { 'author.username': { $in: followedUsernames } },
             );
             // toArray() ?
             // SORT ME

@@ -7,7 +7,14 @@ block append page-content
     h2
         | #{statuses.length} statuses
     each stat in statuses
-        +status("gosho", stat, "gosho")
+        //- pageuser, status, currentuser
+        +status(stat, locals.user)
 
 block append footer
-    script(src="js/user-feed.js")
+    script(src="js/status-comment.js")
+    script(src="js/status-rating.js")
+    script(src='/js/utils.js')
+
+block append styles
+  link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
+  link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')

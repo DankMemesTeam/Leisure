@@ -1,13 +1,13 @@
-mixin status(pageUser, status, currentUser)
+mixin status(status, currentUser)
     .col.s12
         #profile-page-wall-post.card.z-depth-3
             .card-profile-title
                 .row
                     .col.s3.m2
-                        img.circle.responsive-img.valign.profile-post-uer-image(src=pageUser.profilePic)
+                        img.circle.responsive-img.valign.profile-post-uer-image(src=status.author.profilePic)
                     .col.s9
                         p.grey-text.text-darken-4.margin
-                            | #{pageUser.firstName} #{pageUser.lastName}
+                            | #{status.author.firstName} #{status.author.lastName}
                         span.grey-text.text-darken-1.ultra-small Shared publicly  -   #{status.dateCreated.getDate() + '/' + (status.dateCreated.getMonth() + 1) + '/' + status.dateCreated.getUTCFullYear()}
                 .row
                     .col.s12
@@ -19,7 +19,7 @@ mixin status(pageUser, status, currentUser)
                             .col.s12.m12.card-action-share.left
                                 .row
                                     div.hidden
-                                        | #{'/users/' + pageUser.username + '/' + status._id}
+                                        | #{'/users/' + status.author.username + '/' + status._id}
                                     p
                                         | #{status.likes.length} likes
                                     if currentUser && status.likes.includes(currentUser.username)
@@ -33,13 +33,13 @@ mixin status(pageUser, status, currentUser)
                         .divider
                         .row
                             .commentInput-field.col.s8.margin
-                                form.comment-form(action='/users/' + pageUser.username + '/' + status._id, method='POST')
+                                form.comment-form(action='/users/' + status.author.username + '/' + status._id, method='POST')
                                     input.commentInput#profile-comments.validate.margin(name="commentContent", type='text' placeholder='Write a comment')
                     .row
                         if status.comments.length > 0
                             ul.collection
                                 each comment in status.comments
                                     li.collection-item
-                                        a.comment-username(href='/users/' + comment.author)
-                                            | #{comment.author} 
+                                        a.comment-username(href='/users/' + comment.author.username)
+                                            | #{comment.author.username} 
                                         | said: #{comment.content}

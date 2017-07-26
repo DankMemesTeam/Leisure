@@ -5,6 +5,9 @@ block append styles
   link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')
 block append footer
   script(src='/js/user-profile.js')
+  script(src='/js/status-rating.js')
+  script(src='/js/status-comment.js')
+  script(src='/js/utils.js')
 include ../mixins/status.pug
 block append page-content
   #profile-page.section
@@ -122,4 +125,4 @@ block append page-content
         // profile-page-wall-posts
         #profile-page-wall-posts.row
             each status in statuses
-              +status(pageUser, status, currentUser)
+              +status(status, currentUser)

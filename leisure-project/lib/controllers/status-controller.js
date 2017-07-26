@@ -1,32 +1,56 @@
-module.exports = ({ statusData }) => {
+module.exports = ({ statusData, userData }) => {
     return {
         createStatus(req, res) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
             const status = {
-                author: req.user.username,
                 content: req.body.statusInput,
             };
 
-            return statusData.createStatus(status)
-                .then(res.redirect('/users/' + req.user.username));
+            return userData.findUserBy({ username: req.user.username })
+                .then((foundUser) => {
+                    status.author = {
+                        username: foundUser.username,
+                        firstName: foundUser.firstName,
+                        lastName: foundUser.lastName,
+                        profilePic: foundUser.profilePic,
+                    };
+
+                    return statusData.createStatus(status);
+                })
+                .then(() => {
+                    return res.redirect('/users/' + req.user.username);
+                });
         },
         addCommentToStatus(req, res) {
             if (!req.user) {
-                res.redirect('/auth/login');
-                return;
+                return res.redirect('/auth/login');
             }
 
             const comment = {
-                author: req.user.username,
                 content: req.body.commentContent,
             };
 
-            statusData.addStatusComment(req.params.username,
-                req.params.statusId, comment)
+
+            return userData.findUserBy({ username: req.user.username })
+                .then((foundUser) => {
+                    comment.author = {
+                        username: foundUser.username,
+                        firstName: foundUser.firstName,
+                        lastName: foundUser.lastName,
+                        profilePic: foundUser.profilePic,
+                    };
+
+                    return statusData.addStatusComment(
+                        req.params.username,
+                        req.params.statusId,
+                        comment,
+                    );
+                })
                 .then(() => {
                     return res.json(comment);
-                })
-                .catch((err) => {
-                    console.log(err);
                 });
         },
         likeStatus(req, res) {

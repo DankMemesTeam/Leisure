@@ -50,19 +50,11 @@ module.exports = ({ userData, statusData }) => {
                     return statusData.getFeed(usersFollowed.followed);
                 })
                 .then((statuses) => {
+                    console.log(statuses);
                     return res.render('user/user-feed', { statuses: statuses });
                 });
-            /* 
-                - userData.getUserByUsername(req.user.username) => foundUser
-                - get foundUser.peopleFollowed => [usernames]
-                - statusData.find({ author: $in: [usernames] }) => statuses => sort them
-                - return res.render('user/user-feed', statuses)
-            */
         },
         followUser(req, res) {
-            /*
-                - userData.followUser(follower: req.user.username, toFollow: req.params.username)
-            */
             if (!req.user) {
                 return res.redirect('auth/login');
             }
