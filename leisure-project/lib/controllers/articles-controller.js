@@ -90,6 +90,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
         addComment(req, res) {
             if (!req.user) {
                 return res.redirect('/auth/login');
+            }
 
             const comment = req.body;
             comment.author = {
@@ -102,8 +103,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return articleData.addCommentToArticle(req.params.id, comment);
                 })
                 .then(() => {
-                    return res.json(comment);                    
+                    return res.json(comment);
                 });
+
         },
         likeArticle(req, res) {
             console.log('Like called');
