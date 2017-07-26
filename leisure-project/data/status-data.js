@@ -37,5 +37,12 @@ module.exports = (statusCollection, validator, models, logger) => {
                 { $pull: { likes: likerUsername } }
             );
         },
+        getFeed(followedUsernames) {
+            return statusCollection.find(
+                { author: { $in: followedUsernames } },
+            );
+            // toArray() ?
+            // SORT ME
+        },
     };
 };

@@ -9,6 +9,7 @@ module.exports = class User {
         this.hashedPassword = hashedPassword;
         this.profilePic = config.defaultProfilePic;
         this.dateJoined = new Date();
+        this.followed = [];
         this.followers = [];
     }
 };

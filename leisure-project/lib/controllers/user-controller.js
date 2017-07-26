@@ -40,6 +40,47 @@ module.exports = ({ userData, statusData }) => {
                         });
                 });
         },
+        loadUserFeed(req, res) {
+            if (!req.user) {
+                return res.redirect('auth/login');
+            }
 
+            return userData.getUserFollowed(req.user.username)
+                .then((usersFollowed) => {
+                    return statusData.getFeed(usersFollowed.followed);
+                })
+                .then((statuses) => {
+                    return res.render('user/user-feed', { statuses: statuses });
+                });
+            /* 
+                - userData.getUserByUsername(req.user.username) => foundUser
+                - get foundUser.peopleFollowed => [usernames]
+                - statusData.find({ author: $in: [usernames] }) => statuses => sort them
+                - return res.render('user/user-feed', statuses)
+            */
+        },
+        followUser(req, res) {
+            /*
+                - userData.followUser(follower: req.user.username, toFollow: req.params.username)
+            */
+            if (!req.user) {
+                return res.redirect('auth/login');
+            }
+
+            return userData.followUser(req.user.username, req.params.username)
+                .then(() => {
+                    return res.sendStatus(200);
+                });
+        },
+        unfollowUser(req, res) {
+            if (!req.user) {
+                return res.redirect('auth/login');
+            }
+
+            return userData.unfollowUser(req.user.username, req.params.username)
+                .then(() => {
+                    return res.sendStatus(200);
+                });
+        }
     };
 };

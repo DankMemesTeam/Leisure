@@ -27,5 +27,47 @@ module.exports = (usersCollection, validator, models, logger) => {
                 { $set: data },
             );
         },
+        getUserFollowed(username) {
+            return usersCollection.findOne(
+                { username },
+                { followed: 1, _id: 0 },
+            );
+        },
+        followUser(follower, userToFollow) {
+            // Update follower
+            const followerUpdate = usersCollection.findAndModify(
+                { username: follower },
+                { $addToSet: { followed: userToFollow } },
+            );
+
+            // Update user to follow
+            const userToFollowUpdate = usersCollection.findAndModify(
+                { username: userToFollow },
+                { $addToSet: { followers: follower } },
+            );
+
+            return Promise.all([
+                followerUpdate,
+                userToFollowUpdate,
+            ]);
+        },
+        unfollowUser(follower, userToUnfollow) {
+            // Update follower
+            const followerUpdate = usersCollection.findAndModify(
+                { username: follower },
+                { $pull: { followed: userToUnfollow } },
+            );
+
+            // Update user to unfollow
+            const userToUnfollowUpdate = usersCollection.findAndModify(
+                { username: userToUnfollow },
+                { $pull: { followers: follower } },
+            );
+
+            return Promise.all([
+                followerUpdate,
+                userToUnfollowUpdate,
+            ]);
+        }
     };
 };

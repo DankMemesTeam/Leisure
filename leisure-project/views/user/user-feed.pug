@@ -1,0 +1,13 @@
+extends ../shared/_master
+
+block append page-content
+    include ../mixins/status.pug
+    h1
+        | Stuff be working
+    h2
+        | #{statuses.length} statuses
+    each stat in statuses
+        +status("gosho", stat, "gosho")
+
+block append footer
+    script(src="js/user-feed.js")
