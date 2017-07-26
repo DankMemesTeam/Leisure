@@ -1,10 +1,10 @@
 module.exports = ({ userData }, hashGenerator, validator) => {
     return {
         loadLoginPage(req, res) {
-            res.render('login');
+            res.render('auth/login');
         },
         loadRegisterPage(req, res) {
-            res.render('register');
+            res.render('auth/register');
         },
         registerUser(req, res) {
             const user = req.body;

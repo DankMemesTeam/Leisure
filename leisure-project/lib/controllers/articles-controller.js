@@ -1,6 +1,6 @@
 module.exports = ({ articleData, categoryData, userData }) => {
     const renderArticlesPage = (res, articles, categories) => {
-        return res.render('articles-page', {
+        return res.render('article/article-page', {
             articles,
             categories,
         });
@@ -45,7 +45,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return categoryData.getAllCategoryNames();
                 })
                 .then((names) => {
-                    return res.render('add-article-page', {
+                    return res.render('article/add-article-page', {
                         categories: names,
                     });
                 });
@@ -79,7 +79,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
         loadDetailsPage(req, res) {
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
-                    res.render('article-details', {
+                    res.render('article/article-details', {
                         article,
                         currentUser: req.user
                             ? req.user.username
@@ -106,7 +106,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         likeArticle(req, res) {
-            console.log('Like called');
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
@@ -117,7 +116,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         unlikeArticle(req, res) {
-            console.log('Unlike called');
 
             if (!req.user) {
                 return res.redirect('/auth/login');

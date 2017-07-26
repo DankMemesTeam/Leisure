@@ -1,10 +1,11 @@
-extends ./shared/_master
+extends ../shared/_master
+
 block append styles
   link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
   link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')
 block append footer
   script(src='/js/user-profile.js')
-include ./mixins/status.pug
+include ../mixins/status.pug
 block append page-content
   #profile-page.section
     // profile-page-header

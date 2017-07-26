@@ -8,7 +8,7 @@ module.exports = ({ userData, statusData }) => {
                 .then((result) => {
                     const isOwner = req.user && req.user.username === req.params.username;
 
-                    res.render('user-profile',
+                    res.render('user/user-profile',
                         {
                             pageUser: result[0], currentUser: req.user,
                             statuses: result[1], isOwner,
@@ -23,7 +23,7 @@ module.exports = ({ userData, statusData }) => {
                         return;
                     }
 
-                    res.render('profile-settings', foundUser);
+                    res.render('user/profile-settings', foundUser);
                 });
         },
         editUserProfile(req, res) {
