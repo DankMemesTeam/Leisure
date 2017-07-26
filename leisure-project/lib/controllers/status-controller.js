@@ -33,7 +33,7 @@ module.exports = ({ statusData }) => {
             return statusData.likeStatus(req.params.username,
                 req.params.statusId, req.user.username)
                 .then(() => {
-                    res.redirect(`/users/${req.params.username}`);
+                    return res.sendStatus(200);
                 })
                 .catch((err) => {
                     console.log(err);
@@ -43,7 +43,7 @@ module.exports = ({ statusData }) => {
             return statusData.dislikeStatus(req.params.username,
                 req.params.statusId, req.user.username)
                 .then(() => {
-                    res.redirect(`/users/${req.params.username}`);
+                    return res.sendStatus(200);
                 })
                 .catch((err) => {
                     console.log(err);

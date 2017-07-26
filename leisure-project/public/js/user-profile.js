@@ -1,9 +1,23 @@
 /* globals $ */
 
-$(() => {
-    const likePathExtension = '/like';
-    const dislikePathExtension = '/dislike';
+const getNumberValue = (str) => {
+    return Number.parseInt(str.match(/\d+/)[0], 10);
+};
 
+const sendRate = (url) => {
+    console.log(url);
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: resolve,
+            error: reject,
+        });
+    });
+};
+
+$(() => {
     $('.message-btn').click((ev) => {
         // Should think of better way to do this!
         const url = window.location.href.split('/');
@@ -20,34 +34,31 @@ $(() => {
     });
 
     $('.rate-btn').click((ev) => {
-        let postUrl = $(ev.target).first().parent()
-            .children().first().text();
-        console.log(postUrl);
-
         const $target = $(ev.target);
 
+        let postUrl = $target.first().parent()
+            .children().first().text();
+
         if ($target.hasClass('liked')) {
-            $target.removeClass('liked');
             postUrl = postUrl + '/dislike';
         } else {
-            $target.addClass('liked');
             postUrl = postUrl + '/like';
         }
 
-        $.ajax({
-            url: postUrl,
-            type: 'POST',
-            dataType: 'application/json',
-            data: {},
-            error: (data) => {
-                // const $counter = $(ev.target).next();
+        sendRate(postUrl)
+            .then(() => {
+                let statusLikes = getNumberValue($target.prev().html());
 
-                // if (postUrl.includes(likePathExtension)) {
-                //     $counter.text(+$counter.text() + 1);
-                // } else {
-                //     $counter.text(+$counter.text() - 1);
-                // }
-            },
-        });
+                $target.toggleClass('liked');
+
+                if ($target.hasClass('liked')) {
+                    $target.html('Unlike');
+                    $target.prev().html(++statusLikes + ' likes.');
+                }
+                else {
+                    $target.html('Like');
+                    $target.prev().html(--statusLikes + ' likes.');
+                }
+            });
     });
 });

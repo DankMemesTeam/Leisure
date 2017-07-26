@@ -24,7 +24,7 @@ mixin status(pageUser, status, currentUser)
                                         | #{status.likes.length} likes
                                     if currentUser && status.likes.includes(currentUser.username)
                                         .col.s4.m2.btn.rate-btn.liked
-                                            | Like
+                                            | Unlike
                                     else
                                         .col.s4.m2.offset-s1.btn.rate-btn
                                             | Like
