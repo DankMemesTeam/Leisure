@@ -60,6 +60,12 @@ $(() => {
             data: {
                 pageUser: username,
             },
+            // For some reason error handles the success request...
+            error: function(data) {
+                if (data.responseText) {
+                    window.location.href = data.responseText;
+                }
+            },
         });
     });
 

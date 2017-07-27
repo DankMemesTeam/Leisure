@@ -77,6 +77,7 @@ $('.chat-btn').click((ev) => {
                 container.append($message);
             }
 
+            $('#chat-details').removeClass('hidden');
             $('.message-container').html(container.html());
         })
         .catch((err) => {

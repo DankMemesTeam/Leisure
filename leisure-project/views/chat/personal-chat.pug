@@ -10,30 +10,16 @@ block append page-content
             .col.s12
                 .chat-list.col.s12.m4.card-panel.z-depth-1
                     ul.collection
-                        each chat in chatRooms
-                            li(chatId=chat._id).chat-btn.collection-item.avatar.chat-unread
-                                span.circle.red.lighten-1
-                                span.chat-title mitko
+                        each details in chatDetails
+                            li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
+                                img.circle.z-depth-2.responsive-img.activator(src=details.profilePic)
+                                span.chat-title
+                                    | #{details.fullName}
                                 p.truncate.grey-text.ultra-small
-                                    | Last message from Mitko..
-                .chat-details.col.s12.m8.card-panel
+                                    | Send message to #{details.fullName}
+                #chat-details.col.s12.m8.card-panel.hidden
                     .row.messages-row
                         .col.s12.m12.message-container.messages
-                            div
-                                .message-data
-                                    span.message-data-name
-                                    i.fa.fa-circle.you
-                                    |  You
-                                .message.you-message
-                                    | A new client?!?! I would love to help them, but where are we going to find the time?
-                            div
-                                .message-data.align-right
-                                    span.message-data-name Ada, your OperationsAlly
-                                    i.fa.fa-circle.me
-                                .message.me-message.float-right
-                                    | We should take a look at your onboarding and service delivery workflows, for most businesess there are many ways
-                                    | to save time and not compromise quality.
-
                     .row
                         .col.s7.m9.reply-container
                             input(type='text' placeholder='Type a message...')#replyInput.form-control
