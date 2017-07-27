@@ -38,9 +38,8 @@ module.exports = (chatroomCollection, validator, models, logger) => {
                 .then((result) => {
                     if (!result) {
                         return chatroomCollection.insertOne(chatroom);
-                    } else {
-                        return Promise.resolve(result);
                     }
+                        return Promise.resolve(result);
                 });
 
             // return chatroomCollection.findAndModify(

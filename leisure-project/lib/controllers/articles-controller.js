@@ -104,7 +104,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 .then(() => {
                     return res.json(comment);
                 });
-
         },
         likeArticle(req, res) {
             if (!req.user) {

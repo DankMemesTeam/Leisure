@@ -84,8 +84,7 @@ $(() => {
                 if ($target.hasClass('liked')) {
                     $target.html('Unlike');
                     $target.prev().html(++statusLikes + ' likes.');
-                }
-                else {
+                } else {
                     $target.html('Like');
                     $target.prev().html(--statusLikes + ' likes.');
                 }

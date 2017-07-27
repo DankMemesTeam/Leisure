@@ -25,7 +25,6 @@ module.exports = (app, data, chatController) => {
                     const currentRoomParticipants = results[0].participants;
 
                     for (let i = 0; i < sockets.length; i += 1) {
-
                         if (currentRoomParticipants.includes(sockets[i].username)
                             && results[0]._id.equals(messageObj.chatId)) {
                             sockets[i].socket

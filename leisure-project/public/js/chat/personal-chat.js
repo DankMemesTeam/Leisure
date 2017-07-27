@@ -12,27 +12,69 @@ const getRecentMessages = (currentUser, chatId) => {
     });
 };
 
+const createMessageBox = (author, content) => {
+    const $messageDataName = $('<span/>').addClass('message-data-name');
+
+    const $messageData = $('<div/>')
+        .addClass('message-data');
+
+    const $messageContent = $('<div/>')
+        .addClass('message');
+    const $icon = $('<i/>');
+
+    if ($('#username').text() === author) {
+        $messageDataName
+        .text('You');
+
+        $icon.addClass('fa fa-circle me');
+
+        $messageData
+        .addClass('align-right')
+        .append($messageDataName)
+        .append($icon);
+
+        $messageContent
+        .addClass('me-message float-right');
+    } else {
+        $messageDataName
+        .text(author);
+
+        $icon.addClass('fa fa-circle you');
+
+        $messageData
+        .append($messageDataName)
+        .append($icon);
+
+        $messageContent
+        .addClass('you-message');
+    }
+
+    $messageContent.text(content);
+
+    const message = $('<div/>')
+        .addClass('clearfix')
+        .append($messageData)
+        .append($messageContent);
+
+    return message;
+};
+
 $('.chat-btn').click((ev) => {
     const currentUser = $('#username').text();
 
     currentChatId = $(ev.target).prop('tagName') === 'LI' ?
-    $(ev.target).attr('chatId') :
-     $(ev.target).parents('.chat-btn').attr('chatId');
+        $(ev.target).attr('chatId') :
+        $(ev.target).parents('.chat-btn').attr('chatId');
 
     $('.message-container').html('');
-    console.log(currentUser);
-    console.log(currentChatId);
 
     getRecentMessages(currentUser, currentChatId)
         .then((messages) => {
             const container = $('<div/>');
 
             for (let i = 0; i < messages.length; i += 1) {
-                const currentMessage = $('<li/>');
-                const messageText = messages[i].author + ' said: ' + messages[i].content;
-
-                currentMessage.text(messageText);
-                container.append(currentMessage);
+                const $message = createMessageBox(messages[i].author, messages[i].content);
+                container.append($message);
             }
 
             $('.message-container').html(container.html());
@@ -64,12 +106,8 @@ $(() => {
     });
 
     socket.on('recieve message', (messageObj) => {
-        const $messageElement = $('<li/>');
-        const $messageAuthor = $('<a/>')
-            .text(messageObj.author)
-            .attr('href', '/users/' + messageObj.author);
+        const $message = createMessageBox(messageObj.author, messageObj.content);
 
-        $messageElement.html($messageAuthor.html() + ' said: ' + messageObj.content);
-        $('.message-container').append($messageElement);
+        $('.message-container').append($message);
     });
 });
