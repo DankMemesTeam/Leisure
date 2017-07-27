@@ -62,9 +62,13 @@ const createMessageBox = (author, content) => {
 $('.chat-btn').click((ev) => {
     const currentUser = $('#username').text();
 
-    currentChatId = $(ev.target).prop('tagName') === 'LI' ?
-        $(ev.target).attr('chatId') :
-        $(ev.target).parents('.chat-btn').attr('chatId');
+    const currentChat = $(ev.target).prop('tagName') === 'LI' ?
+        $(ev.target) :
+        $(ev.target).parents('.chat-btn');
+
+    $('#person-name').text(currentChat.find('.chat-title').first().text());
+
+    currentChatId = currentChat.attr('chatId');
 
     $('.message-container').html('');
 

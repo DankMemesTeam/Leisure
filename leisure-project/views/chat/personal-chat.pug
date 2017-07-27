@@ -9,7 +9,9 @@ block append page-content
         .row
             .col.s12
                 .chat-list.col.s12.m4.card-panel.z-depth-1
-                    ul.collection
+                    ul.collection.with-header
+                        li.collection-header.center.green.lighten-3
+                            h6.flow-text.white-text Conversations
                         each details in chatDetails
                             li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
                                 img.circle.z-depth-2.responsive-img.activator(src=details.profilePic)
@@ -19,6 +21,7 @@ block append page-content
                                     | Send message to #{details.fullName}
                 #chat-details.col.s12.m8.card-panel.hidden
                     .row.messages-row
+                        div#person-name.collection-header.center.green.lighten-3.flow-text.white-text
                         .col.s12.m12.message-container.messages
                     .row
                         .col.s7.m9.reply-container
