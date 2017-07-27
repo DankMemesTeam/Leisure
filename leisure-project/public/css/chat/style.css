@@ -28,6 +28,12 @@
   height: 0;
 }
 
+.chat-btn:hover 
+{
+    cursor: pointer;
+    background-color: #e8e8e8 !important; 
+}
+
 .me-message:after {
   border-color: #E9724C transparent;
     right: 20px;
@@ -37,11 +43,10 @@
 }
 
 .you-message {
-  background: #CCDBDC;
-  color:#003366;
+  background: #5e9e63;
 }
 .me-message {
-  background: #E9724C;
+  background: #96bdff;
 }
 
 .align-left {
@@ -57,9 +62,9 @@
 }
 
 .you {
-  color: #CCDBDC;
+  color: #5e9e63;
 }
 
 .me {
-  color: #E9724C;
+  color: #96bdff;
 }
