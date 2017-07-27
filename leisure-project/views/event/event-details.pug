@@ -1,0 +1,60 @@
+extends ../shared/_master
+
+block append page-content
+    //- div.row
+    //- each tag in article.tags
+    //-     div.chip
+    //-         | ##{tag}
+    .row
+        .col.s12.m12.l12
+            img(src=event.headerImage)
+    h1
+        | #{event.title}
+    p
+        | Published by: 
+        a(href="/users/" + event.creator)
+            | #{event.creator}
+    hr
+    p
+        | Summary: #{event.description}
+    hr
+    //- p
+    //-     | Content: #{event.content}
+    if currentUser
+        div.row
+            .col.s3.s2
+                p
+                    i.material-icons.right
+                        | thumb_down
+                    | Participants: #{event.participants.length}
+            //- .col.s3.m2
+            //-     p#likes-count.bold
+            //-         | #{article.likes.length} likes.
+        div.row
+            div.row
+                div.input-field.col.s6
+                    input#comment-content(type="text" name="text")
+                    label(for="comment-content")
+                        | Add comment
+                .col.s4.m2
+                    button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                        | Send
+                        i.material-icons.right
+                            | send
+    p
+        | Comment section: 
+    ul#comments-list.collection
+        each comment in event.comments
+            li.collection-item.avatar
+                img.circle(src=comment.author.profilePic)
+                a.title(href="/users/" + comment.author.username)
+                    | #{comment.author}
+                p
+                    | #{comment.content}
+
+        else
+            h5
+                | There are currently no comments on this article
+
+block append footer
+    script(src='/js/article-details.js')

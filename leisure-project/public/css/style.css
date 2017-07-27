@@ -5,6 +5,10 @@ body{
   flex-direction: column;
 }
 
+.hidden{
+  display: none;
+}
+
 .main-nav{
   line-height: 54px;
   height: 54px;

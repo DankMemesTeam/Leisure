@@ -1,33 +1,31 @@
 extends ../shared/_master
 
+block append styles
+    link(rel='stylesheet', href='/css/chat/style.css')
+block append footer
+    script(src='/js/chat/personal-chat.js')
 block append page-content
     #mail-app.section
         .row
-            .col.s12.m12
-                nav.red
             .col.s12
-                //- #email-sidebar.col.s2.m1.card-panel
-                //-     ul
-                //-         li
-                //-             img.circle.responsive-img.valign.profile-image(src='images/avatar.jpg', alt='')
-                //-         li
-                //-             a(href='#!')
-                //-                 i.mdi-content-archive.active
-                //-         li
-                //-             a(href='#!')
-                //-                 i.mdi-social-group
-                //-         li
-                //-             a(href='#!')
-                //-                 i.mdi-maps-local-offer
-                //-         li
-                //-             a(href='#!')
-                //-                 i.mdi-alert-error
-                #email-list.col.s10.m4.l4.card-panel.z-depth-1
-                    ul.collection
-                        li.collection-item.avatar.email-unread
-                            i.mdi-social-group.icon.blue-text
-                            span.email-title Social
-                            p.truncate.grey-text.ultra-small You have Google+ request from john doe.
-                            a.secondary-content(href='#!')
-                                span.new.badge.blue 4
-                #email-details.col.s12.m7.l7.card-panel
+                .chat-list.col.s12.m4.card-panel.z-depth-1
+                    ul.collection.with-header
+                        li.collection-header.center.green.lighten-3
+                            h6.flow-text.white-text Conversations
+                        each details in chatDetails
+                            li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
+                                img.circle.z-depth-2.responsive-img.activator(src=details.profilePic)
+                                span.chat-title
+                                    | #{details.fullName}
+                                p.truncate.grey-text.ultra-small
+                                    | Send message to #{details.fullName}
+                #chat-details.col.s12.m8.card-panel.hidden
+                    .row.messages-row
+                        div#person-name.collection-header.center.green.lighten-3.flow-text.white-text
+                        .col.s12.m12.message-container.messages
+                    .row
+                        .col.s7.m9.reply-container
+                            input(type='text' placeholder='Type a message...')#replyInput.form-control
+                        .col.s3.m1
+                            div#replyBtn.btn
+                                | Send

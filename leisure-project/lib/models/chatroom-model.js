@@ -1,5 +1,6 @@
 module.exports = class Chatroom {
-    constructor(participants) {
+    constructor(participants, chatType) {
+        this.chatType = chatType;
         this.participants = participants;
         this.messages = [];
     }

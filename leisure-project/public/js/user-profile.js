@@ -14,6 +14,24 @@ const followOrUnfollow = (action) => {
     });
 };
 
+<<<<<<< HEAD
+=======
+const createComment = (comment, $collection) => {
+    const $li = $('<li></li>');
+    $li.addClass('collection-item');
+
+    const $a = $('<a></a>');
+    $a.addClass('comment-username');
+    $a.attr('href', '/users/' + comment.author);
+    $a.html(comment.author);
+
+    $li.append($a);
+    $li.append(' said: ' + comment.content);
+
+    $collection.prepend($li);
+};
+
+>>>>>>> chat
 $(() => {
     $('.message-btn').click((ev) => {
         // Should think of better way to do this!
@@ -23,9 +41,14 @@ $(() => {
         $.ajax({
             url: '/users/' + username + '/chats',
             type: 'POST',
-            dataType: 'application/json',
+            dataType: 'json',
             data: {
                 pageUser: username,
+            },
+            success: function(data) {
+                if (data.redirect) {
+                    window.location.replace(data.redirect);
+                }
             },
         });
     });
@@ -48,5 +71,36 @@ $(() => {
                 });
         }
 
+<<<<<<< HEAD
+=======
+        sendRate(postUrl)
+            .then(() => {
+                let statusLikes = getNumberValue($target.prev().html());
+
+                $target.toggleClass('liked');
+
+                if ($target.hasClass('liked')) {
+                    $target.html('Unlike');
+                    $target.prev().html(++statusLikes + ' likes.');
+                } else {
+                    $target.html('Like');
+                    $target.prev().html(--statusLikes + ' likes.');
+                }
+            });
+    });
+
+    $('.comment-form').submit((ev) => {
+        ev.preventDefault();
+
+        const commentText = $(ev.target).children('input').val().trim();
+        const url = $(ev.target).attr('action');
+
+        sendComment(commentText, url)
+            .then((comment) => {
+                const $collection = $(ev.target).parent().parent().next().children('ul');
+                createComment(comment, $collection);
+                $(ev.target).children('input').val('');
+            });
+>>>>>>> chat
     });
 });

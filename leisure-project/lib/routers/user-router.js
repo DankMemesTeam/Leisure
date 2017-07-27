@@ -2,8 +2,9 @@ module.exports = ({ app, express, controllers }) => {
     const router = new express.Router();
     const { userController, statusController, chatController } = controllers;
 
-    router.get('/:username/chats', chatController.loadPersonalChats);
     router.post('/:username/chats', chatController.createPersonalChat);
+    router.get('/:username/chats', chatController.loadPersonalChats);
+    router.get('/:username/chats/:chatId', chatController.getRecentMessages);
     router.get('/:username/settings', userController.loadProfileSettingsPage);
     router.post('/:username/settings', userController.editUserProfile);
     router.post('/:username/statuses', statusController.createStatus);
