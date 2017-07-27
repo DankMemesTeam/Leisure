@@ -1,6 +1,9 @@
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
+const flash = require('connect-flash');
+const toastr = require('express-toastr');
+
 const { Strategy } = require('passport-local');
 const MongoStore = require('connect-mongo')(session);
 
@@ -41,6 +44,14 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
 
     app.use(passport.initialize());
     app.use(passport.session());
+
+    app.use(flash());
+
+    app.use(toastr());
+    app.use((req, res, next) => {
+        res.locals.toasts = req.toastr.render;
+        next();
+    });
 
     passport.serializeUser((user, done) => {
         done(null, user._id);

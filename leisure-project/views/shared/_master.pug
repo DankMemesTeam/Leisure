@@ -7,6 +7,7 @@ block styles
     meta(http-equiv='x-ua-compatible', content='ie=edge')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/css/materialize.min.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/css/toastr.min.css')
     link(href='https://fonts.googleapis.com/icon?family=Material+Icons', rel='stylesheet')
     link(rel='stylesheet', href='/css/style.css')
     script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
@@ -17,6 +18,8 @@ block body
         block page-content
 block footer
     include ./_footer.pug
+    script(src='http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js')
+    != toasts()
     if currentUser
         script(src='/socket.io/socket.io.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js')

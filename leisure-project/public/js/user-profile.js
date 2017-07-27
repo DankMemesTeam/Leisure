@@ -56,14 +56,13 @@ $(() => {
         $.ajax({
             url: '/users/' + username + '/chats',
             type: 'POST',
-            dataType: 'application/json',
+            dataType: 'json',
             data: {
                 pageUser: username,
             },
-            // For some reason error handles the success request...
-            error: function(data) {
-                if (data.responseText) {
-                    window.location.href = data.responseText;
+            success: function(data) {
+                if (data.redirect) {
+                    window.location.replace(data.redirect);
                 }
             },
         });

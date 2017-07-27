@@ -1,0 +1,33 @@
+extends ../shared/_master
+
+block append styles
+    link(rel='stylesheet', href='/css/event/style.css')
+block append page-content
+    div.row
+        a.waves-effect.waves-light.btn.left(href='/events/create')
+            | Create event
+            i.material-icons.right
+                | add
+    nav
+        div.nav-wrapper
+            form
+                div.input-field
+                    input#search-article.white(type='search' name='query')
+                    label.label-icon(for='search-article')
+                        i.material-icons
+                            | search
+                    i.material-icons
+                        | close
+
+    each event in events
+        ul.collection
+            li.collection-item.avatar
+                a.title(href='/events/' + event._id)
+                    | #{event.title}
+                p 
+                    | Published by: #{event.creator}
+                p 
+                    | #{event.description}
+    else
+        h1
+            | No articles found.
