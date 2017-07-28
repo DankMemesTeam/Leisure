@@ -31,7 +31,7 @@ module.exports = (config, logger) => {
     extended: true,
   }));
 
-  app.use(compress());
+  // app.use(compress());
 
   return app;
 };
