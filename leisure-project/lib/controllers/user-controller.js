@@ -58,7 +58,6 @@ module.exports = ({ userData, statusData }) => {
 
             return userData.getUserFollowed(req.user.username)
                 .then((usersFollowed) => {
-                    console.log(usersFollowed);
                     return statusData.getFeed(usersFollowed.followed || []);
                 })
                 .then((statuses) => {

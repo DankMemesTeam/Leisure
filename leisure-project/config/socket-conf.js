@@ -7,8 +7,6 @@ module.exports = (app, data, chatController) => {
     const sockets = [];
 
     io.on('connection', (socket) => {
-        console.log('A user has connected');
-
         socket.emit('conneting user', {});
 
         socket.on('connected user', (username) => {
@@ -27,8 +25,13 @@ module.exports = (app, data, chatController) => {
                     for (let i = 0; i < sockets.length; i += 1) {
                         if (currentRoomParticipants.includes(sockets[i].username)
                             && results[0]._id.equals(messageObj.chatId)) {
+
+                            if (messageObj.author !== sockets[i].username) {
+                                sockets[i].socket.emit('notification');
+                            }
+
                             sockets[i].socket
-                            .emit('recieve message', messageObj);
+                                .emit('recieve message', messageObj);
                         }
                     }
                 })
@@ -38,7 +41,8 @@ module.exports = (app, data, chatController) => {
         });
 
         socket.on('disconnect', () => {
-            console.log('A user has disconnected');
+            const index = sockets.findIndex((x) => x.socket === socket);
+            sockets.splice(index, 1);
         });
     });
 
