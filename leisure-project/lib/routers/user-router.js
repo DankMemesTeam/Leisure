@@ -11,12 +11,12 @@ module.exports = ({ app, express, controllers }) => {
 
     router.post('/:username/follow', userController.followUser);
     router.post('/:username/unfollow', userController.unfollowUser);
-    
+
     router.post('/:username/:statusId', statusController.addCommentToStatus);
     router.post('/:username/:statusId/like', statusController.likeStatus);
     router.post('/:username/:statusId/dislike', statusController.dislikeStatus);
 
-    
+
     router.get('/:username', userController.loadProfilePage);
 
     app.use('/users', router);

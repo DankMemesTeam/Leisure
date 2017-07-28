@@ -29,7 +29,7 @@ const uploadToApi = (url, client, file) => {
 
     //     return xhr;
     // }
-    
+
     return new Promise((resolve, reject) => {
         $.ajax({
             url: url,

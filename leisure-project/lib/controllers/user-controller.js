@@ -33,7 +33,7 @@ module.exports = ({ userData, statusData }) => {
                         res.redirect(`/users/${req.params.username}`);
                         return;
                     }
-                    
+
                     // welp...
                     if (req.body.profilePic) {
                         req.body.profilePic = req.body.profilePic.replace(/(.*imgur.com\/)(.*)(\..*)/, '$1$2b$3');
@@ -58,7 +58,8 @@ module.exports = ({ userData, statusData }) => {
 
             return userData.getUserFollowed(req.user.username)
                 .then((usersFollowed) => {
-                    return statusData.getFeed(usersFollowed.followed);
+                    console.log(usersFollowed);
+                    return statusData.getFeed(usersFollowed.followed || []);
                 })
                 .then((statuses) => {
                     return res.render('user/user-feed', { statuses: statuses });
@@ -83,6 +84,6 @@ module.exports = ({ userData, statusData }) => {
                 .then(() => {
                     return res.sendStatus(200);
                 });
-        }
+        },
     };
 };
