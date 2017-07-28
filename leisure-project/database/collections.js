@@ -7,13 +7,13 @@ const getCollection = (connection, collectionName) => {
     });
 
     const find =
-        (query, projection) => {
-            return collection.find(query, projection).toArray();
+        (query, projection, sort) => {
+            return collection.find(query, projection).sort(sort).toArray();
         };
 
     const findPaged =
-        (query, projection, pageNumber, pageSize) => {
-            return collection.find(query, projection).skip(pageSize * (pageNumber - 1)).limit(pageSize).toArray();
+        (query, projection, pageNumber, pageSize, sort) => {
+            return collection.find(query, projection).sort(sort).skip(pageSize * (pageNumber - 1)).limit(pageSize).toArray();
         };
 
     const count =

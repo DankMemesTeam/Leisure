@@ -53,7 +53,7 @@ block append page-content
                     a.secondary-content(href="/articles/" + article._id)
                         i.material-icons
                             | open_in_new    
-        +pagination(query, pageNumber, pagesCount)            
+        +pagination(query, pageNumber, pagesCount, "articles")            
     else
         h1
             | No articles found.

@@ -1,5 +1,7 @@
 extends ../shared/_master
 
+include ../mixins/pagination.pug
+
 block append page-content
     include ../mixins/status.pug
     h2
@@ -7,6 +9,7 @@ block append page-content
     each stat in statuses
         //- pageuser, status, currentuser
         +status(stat, locals.user)
+    +pagination(null, pageNumber, pagesCount, "feed")
 
 block append footer
     script(src="js/status-comment.js")

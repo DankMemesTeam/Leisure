@@ -34,6 +34,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     });
                 });
         },
+        // CURRENTLY BROKEN AF
         loadCategoryPage(req, res) {
             return Promise.all([
                 // Paging here too

@@ -15,12 +15,16 @@ module.exports = (articleCollection, validator, models, logger) => {
             return articleCollection.insertOne(article);
         },
         getAllArticles(pageNumber, pageSize) {
+            const sort = { dateCreated: - 1 };
+
             return Promise.all([
-                articleCollection.findPaged({}, {}, pageNumber, pageSize),
+                articleCollection.findPaged({}, {}, pageNumber, pageSize, sort),
                 articleCollection.count({}),
             ]);
         },
         findArticles(query, pageNumber, pageSize) {
+            const sort = { dateCreated: - 1 };
+
             const search = {
                 $or: [
                     { 'author.username': { $in: [query] } },
@@ -30,7 +34,7 @@ module.exports = (articleCollection, validator, models, logger) => {
             };
 
             return Promise.all([
-                articleCollection.findPaged(search, {}, pageNumber, pageSize),
+                articleCollection.findPaged(search, {}, pageNumber, pageSize, sort),
                 articleCollection.count(search),
             ]);
         },

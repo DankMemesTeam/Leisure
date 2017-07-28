@@ -42,21 +42,12 @@ module.exports = (statusCollection, validator, models, logger) => {
         },
         getFeed(followedUsernames, pageNumber, pageSize) {
             const query = { 'author.username': { $in: followedUsernames } };
+            const sort = { dateCreated: -1 };
 
             return Promise.all([
-                statusCollection.findPaged(query, pageNumber, pageSize),
+                statusCollection.findPaged(query, {}, pageNumber, pageSize, sort),
                 statusCollection.count(query),
             ]);
-
-            // return statusCollection.findPaged(query, pageNumber, pageSize);
-
-            // return statusCollection.find(
-            //     { 'author.username': { $in: followedUsernames } },
-            // );
-
-            
-            // toArray() ?
-            // SORT ME
         },
     };
 };

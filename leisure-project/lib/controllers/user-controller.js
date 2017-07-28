@@ -1,5 +1,5 @@
 module.exports = ({ userData, statusData }) => {
-    const pageSize = 5;
+    const pageSize = 2;
 
     return {
         loadProfilePage(req, res) {
