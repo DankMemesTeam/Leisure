@@ -15,7 +15,7 @@ const followOrUnfollow = (action) => {
 };
 
 const sendStatusData = (statusData) => {
-    const postUrl = window.location.href.match(/\/users.*/)[0] + '/statuses';
+    const postUrl = window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
 
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -36,8 +36,8 @@ $(() => {
         const statusText = $('#status-text-input').val();
         const image = document.getElementById('status-image-input').files[0];
 
-        console.log(statusText);
-        console.log(image);
+        // console.log(statusText);
+        // console.log(image);
 
         if (image) {
             uploadToApi(uploadUrl, clientId, image)

@@ -42,13 +42,14 @@ mixin status(status, currentUser)
                                     input.commentInput#profile-comments.validate.margin(name="commentContent", type='text' placeholder='Write a comment')
                     
                 .row
-                    .col.s6
+                    .col.s12
                     - var tabSize = 5
                     - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
+                    if tabsNeeded > 0
                         - var n = 1
-                        ul.tabs.col
+                        ul.tabs
                             while n <= tabsNeeded
-                                li.tab.col.s1
+                                li.tab
                                     a(href='#' + status._id + n)
                                         | #{n++}
                     - var k = 1
@@ -62,7 +63,7 @@ mixin status(status, currentUser)
                                             | #{status.comments[index].author.username} 
                                         | said: #{status.comments[index].content}
                                         - index++
-                                - k++
+                            - k++
 
 
 
