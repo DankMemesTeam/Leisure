@@ -15,7 +15,7 @@ const followOrUnfollow = (action) => {
 };
 
 const sendStatusData = (statusData) => {
-    const postUrl = window.location.href.match(/\/users.*/)[0] + '/statuses';
+    const postUrl = window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
 
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -36,8 +36,8 @@ $(() => {
         const statusText = $('#status-text-input').val();
         const image = document.getElementById('status-image-input').files[0];
 
-        console.log(statusText);
-        console.log(image);
+        // console.log(statusText);
+        // console.log(image);
 
         if (image) {
             uploadToApi(uploadUrl, clientId, image)
@@ -105,17 +105,17 @@ $(() => {
         }
     });
 
-    $('.comment-form').submit((ev) => {
-        ev.preventDefault();
+    // $('.comment-form').submit((ev) => {
+    //     ev.preventDefault();
 
-        const commentText = $(ev.target).children('input').val().trim();
-        const url = $(ev.target).attr('action');
+    //     const commentText = $(ev.target).children('input').val().trim();
+    //     const url = $(ev.target).attr('action');
 
-        sendComment(commentText, url)
-            .then((comment) => {
-                const $collection = $(ev.target).parent().parent().next().children('ul');
-                createComment(comment, $collection);
-                $(ev.target).children('input').val('');
-            });
-    });
+    //     sendComment(commentText, url)
+    //         .then((comment) => {
+    //             const $collection = $(ev.target).parent().parent().next().children('ul');
+    //             createComment(comment, $collection);
+    //             $(ev.target).children('input').val('');
+    //         });
+    // });
 });

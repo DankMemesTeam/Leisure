@@ -6,26 +6,38 @@ module.exports = ({ articleData, categoryData, userData }) => {
         });
     };
 
+    const pageSize = 4;
+
     return {
         loadArticlesPage(req, res) {
             let articlesPromise;
 
+            const pageNumber = req.query.page || 1;
+
             if (!req.query.query) {
-                articlesPromise = articleData.getAllArticles();
+                articlesPromise = articleData.getAllArticles(pageNumber, pageSize);
             } else {
-                articlesPromise = articleData.findArticles(req.query.query);
+                articlesPromise = articleData.findArticles(req.query.query, pageNumber, pageSize);
             }
 
             return Promise.all([
                 articlesPromise,
                 categoryData.getAllCategoryNames(),
             ])
-                .then(([articles, categories]) => {
-                    return renderArticlesPage(res, articles, categories);
+                .then(([[articles, count], categories]) => {
+                    return res.render('article/article-page', {
+                        articles,
+                        categories,
+                        pageNumber,
+                        pagesCount: Math.ceil(count / pageSize),
+                        query: req.query.query,
+                    });
                 });
         },
+        // CURRENTLY BROKEN AF
         loadCategoryPage(req, res) {
             return Promise.all([
+                // Paging here too
                 categoryData.getCategoryArticles(req.params.category),
                 categoryData.getAllCategoryNames(),
             ])
