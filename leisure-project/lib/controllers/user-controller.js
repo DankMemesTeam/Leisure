@@ -33,10 +33,23 @@ module.exports = ({ userData, statusData }) => {
                         res.redirect(`/users/${req.params.username}`);
                         return;
                     }
+                    
+                    // welp...
+                    if (req.body.profilePic) {
+                        req.body.profilePic = req.body.profilePic.replace(/(.*imgur.com\/)(.*)(\..*)/, '$1$2b$3');
+                    }
 
                     userData.editUser(foundUser.username, req.body)
                         .then(() => {
-                            res.redirect(`/users/${req.params.username}/settings`);
+                            console.log(req.body);
+
+                            if (req.body.profilePic) {
+                                return res.json({
+                                    redirect: `/users/${req.params.username}`,
+                                });
+                            }
+
+                            return res.redirect(`/users/${req.params.username}/settings`);
                         });
                 });
         },
