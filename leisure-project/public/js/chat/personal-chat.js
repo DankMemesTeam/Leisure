@@ -1,4 +1,4 @@
-/* global $, io */
+/* global $, io, socket */
 let currentChatId = null;
 
 const getRecentMessages = (currentUser, chatId) => {
@@ -24,29 +24,29 @@ const createMessageBox = (author, content) => {
 
     if ($('#username').text() === author) {
         $messageDataName
-        .text('You');
+            .text('You');
 
         $icon.addClass('fa fa-circle me');
 
         $messageData
-        .addClass('align-right')
-        .append($messageDataName)
-        .append($icon);
+            .addClass('align-right')
+            .append($messageDataName)
+            .append($icon);
 
         $messageContent
-        .addClass('me-message float-right');
+            .addClass('me-message float-right');
     } else {
         $messageDataName
-        .text(author);
+            .text(author);
 
         $icon.addClass('fa fa-circle you');
 
         $messageData
-        .append($messageDataName)
-        .append($icon);
+            .append($messageDataName)
+            .append($icon);
 
         $messageContent
-        .addClass('you-message');
+            .addClass('you-message');
     }
 
     $messageContent.text(content);
@@ -90,12 +90,8 @@ $('.chat-btn').click((ev) => {
 });
 
 $(() => {
-    const socket = io.connect();
+    // const socket = io.connect();
     const currentUsername = $('#username').text();
-
-    socket.on('conneting user', () => {
-        socket.emit('connected user', currentUsername);
-    });
 
     $('#replyBtn').click((ev) => {
         const messageText = $('#replyInput').val();

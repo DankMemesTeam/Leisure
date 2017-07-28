@@ -2,9 +2,8 @@ module.exports = ({ userData, chatData }) => {
     const getOtherUsersDetails = (chatrooms, currentUser) => {
         const users = [];
         const details = [];
-        console.log('Chatrooms ' + chatrooms.length);
+
         for (const chat of chatrooms) {
-            console.log(chat.participants);
             const otherUserUsername = chat.participants[0] === currentUser
                 ? chat.participants[1] : chat.participants[0];
 
