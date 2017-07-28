@@ -1,0 +1,14 @@
+.page-content{
+    max-width: 100%;
+}
+
+.header-image{
+    max-width: 100%;
+    height: auto;
+}
+
+.event-info-container{
+    color:white;
+    position: absolute;
+    top:10%;
+}

@@ -12,7 +12,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             loadEvents
                 .then((events) => {
                     res.render('event/event-page',
-                     { currentUser: req.user.username, events: events });
+                        { currentUser: req.user.username, events: events });
                 });
         },
         loadCreationPage(req, res) {
@@ -21,7 +21,8 @@ module.exports = ({ userData, eventData, chatData }) => {
         loadEventDetailsPage(req, res) {
             eventData.getEventById(req.params.eventId)
                 .then((event) => {
-                    res.render('event/event-details', { event: event });
+                    res.render('event/event-details',
+                        { currentUser: req.user.username, event: event });
                 });
         },
         createEvent(req, res) {
@@ -32,15 +33,33 @@ module.exports = ({ userData, eventData, chatData }) => {
                 participants: [req.user.username],
             };
 
-            Promise.all([eventData.createEvent(eventObj),
-            chatData.createChatroom([req.user.username], 'event')])
-                .then((results) => {
+            let chatPromise = Promise.resolve(null);
+            // SHOULD be able to create event chat after event is created also
+            if (req.body.addChat) {
+                chatPromise = chatData
+                    .createEventChatroom([req.user.username],
+                    'event', req.body.chatTitle);
+            }
+
+            chatPromise
+                .then((chat) => {
+                    return eventData.createEvent(eventObj, chat.chatTitle || null);
+                })
+                .then((event) => {
                     req.toastr.success('Successfully created event!');
                     res.redirect('/events');
                 })
                 .catch((err) => {
-                    req.toastr.error('Oops, something went wrong!');
+                    // Should not redirect when error
+                    req.toastr.error(err);
+                    res.redirect('/events/create');
                 });
+        },
+        createEventChat(req, res) {
+            // eventData.getEventById(// id)
+            // chatData.createEventChatroom()
+
+            // then assign all event participants to chat and make event chatTitle = new ChatTitle
         },
     };
 };

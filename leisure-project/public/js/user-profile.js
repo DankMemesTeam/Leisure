@@ -27,7 +27,7 @@ const sendStatusData = (statusData) => {
             error: reject,
         });
     });
-}
+};
 
 $(() => {
     $('#publish-status-form').submit((ev) => {
@@ -52,8 +52,7 @@ $(() => {
                 .then((response) => {
                     window.location.replace(response.redirect);
                 });
-        }
-        else if (statusText.length > 0) {
+        } else if (statusText.length > 0) {
             const statusData = {
                 content: statusText,
                 imageUrl: null,
@@ -63,8 +62,7 @@ $(() => {
                 .then((response) => {
                     window.location.replace(response.redirect);
                 });
-        }
-        else {
+        } else {
             window.location.replace(window.location.href);
         }
     });
@@ -81,7 +79,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function (data) {
+            success: function(data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }

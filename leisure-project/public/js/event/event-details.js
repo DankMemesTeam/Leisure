@@ -1,0 +1,1 @@
+// ajax for adding chat after creation of event

@@ -2,8 +2,18 @@
     margin-right: 2%;
 }
 
+.collection-header{
+  padding-top:1%;
+  padding-bottom:1%;
+}
+
+.chats-container{
+  max-height: 50%;
+  overflow-y:scroll;
+}
+
 .message-container{
-    height: 65%;
+    height: 50%;
     overflow-y:scroll;
 }
 

@@ -1,5 +1,5 @@
 module.exports = ({ userData, chatData }) => {
-    const getOtherUsersDetails = (chatrooms, currentUser) => {
+    const getPrivateChatUserDetails = (chatrooms, currentUser) => {
         const users = [];
         const details = [];
 
@@ -28,6 +28,21 @@ module.exports = ({ userData, chatData }) => {
             });
     };
 
+    const getEventChatDetails = (chatrooms, currentUser) => {
+        const details = [];
+
+        for (let i = 0; i < chatrooms.length; i += 1) {
+            details.push({
+                chatId: chatrooms[i]._id,
+                chatTitle: chatrooms[i].title,
+                chatIcon: chatrooms[i].headerImage,
+                chatRoom: chatrooms[i],
+            });
+        }
+
+        return details;
+    };
+
     return {
         getRecentMessages(req, res) {
             chatData.getRecentMessagesFromChat(req.params.chatId)
@@ -35,15 +50,18 @@ module.exports = ({ userData, chatData }) => {
                     return res.json(messages);
                 });
         },
-        loadPersonalChats(req, res) {
-            chatData.getUserPersonalChats(req.user.username, 'private')
+        loadChats(req, res) {
+            Promise.all([chatData.getUserChats(req.user.username, 'private'),
+            chatData.getUserChats(req.user.username, 'event')])
                 .then((chatRooms) => {
-                    return getOtherUsersDetails(chatRooms, req.user.username);
+                    return Promise.all([getPrivateChatUserDetails(chatRooms[0], req.user.username),
+                        getEventChatDetails(chatRooms[1], req.user.username)]);
                 })
-                .then((chatDetails) => {
-                    res.render('chat/personal-chat', {
+                .then((results) => {
+                    res.render('chat/chat-page', {
                         currentUser: req.user,
-                        'chatDetails': chatDetails,
+                        privateDetails: results[0],
+                        eventDetails: results[1],
                     });
                 });
         },
@@ -52,7 +70,7 @@ module.exports = ({ userData, chatData }) => {
             const participants = [req.user.username, req.body.pageUser];
             const chatType = 'private';
 
-            return chatData.createChatroom(participants, chatType)
+            return chatData.createPrivateChatroom(participants, chatType)
                 .then((resultChatroom) => {
                     // res.send(`/users/${req.user.username}/chats`);
                     res.json({ redirect: `/users/${req.user.username}/chats` });

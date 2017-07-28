@@ -1,5 +1,7 @@
 extends ../shared/_master
-
+block append styles
+    link(rel='stylesheet', href='/css/event/style.css')
+    script(src='/js/event/event-details.js')
 block append page-content
     //- div.row
     //- each tag in article.tags
@@ -7,19 +9,25 @@ block append page-content
     //-         | ##{tag}
     .row
         .col.s12.m12.l12
-            img(src=event.headerImage)
-    h1
-        | #{event.title}
-    p
-        | Published by: 
-        a(href="/users/" + event.creator)
-            | #{event.creator}
-    hr
-    p
-        | Summary: #{event.description}
-    hr
-    //- p
-    //-     | Content: #{event.content}
+            img.header-image(src=event.headerImage)
+            .container.center.event-info-container
+                h1
+                    | #{event.title}
+                p
+                    | Published by: 
+                    a(href="/users/" + event.creator)
+                        | #{event.creator}
+                hr
+            p.center
+                | Summary: #{event.description}
+            hr
+            if event.chatTitle && event.creator !== currentUser
+                div.btn
+                    | Join event chat
+            //- Should add ajax
+            else if !event.chatTitle && event.creator === currentUser
+                div.btn
+                    | Create event chat
     if currentUser
         div.row
             .col.s3.s2
@@ -27,9 +35,6 @@ block append page-content
                     i.material-icons.right
                         | thumb_down
                     | Participants: #{event.participants.length}
-            //- .col.s3.m2
-            //-     p#likes-count.bold
-            //-         | #{article.likes.length} likes.
         div.row
             div.row
                 div.input-field.col.s6

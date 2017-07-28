@@ -8,17 +8,32 @@ block append page-content
     #mail-app.section
         .row
             .col.s12
-                .chat-list.col.s12.m4.card-panel.z-depth-1
+                .chat-list.col.s12.m4.card-panel.z-depth-1.chats-container
                     ul.collection.with-header
                         li.collection-header.center.green.lighten-3
                             h6.flow-text.white-text Conversations
-                        each details in chatDetails
+                        each details in privateDetails
                             li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
                                 img.circle.z-depth-2.responsive-img.activator(src=details.profilePic)
                                 span.chat-title
                                     | #{details.fullName}
                                 p.truncate.grey-text.ultra-small
                                     | Send message to #{details.fullName}
+                        else
+                            li.collection-header.center.green.lighten-3.white-text
+                                | No conversations
+                        li.collection-header.center.green.lighten-3
+                            h6.flow-text.white-text Events
+                        each details in eventDetails
+                            li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
+                                img.circle.z-depth-2.responsive-img.activator(src=details.chatIcon)
+                                span.chat-title
+                                    | #{details.chatTitle}
+                                p.truncate.grey-text.ultra-small
+                                    | Send message to #{details.chatTitle}
+                        else
+                            li.collection-header.center.green.lighten-3.white-text
+                                | No events
                 #chat-details.col.s12.m8.card-panel.hidden
                     .row.messages-row
                         div#person-name.collection-header.center.green.lighten-3.flow-text.white-text

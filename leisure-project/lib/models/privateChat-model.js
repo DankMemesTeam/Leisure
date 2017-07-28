@@ -1,4 +1,4 @@
-module.exports = class Chatroom {
+module.exports = class PrivateChat {
     constructor(participants, chatType) {
         this.chatType = chatType;
         this.participants = participants;

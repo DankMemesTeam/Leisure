@@ -11,9 +11,9 @@ module.exports = (eventCollection, validator, models, logger) => {
         getEventsBy(query) {
             // to implement
         },
-        createEvent(eventObject) {
+        createEvent(eventObject, chatTitle) {
             const event = new Event(eventObject.title, eventObject.creator,
-                eventObject.description, eventObject.participants);
+                eventObject.description, eventObject.participants, chatTitle);
 
             return eventCollection.insertOne(event);
         },

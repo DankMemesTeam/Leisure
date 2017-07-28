@@ -1,5 +1,5 @@
 module.exports = (chatroomCollection, validator, models, logger) => {
-    const { Chatroom, Message } = models;
+    const { PrivateChat, EventChat, Message } = models;
     const getChatById = (id) => {
         return chatroomCollection.findById(id);
     };
@@ -15,7 +15,7 @@ module.exports = (chatroomCollection, validator, models, logger) => {
                         .slice(Math.max(chatroom.messages.length - 50, 0));
                 });
         },
-        getUserPersonalChats(username, chatType) {
+        getUserChats(username, chatType) {
             return chatroomCollection
                 .find({
                     $and: [
@@ -24,8 +24,8 @@ module.exports = (chatroomCollection, validator, models, logger) => {
                     ],
                 });
         },
-        createChatroom(participants, chatType) {
-            const chatroom = new Chatroom(participants, chatType);
+        createPrivateChatroom(participants, chatType) {
+            const chatroom = new PrivateChat(participants, chatType);
 
             return chatroomCollection.findOne(
                 {
@@ -39,19 +39,27 @@ module.exports = (chatroomCollection, validator, models, logger) => {
                     if (!result) {
                         return chatroomCollection.insertOne(chatroom);
                     }
-                        return Promise.resolve(result);
+                    return Promise.resolve(result);
                 });
+        },
+        createEventChatroom(participants, chatType, chatTitle) {
+            const chatroom = new EventChat(participants, chatType, chatTitle);
 
-            // return chatroomCollection.findAndModify(
-            //     {
-            //         $and: [
-            //             { participants: { $all: participants } },
-            //             { chatType: chatType },
-            //         ],
-            //     },
-            //     { $setOnInsert: chatroom },
-            //     { upsert: true }
-            // );
+            return chatroomCollection.findOne(
+                {
+                    $and: [
+                        { chatTitle: chatTitle },
+                        { chatType: chatType },
+                    ],
+                },
+            )
+                .then((result) => {
+                    if (!result) {
+                        return chatroomCollection.insertOne(chatroom);
+                    } else {
+                        return Promise.reject('Chat name already exists!');
+                    }
+                });
         },
         addMessageToChat(messageObj) {
             const message = new Message(messageObj.author, messageObj.content);

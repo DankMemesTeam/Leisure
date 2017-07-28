@@ -10,15 +10,6 @@ if user
     li
       a(href='/auth/logout')
         | Logout
-
-  ul#chat-dropdown.dropdown-content
-    li
-      a(href= '/users/' + user.username + '/chats')
-        | Personal chats
-    li.divider(role="separator")
-    li
-      a(href= '/users/' + user.username + '/event-chats')
-        | Event chats
 nav.main-nav
   a.brand-logo.center.not-selectable(href='/') Leisure
   a.button-collapse(href='#', data-activates='mobile-demo')
@@ -34,10 +25,9 @@ nav.main-nav
       li
         a(href='/feed')
           | Feed
-      li.dropdown
-        a.dropdown-button(href='#', data-activates='chat-dropdown')
-          | Chats 
-          span.caret
+      li
+        a(href= '/users/' + user.username + '/chats')
+          | Chats
   ul.right.hide-on-med-and-down
     if user
       li
@@ -94,6 +84,11 @@ nav.main-nav
           i.material-icons settings
           |  Login 
     li.divider
+    if user
+      li.bold
+        a.waves-effect.waves-cyan(href= '/users/' + user.username + '/chats')
+          i.material-icons message
+          | Chats
     li.bold
       a.waves-effect.waves-cyan(href='/articles')
         i.material-icons text_format

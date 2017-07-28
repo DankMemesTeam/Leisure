@@ -1,4 +1,4 @@
-/* globals $, io */
+/* globals $, io  */
 
 $('.button-collapse').sideNav();
 

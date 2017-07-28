@@ -2,6 +2,7 @@ extends ../shared/_master
 
 block append styles
     link(rel='stylesheet', href='/css/event/create-page.css')
+    script(src='/js/event/event-create.js')
 block append page-content
     div.row
         form#event-form.col.s12(action='/events', method='POST')
@@ -17,6 +18,18 @@ block append page-content
                     input#description(type='text' name='description')
                     label(for='description')
                         | Description
+            div.row
+                .switch.col.s6
+                    label
+                        | Off
+                        input#chatCheckbox(name='addChat', type='checkbox')
+                        span.lever
+                        |       On
+                div#chatTitleContainer.col.s6
+                    input#chatTitle(type='text' name='chatTitle')
+                    label(for='chatTitle')
+                        | Chat title
+            div.row
             div.row
                 button.btn.waves-effect.waves-light(type='submit')
                     | Publish
