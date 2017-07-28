@@ -6,7 +6,8 @@ module.exports = ({ statusData, userData }) => {
             }
 
             const status = {
-                content: req.body.statusInput,
+                content: req.body.content,
+                imageUrl: req.body.imageUrl,
             };
 
             return userData.findUserBy({ username: req.user.username })
@@ -21,7 +22,7 @@ module.exports = ({ statusData, userData }) => {
                     return statusData.createStatus(status);
                 })
                 .then(() => {
-                    return res.redirect('/users/' + req.user.username);
+                    return res.json({ redirect: '/users/' + req.user.username });
                 });
         },
         addCommentToStatus(req, res) {

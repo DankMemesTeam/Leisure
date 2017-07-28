@@ -9,10 +9,15 @@ mixin status(status, currentUser)
                         p.grey-text.text-darken-4.margin
                             | #{status.author.firstName} #{status.author.lastName}
                         span.grey-text.text-darken-1.ultra-small Shared publicly  -   #{status.dateCreated.getDate() + '/' + (status.dateCreated.getMonth() + 1) + '/' + status.dateCreated.getUTCFullYear()}
-                .row
-                    .col.s12
-                        p
-                            | #{status.content}
+                if status.content.length > 0
+                    .row
+                        .col.s12                            
+                            p
+                                | #{status.content}
+                if status.imageUrl.length > 0
+                    .row
+                        .col.s12                            
+                            img(src=status.imageUrl).responsive-img
                 .card-action
                     if currentUser
                         .row

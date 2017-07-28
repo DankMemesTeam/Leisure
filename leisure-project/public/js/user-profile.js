@@ -14,7 +14,61 @@ const followOrUnfollow = (action) => {
     });
 };
 
+const sendStatusData = (statusData) => {
+    const postUrl = window.location.href.match(/\/users.*/)[0] + '/statuses';
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: postUrl,
+            type: 'POST',
+            dataType: 'json',
+            data: statusData,
+            success: resolve,
+            error: reject,
+        });
+    });
+}
+
 $(() => {
+    $('#publish-status-form').submit((ev) => {
+        ev.preventDefault();
+
+        const statusText = $('#status-text-input').val();
+        const image = document.getElementById('status-image-input').files[0];
+
+        console.log(statusText);
+        console.log(image);
+
+        if (image) {
+            uploadToApi(uploadUrl, clientId, image)
+                .then((response) => {
+                    const statusData = {
+                        content: statusText,
+                        imageUrl: response.data.link,
+                    };
+
+                    return sendStatusData(statusData);
+                })
+                .then((response) => {
+                    window.location.replace(response.redirect);
+                });
+        }
+        else if (statusText.length > 0) {
+            const statusData = {
+                content: statusText,
+                imageUrl: null,
+            };
+
+            sendStatusData(statusData)
+                .then((response) => {
+                    window.location.replace(response.redirect);
+                });
+        }
+        else {
+            window.location.replace(window.location.href);
+        }
+    });
+
     $('.message-btn').click((ev) => {
         // Should think of better way to do this!
         const url = window.location.href.split('/');
@@ -27,7 +81,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }

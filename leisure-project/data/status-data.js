@@ -13,6 +13,7 @@ module.exports = (statusCollection, validator, models, logger) => {
             const status = new Status(
                 statusObject.author,
                 statusObject.content,
+                statusObject.imageUrl
             );
 
             return statusCollection.insertOne(status);

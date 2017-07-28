@@ -4,6 +4,7 @@ block append styles
   link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
   link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')
 block append footer
+  script(src="/js/image-uploading.js")
   script(src='/js/user-profile.js')
   script(src='/js/status-rating.js')
   script(src='/js/status-comment.js')
@@ -109,18 +110,25 @@ block append page-content
                     |  Update Status
               // UpdateStatus
               #UpdateStatus.tab-content.col.s12.grey.lighten-4
-                form(action='/users/' + pageUser.username + '/statuses', method='POST')
+                form#publish-status-form(action='/users/' + pageUser.username + '/statuses', method='POST')
                   .row
                     .col.s3.m2
                       img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
                     .input-field.col.s9
-                      textarea#statusInput.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
+                      textarea#status-text-input.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
                   .row
                     .col.s12.m6.right-align.right
                       // Dropdown Trigger
                       button.waves-effect.waves-light.btn(type='submit')
                         i.material-icons.left rate_review
                         | Post
+                    .col.s12.m6.left-align.left
+                      // Dropdown Trigger
+                      input#status-image-input(type="file" style="display: none")
+                      label(for="status-image-input").waves-effect.waves-light.btn
+                        i.material-icons.left file_upload
+                        | Upload image
+                      
         // / profile-page-wall-share
         // profile-page-wall-posts
         #profile-page-wall-posts.row
