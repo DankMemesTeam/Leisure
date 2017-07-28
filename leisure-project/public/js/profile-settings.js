@@ -18,7 +18,7 @@ $('#profile-picture-form').submit((ev) => {
 
             return sendImageUrl(postUrl, 'profilePic', imageUrl);
         })
-        .then((response) => {  
+        .then((response) => {
             console.log(response);
 
             if (response.redirect) {

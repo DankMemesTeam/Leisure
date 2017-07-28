@@ -68,6 +68,6 @@ module.exports = (usersCollection, validator, models, logger) => {
                 followerUpdate,
                 userToUnfollowUpdate,
             ]);
-        }
+        },
     };
 };

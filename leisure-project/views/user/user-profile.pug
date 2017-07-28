@@ -42,12 +42,12 @@ block append page-content
               |  Message
             //- ////////////////////// pageUser - owner of page, currentUser - visitor
             if currentUser.followed.includes(pageUser.username)
-              p.btn.message-btn.card-title#follow-user-btn.followed
+              p.btn.card-title#follow-user-btn.followed
                 i.material-icons.right 
                   | remove_red_eye
                 |  Unfollow
             else
-              p.btn.message-btn.card-title#follow-user-btn
+              p.btn.card-title#follow-user-btn
                 i.material-icons.right 
                   | remove_red_eye
                 |  Follow

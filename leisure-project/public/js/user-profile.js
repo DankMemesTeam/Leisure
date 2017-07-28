@@ -99,8 +99,7 @@ $(() => {
                 .then(() => {
                     $btn.html('Unfollow' + getIcon('remove_red_eye'));
                 });
-        }
-        else {
+        } else {
             followOrUnfollow('unfollow')
                 .then(() => {
                     $btn.html('Follow' + getIcon('remove_red_eye'));

@@ -4,7 +4,7 @@ mixin status(status, currentUser)
             .card-profile-title
                 .row
                     .col.s3.m2
-                        img.circle.responsive-img.valign.profile-post-uer-image(src=status.author.profilePic)
+                        img.circle.responsive-img.valign.profile-post-uer-image.z-depth-2(src=status.author.profilePic)
                     .col.s9
                         p.grey-text.text-darken-4.margin
                             | #{status.author.firstName} #{status.author.lastName}
