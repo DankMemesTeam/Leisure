@@ -15,16 +15,24 @@ module.exports = (articleCollection, validator, models, logger) => {
             return articleCollection.insertOne(article);
         },
         getAllArticles(pageNumber, pageSize) {
-            return articleCollection.find();
+            return Promise.all([
+                articleCollection.findPaged({}, {}, pageNumber, pageSize),
+                articleCollection.count({}),
+            ]);
         },
-        findArticles(query) {
-            return articleCollection.find({
+        findArticles(query, pageNumber, pageSize) {
+            const search = {
                 $or: [
                     { 'author.username': { $in: [query] } },
                     { title: { $in: [query] } },
                     { tags: { $in: [query] } },
                 ],
-            });
+            };
+
+            return Promise.all([
+                articleCollection.findPaged(search, {}, pageNumber, pageSize),
+                articleCollection.count(search),
+            ]);
         },
         getArticleById(id) {
             return articleCollection.findById(id);

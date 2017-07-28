@@ -1,4 +1,6 @@
 module.exports = ({ userData, statusData }) => {
+    const pageSize = 5;
+
     return {
         loadProfilePage(req, res) {
             Promise.all(
@@ -56,12 +58,18 @@ module.exports = ({ userData, statusData }) => {
                 return res.redirect('auth/login');
             }
 
+            const pageNumber = req.query.page || 1;
+
             return userData.getUserFollowed(req.user.username)
                 .then((usersFollowed) => {
-                    return statusData.getFeed(usersFollowed.followed || []);
+                    return statusData.getFeed(usersFollowed.followed || [], pageNumber, pageSize);    // pageNumber, pageSize
                 })
-                .then((statuses) => {
-                    return res.render('user/user-feed', { statuses: statuses });
+                .then(([statuses, count]) => {
+                    return res.render('user/user-feed', { 
+                        statuses,
+                        pageNumber,
+                        pagesCount: Math.ceil(count / pageSize),
+                    });
                 });
         },
         followUser(req, res) {

@@ -11,6 +11,16 @@ const getCollection = (connection, collectionName) => {
             return collection.find(query, projection).toArray();
         };
 
+    const findPaged =
+        (query, projection, pageNumber, pageSize) => {
+            return collection.find(query, projection).skip(pageSize * (pageNumber - 1)).limit(pageSize).toArray();
+        };
+
+    const count =
+        (query) => {
+            return collection.count(query);
+        };
+
     const findOne =
         (query, projection) => {
             return collection.findOne(query, projection);
@@ -46,6 +56,8 @@ const getCollection = (connection, collectionName) => {
 
     return {
         find,
+        findPaged,
+        count,
         findOne,
         findById,
         findAndModify,

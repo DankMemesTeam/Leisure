@@ -40,10 +40,21 @@ module.exports = (statusCollection, validator, models, logger) => {
                 { $pull: { likes: likerUsername } }
             );
         },
-        getFeed(followedUsernames) {
-            return statusCollection.find(
-                { 'author.username': { $in: followedUsernames } },
-            );
+        getFeed(followedUsernames, pageNumber, pageSize) {
+            const query = { 'author.username': { $in: followedUsernames } };
+
+            return Promise.all([
+                statusCollection.findPaged(query, pageNumber, pageSize),
+                statusCollection.count(query),
+            ]);
+
+            // return statusCollection.findPaged(query, pageNumber, pageSize);
+
+            // return statusCollection.find(
+            //     { 'author.username': { $in: followedUsernames } },
+            // );
+
+            
             // toArray() ?
             // SORT ME
         },
