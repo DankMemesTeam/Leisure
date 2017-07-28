@@ -105,21 +105,6 @@ $(() => {
                     $btn.html('Follow' + getIcon('remove_red_eye'));
                 });
         }
-
-        sendRate(postUrl)
-            .then(() => {
-                let statusLikes = getNumberValue($target.prev().html());
-
-                $target.toggleClass('liked');
-
-                if ($target.hasClass('liked')) {
-                    $target.html('Unlike');
-                    $target.prev().html(++statusLikes + ' likes.');
-                } else {
-                    $target.html('Like');
-                    $target.prev().html(--statusLikes + ' likes.');
-                }
-            });
     });
 
     $('.comment-form').submit((ev) => {
