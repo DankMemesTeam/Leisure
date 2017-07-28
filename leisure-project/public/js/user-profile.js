@@ -14,24 +14,6 @@ const followOrUnfollow = (action) => {
     });
 };
 
-<<<<<<< HEAD
-=======
-const createComment = (comment, $collection) => {
-    const $li = $('<li></li>');
-    $li.addClass('collection-item');
-
-    const $a = $('<a></a>');
-    $a.addClass('comment-username');
-    $a.attr('href', '/users/' + comment.author);
-    $a.html(comment.author);
-
-    $li.append($a);
-    $li.append(' said: ' + comment.content);
-
-    $collection.prepend($li);
-};
-
->>>>>>> chat
 $(() => {
     $('.message-btn').click((ev) => {
         // Should think of better way to do this!
@@ -71,8 +53,6 @@ $(() => {
                 });
         }
 
-<<<<<<< HEAD
-=======
         sendRate(postUrl)
             .then(() => {
                 let statusLikes = getNumberValue($target.prev().html());
@@ -101,6 +81,5 @@ $(() => {
                 createComment(comment, $collection);
                 $(ev.target).children('input').val('');
             });
->>>>>>> chat
     });
 });

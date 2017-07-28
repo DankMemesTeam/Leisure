@@ -41,8 +41,6 @@ module.exports = ({ userData, statusData }) => {
 
                     userData.editUser(foundUser.username, req.body)
                         .then(() => {
-                            console.log(req.body);
-
                             if (req.body.profilePic) {
                                 return res.json({
                                     redirect: `/users/${req.params.username}`,

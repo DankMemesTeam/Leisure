@@ -27,7 +27,7 @@ const createComment = (comment, $collection) => {
     $li.append($a);
     $li.append('said: ' + comment.content);
 
-    $collection.append($li);
+    $collection.prepend($li);
 };
 
 $(() => {
