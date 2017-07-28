@@ -3,18 +3,23 @@ module.exports = ({ userData, statusData }) => {
 
     return {
         loadProfilePage(req, res) {
-            Promise.all(
-                [userData.findUserBy({ username: req.params.username }),
-                statusData.findStatusesByUser(req.params.username),
-                ])
-                .then((result) => {
+            const pageNumber = req.query.page || 1;
+
+            Promise.all([
+                userData.findUserBy({ username: req.params.username }),
+                statusData.findStatusesByUser(req.params.username, pageNumber, pageSize),
+            ])
+                .then(([foundUser, [statuses, count]]) => {
                     const isOwner = req.user && req.user.username === req.params.username;
 
-                    res.render('user/user-profile',
-                        {
-                            pageUser: result[0], currentUser: req.user,
-                            statuses: result[1], isOwner,
-                        });
+                    res.render('user/user-profile', {
+                        pageUser: foundUser,
+                        currentUser: req.user,
+                        statuses: statuses,
+                        isOwner,
+                        pageNumber,
+                        pagesCount: Math.ceil(count / pageSize),
+                    });
                 });
         },
         loadProfileSettingsPage(req, res) {
@@ -65,7 +70,7 @@ module.exports = ({ userData, statusData }) => {
                     return statusData.getFeed(usersFollowed.followed || [], pageNumber, pageSize);    // pageNumber, pageSize
                 })
                 .then(([statuses, count]) => {
-                    return res.render('user/user-feed', { 
+                    return res.render('user/user-feed', {
                         statuses,
                         pageNumber,
                         pagesCount: Math.ceil(count / pageSize),

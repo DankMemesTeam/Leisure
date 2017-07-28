@@ -10,6 +10,7 @@ block append footer
   script(src='/js/status-comment.js')
   script(src='/js/utils.js')
 include ../mixins/status.pug
+include ../mixins/pagination.pug
 block append page-content
   #profile-page.section
     // profile-page-header
@@ -128,9 +129,11 @@ block append page-content
                       label(for="status-image-input").waves-effect.waves-light.btn
                         i.material-icons.left file_upload
                         | Upload image
-                      
+        
         // / profile-page-wall-share
         // profile-page-wall-posts
         #profile-page-wall-posts.row
             each status in statuses
               +status(status, currentUser)
+        div.row
+          +pagination(null, pageNumber, pagesCount, pageUser.username)

@@ -2,12 +2,14 @@ module.exports = (statusCollection, validator, models, logger) => {
     const { Status } = models;
 
     return {
-        findStatusesByUser(username) {
-            return statusCollection.find(
-                {
-                    'author.username': username,
-                },
-            );
+        findStatusesByUser(username, pageNumber, pageSize) {
+            const query = { 'author.username': username };
+            const sort = { dateCreated: -1 };
+
+            return Promise.all([
+                statusCollection.findPaged(query, {}, pageNumber, pageSize, sort),
+                statusCollection.count(query),
+            ]);
         },
         createStatus(statusObject) {
             const status = new Status(
