@@ -107,17 +107,17 @@ $(() => {
         }
     });
 
-    $('.comment-form').submit((ev) => {
-        ev.preventDefault();
+    // $('.comment-form').submit((ev) => {
+    //     ev.preventDefault();
 
-        const commentText = $(ev.target).children('input').val().trim();
-        const url = $(ev.target).attr('action');
+    //     const commentText = $(ev.target).children('input').val().trim();
+    //     const url = $(ev.target).attr('action');
 
-        sendComment(commentText, url)
-            .then((comment) => {
-                const $collection = $(ev.target).parent().parent().next().children('ul');
-                createComment(comment, $collection);
-                $(ev.target).children('input').val('');
-            });
-    });
+    //     sendComment(commentText, url)
+    //         .then((comment) => {
+    //             const $collection = $(ev.target).parent().parent().next().children('ul');
+    //             createComment(comment, $collection);
+    //             $(ev.target).children('input').val('');
+    //         });
+    // });
 });
