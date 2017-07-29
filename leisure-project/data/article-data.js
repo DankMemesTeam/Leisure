@@ -2,6 +2,13 @@ module.exports = (articleCollection, validator, models, logger) => {
     const { Article } = models;
 
     return {
+        updateArticleFields(username, updateData) {
+            const articleAuthorQuery = { 'author.username': username };
+
+            return articleCollection.updateMany(articleAuthorQuery, {
+                $set: { author: updateData },
+            });
+        },
         createArticle(articleObject) {
             const article = new Article(
                 articleObject.author,

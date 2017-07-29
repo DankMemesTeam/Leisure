@@ -10,7 +10,7 @@ block append page-content
     p
         | Published by: 
         a(href="/users/" + article.author.username)
-            | #{article.author.username}
+            | #{article.author.username}  -> #{article.author.firstName} #{article.author.lastName}
     hr
     p
         | Summary: #{article.description}
