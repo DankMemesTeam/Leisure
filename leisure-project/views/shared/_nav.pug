@@ -27,6 +27,12 @@ nav.main-nav
           | Feed
       li
         a(href= '/users/' + user.username + '/chats')
+          if user.notifications.length > 0
+            span.new.badge#notifications.right
+              | #{user.notifications.length}
+          else
+            span.new.badge#notifications.right.hidden
+              | #{user.notifications.length}
           | Chats
   ul.right.hide-on-med-and-down
     if user
@@ -87,6 +93,12 @@ nav.main-nav
     if user
       li.bold
         a.waves-effect.waves-cyan(href= '/users/' + user.username + '/chats')
+          if user.notifications.length > 0
+            span.new.badge#notifications-nav.right
+              | #{user.notifications.length}
+          else
+            span.new.badge#notifications-nav.right.hidden
+              | #{user.notifications.length}
           i.material-icons message
           | Chats
     li.bold

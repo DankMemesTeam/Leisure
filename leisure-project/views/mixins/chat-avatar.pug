@@ -1,0 +1,15 @@
+mixin avatar(chatId, icon, title, active)
+    if active === 'active'
+        li(chatId=chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3.active
+            img.circle.z-depth-2.responsive-img.activator(src=icon)
+            span.chat-title
+                | #{title}
+            p.truncate.grey-text.ultra-small
+                | Send message to #{title}
+    else
+        li(chatId=chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
+            img.circle.z-depth-2.responsive-img.activator(src=icon)
+            span.chat-title
+                | #{title}
+            p.truncate.grey-text.ultra-small
+                | Send message to #{title}

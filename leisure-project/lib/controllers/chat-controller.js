@@ -45,9 +45,13 @@ module.exports = ({ userData, chatData }) => {
 
     return {
         getRecentMessages(req, res) {
-            chatData.getRecentMessagesFromChat(req.params.chatId)
-                .then((messages) => {
-                    return res.json(messages);
+            Promise.all([chatData.getRecentMessagesFromChat(req.params.chatId),
+            userData.removeNotification(req.user.username, req.params.chatId)])
+                .then((results) => {
+                    return res.json({
+                        messages: results[0],
+                        notificationsLength: results[1].value.notifications.length,
+                    });
                 });
         },
         loadChats(req, res) {
