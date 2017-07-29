@@ -15,8 +15,10 @@ block append page-content
     p
         | Summary: #{article.description}
     hr
-    p
-        | Content: #{article.content}
+    .row
+        .col.s12.m12
+            p(style="white-space: pre-wrap;")
+                | Content: #{article.content}
     if currentUser
         div.row
             .col.s3.s2

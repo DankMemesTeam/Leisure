@@ -137,5 +137,22 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return res.sendStatus(200);
                 });
         },
+        loadArticleEditPage(req, res) {
+            return articleData.getArticleById(req.params.id)
+                .then((article) => {
+                    res.render('article/article-edit', {
+                        article,
+                        currentUser: req.user
+                            ? req.user.username
+                            : null,
+                    });
+                });
+        },
+        editArticle(req, res) {
+            return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content)
+                .then(() => {
+                    res.redirect(`/articles/${req.params.id}`);
+                });
+        },
     };
 };
