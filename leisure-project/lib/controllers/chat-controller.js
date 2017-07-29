@@ -55,11 +55,17 @@ module.exports = ({ userData, chatData }) => {
                 });
         },
         loadChats(req, res) {
+            if (!req.user) {
+                res.redirect('/auth/login');
+            } else if (req.user.username !== req.params.username) {
+                res.redirect('/users/' + req.params.username);
+            }
+            
             Promise.all([chatData.getUserChats(req.user.username, 'private'),
             chatData.getUserChats(req.user.username, 'event')])
                 .then((chatRooms) => {
                     return Promise.all([getPrivateChatUserDetails(chatRooms[0], req.user.username),
-                        getEventChatDetails(chatRooms[1], req.user.username)]);
+                    getEventChatDetails(chatRooms[1], req.user.username)]);
                 })
                 .then((results) => {
                     res.render('chat/chat-page', {

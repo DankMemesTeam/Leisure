@@ -22,7 +22,7 @@ module.exports = ({ statusData, userData }) => {
                     return statusData.createStatus(status);
                 })
                 .then(() => {
-                    return res.json({ redirect: '/users/' + req.user.username });
+                    return res.json({ status: status });
                 });
         },
         addCommentToStatus(req, res) {
