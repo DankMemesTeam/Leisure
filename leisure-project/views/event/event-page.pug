@@ -1,8 +1,14 @@
 extends ../shared/_master
+include ../mixins/pagination.pug
 
 block append styles
     link(rel='stylesheet', href='/css/event/style.css')
 block append page-content
+    div.row
+        //- Add search query as 1st parameter if one exists
+        h1
+            | #{pagesCount}
+        +pagination(null, pageNumber, pagesCount, "events")
     div.row
         a.waves-effect.waves-light.btn.left(href='/events/create')
             | Create event

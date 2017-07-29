@@ -1,18 +1,26 @@
 module.exports = ({ userData, eventData, chatData }) => {
+    const pageSize = 4;
     return {
         loadEventsPage(req, res) {
+            const pageNumber = req.query.page || 1;
+
             let loadEvents = null;
 
             if (!req.query.query) {
-                loadEvents = eventData.getAllEvents();
+                loadEvents = eventData.getAllEvents(pageNumber, pageSize);
             } else {
+                // Take care of paging
                 loadEvents = eventData.getEventsBy(req.query.query);
             }
 
             loadEvents
-                .then((events) => {
-                    res.render('event/event-page',
-                        { currentUser: req.user || null, events: events });
+                .then(([events, count]) => {
+                    res.render('event/event-page', {
+                        currentUser: req.user || null,
+                        events: events,
+                        pageNumber,
+                        pagesCount: Math.ceil(count / pageSize),
+                    });
                 });
         },
         loadCreationPage(req, res) {

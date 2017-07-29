@@ -2,8 +2,15 @@ module.exports = (eventCollection, validator, models, logger) => {
     const { Event } = models;
 
     return {
-        getAllEvents() {
-            return eventCollection.find();
+        getAllEvents(pageNumber, pageSize) {
+            const query = {};
+            const projection = {};
+            const sort = {};
+
+            return Promise.all([
+                eventCollection.findPaged(query, projection, pageNumber, pageSize, sort),
+                eventCollection.count({}),
+            ]);
         },
         getEventById(id) {
             return eventCollection.findById(id);
