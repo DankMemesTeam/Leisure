@@ -45,12 +45,16 @@ $(() => {
                     return sendStatusData(statusData);
                 })
                 .then((response) => {
+                    $('#modal-loading').modal('close');
+                    $('#modal-done').modal('open');
                     $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });
         } else if (statusText.length > 0) {
             sendStatusData(statusData)
                 .then((response) => {
+                    $('#modal-loading').modal('close');
+                    $('#modal-done').modal('open');
                     $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });

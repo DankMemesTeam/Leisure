@@ -13,6 +13,7 @@ include ../mixins/status.pug
 include ../mixins/pagination.pug
 include ../mixins/loading-modal.pug
 block append page-content
+  +loadingModal("Submitting status...", "Status submitted.")
   #profile-page.section
     // profile-page-header
     #profile-page-header.z-depth-2.card
