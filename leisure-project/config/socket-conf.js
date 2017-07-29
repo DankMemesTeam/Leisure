@@ -26,9 +26,16 @@ module.exports = (app, data, chatController) => {
                         if (currentRoomParticipants.includes(sockets[i].username)
                             && results[0]._id.equals(messageObj.chatId)) {
                             if (messageObj.author !== sockets[i].username) {
+                                userData.addNotification(sockets[i].username, messageObj.chatId)
+                                    .then((result) => {
+                                        result.value.notifications =
+                                            result.value.notifications.filter((x) => x);
 
-                                sockets[i].socket.emit('notification');
-                                userData.addNotification(sockets[i].username, messageObj.chatId);
+                                        sockets[i].socket.emit('notification',
+                                            {
+                                                notificationsLength: result.value.notifications.length,
+                                            });
+                                    });
                             }
 
                             sockets[i].socket

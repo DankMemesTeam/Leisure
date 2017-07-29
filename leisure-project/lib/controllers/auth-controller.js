@@ -1,4 +1,4 @@
-module.exports = ({ userData }, hashGenerator, validator) => {
+module.exports = ({ userData }, renderer, hashGenerator, validator) => {
     return {
         loadLoginPage(req, res) {
             res.render('auth/login');

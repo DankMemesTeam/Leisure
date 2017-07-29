@@ -60,7 +60,7 @@ module.exports = ({ userData, chatData }) => {
             } else if (req.user.username !== req.params.username) {
                 res.redirect('/users/' + req.params.username);
             }
-            
+
             Promise.all([chatData.getUserChats(req.user.username, 'private'),
             chatData.getUserChats(req.user.username, 'event')])
                 .then((chatRooms) => {

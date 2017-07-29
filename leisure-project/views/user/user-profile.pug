@@ -110,24 +110,25 @@ block append page-content
                     |  Update Status
               // UpdateStatus
               #UpdateStatus.tab-content.col.s12.grey.lighten-4
-                form#publish-status-form(action='/users/' + pageUser.username + '/statuses', method='POST')
+                form#publish-status-form 
+                  //- (action='/users/' + pageUser.username + '/statuses', method='POST')
                   .row
                     .col.s3.m2
                       img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
                     .input-field.col.s9
                       textarea#status-text-input.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
                   .row
-                    .col.s12.m6.right-align.right
-                      // Dropdown Trigger
-                      button.waves-effect.waves-light.btn(type='submit')
-                        i.material-icons.left rate_review
-                        | Post
-                    .col.s12.m6.left-align.left
+                    .col.s12.m6.left-align
                       // Dropdown Trigger
                       input#status-image-input(type="file" style="display: none")
                       label(for="status-image-input").waves-effect.waves-light.btn
                         i.material-icons.left file_upload
                         | Upload image
+                    .col.s12.m6.right-align
+                      // Dropdown Trigger
+                      div#post-status-btn.waves-effect.waves-light.btn
+                        i.material-icons.left rate_review
+                        | Post
         
         // / profile-page-wall-share
         // profile-page-wall-posts

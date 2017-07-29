@@ -72,7 +72,8 @@ module.exports = (usersCollection, validator, models, logger) => {
         addNotification(username, chatId) {
             return usersCollection.findAndModify(
                 { username: username },
-                { $addToSet: { notifications: chatId } }
+                { $addToSet: { notifications: chatId } },
+                { returnOriginal: false }
             );
         },
         removeNotification(username, chatId) {

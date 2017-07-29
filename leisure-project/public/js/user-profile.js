@@ -1,4 +1,5 @@
-/* globals $ */
+/* globals $, uploadToApi, uploadUrl, clientId */
+
 const followOrUnfollow = (action) => {
     const url = window.location.href;
 
@@ -28,43 +29,35 @@ const sendStatusData = (statusData) => {
         });
     });
 };
-
 $(() => {
-    $('#publish-status-form').submit((ev) => {
-        ev.preventDefault();
-
+    $('#post-status-btn').click((ev) => {
         const statusText = $('#status-text-input').val();
         const image = document.getElementById('status-image-input').files[0];
-
-        // console.log(statusText);
-        // console.log(image);
+        const statusData = {
+            content: statusText,
+            imageUrl: null,
+        };
 
         if (image) {
             uploadToApi(uploadUrl, clientId, image)
                 .then((response) => {
-                    const statusData = {
-                        content: statusText,
-                        imageUrl: response.data.link,
-                    };
-
+                    statusData.imageUrl = response.data.link;
                     return sendStatusData(statusData);
                 })
                 .then((response) => {
-                    window.location.replace(response.redirect);
+                    $('#profile-page-wall-posts')
+                        .prepend(response.compiledTemplate);
                 });
         } else if (statusText.length > 0) {
-            const statusData = {
-                content: statusText,
-                imageUrl: null,
-            };
-
             sendStatusData(statusData)
                 .then((response) => {
-                    window.location.replace(response.redirect);
+                    $('#profile-page-wall-posts')
+                        .prepend(response.compiledTemplate);
                 });
-        } else {
-            window.location.replace(window.location.href);
         }
+
+        $('#status-text-input').val('');
+        document.getElementById('status-image-input').value = '';
     });
 
     $('.message-btn').click((ev) => {
@@ -79,7 +72,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }
@@ -104,18 +97,4 @@ $(() => {
                 });
         }
     });
-
-    // $('.comment-form').submit((ev) => {
-    //     ev.preventDefault();
-
-    //     const commentText = $(ev.target).children('input').val().trim();
-    //     const url = $(ev.target).attr('action');
-
-    //     sendComment(commentText, url)
-    //         .then((comment) => {
-    //             const $collection = $(ev.target).parent().parent().next().children('ul');
-    //             createComment(comment, $collection);
-    //             $(ev.target).children('input').val('');
-    //         });
-    // });
 });

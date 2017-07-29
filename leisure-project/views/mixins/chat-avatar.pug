@@ -1,5 +1,5 @@
 mixin avatar(chatId, icon, title, active)
-    if active === 'active'
+    if active == 'active'
         li(chatId=chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3.active
             img.circle.z-depth-2.responsive-img.activator(src=icon)
             span.chat-title

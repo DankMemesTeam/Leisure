@@ -2,6 +2,7 @@
 
 const path = require('path');
 const fs = require('fs');
+const renderer = require('../../views/helpers/template-compiler')();
 
 module.exports = (data, hashGenerator, validator) => {
     const controllers = {};
@@ -12,6 +13,7 @@ module.exports = (data, hashGenerator, validator) => {
         .forEach((modulePath) => {
             const normalizedName = normalizeModuleName(modulePath);
             const loadedModule = require(modulePath)(data,
+                renderer,
                 hashGenerator,
                 validator);
 

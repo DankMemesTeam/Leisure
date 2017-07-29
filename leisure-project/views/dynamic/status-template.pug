@@ -1,3 +1,65 @@
-include ../mixins/chat-avatar
-
-+status(status, currentUser)
+.col.s12
+    #profile-page-wall-post.card.z-depth-3
+        .card-profile-title
+            .row
+                .col.s3.m2
+                    img.circle.responsive-img.valign.profile-post-uer-image.z-depth-2(src=statusAuthor.profilePic)
+                .col.s9
+                    p.grey-text.text-darken-4.margin
+                        | #{statusAuthor.firstName} #{statusAuthor.lastName}
+                    span.grey-text.text-darken-1.ultra-small Shared publicly  -   #{status.dateCreated.getDate() + '/' + (status.dateCreated.getMonth() + 1) + '/' + status.dateCreated.getUTCFullYear()}
+            if status.content.length > 0
+                .row
+                    .col.s12                            
+                        p
+                            | #{status.content}
+            if status.imageUrl.length > 0
+                .row
+                    .col.s12                            
+                        img(src=status.imageUrl).responsive-img
+            .card-action
+                if currentUser
+                    .row
+                        .col.s12.m12.card-action-share.left
+                            .row
+                                div.hidden
+                                    | #{'/users/' + statusAuthor.username + '/' + status._id}
+                                p
+                                    | #{status.likes.length} likes
+                                if currentUser && status.likes.includes(currentUser.username)
+                                    .col.s4.m2.btn.rate-btn.liked
+                                        | Unlike
+                                else
+                                    .col.s4.m2.offset-s1.btn.rate-btn
+                                        | Like
+                                .col.s4.m2.btn.small-margin
+                                    | Share
+                    .divider
+                    .row
+                        .commentInput-field.col.s8.margin
+                            form.comment-form(action='/users/' + statusAuthor.username + '/' + status._id, method='POST')
+                                input.commentInput#profile-comments.validate.margin(name="commentContent", type='text' placeholder='Write a comment')
+                
+            .row
+                .col.s12
+                    - var tabSize = 5
+                    - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
+                    if tabsNeeded > 0
+                        - var n = 1
+                        ul.tabs
+                            while n <= tabsNeeded
+                                li.tab
+                                    a(href='#' + status._id + n)
+                                        | #{n++}
+                    - var k = 1
+                    - var index = 0
+                    while k <= tabsNeeded
+                        div(id=status._id + k).col.s12                            
+                            ul.collection
+                                while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
+                                    li.collection-item
+                                        a.comment-username(href='/users/' + status.comments[index].author.username)
+                                            | #{status.comments[index].author.username} 
+                                        | said: #{status.comments[index].content}
+                                        - index++
+                            - k++

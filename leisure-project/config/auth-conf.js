@@ -21,11 +21,9 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
                     .then((correctPassword) => {
                         if (correctPassword) {
                             return done(null, foundUser);
-                        } else {
+                        }
                             return done(null, false,
                                 { message: 'Incorrect password.' });
-                        }
-
                     })
                     .catch((err) => {
                         console.log(err);

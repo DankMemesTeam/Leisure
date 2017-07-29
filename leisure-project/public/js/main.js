@@ -29,8 +29,8 @@ socket.on('conneting user', () => {
   socket.emit('connected user', $('#username').text());
 });
 
-socket.on('notification', () => {
+socket.on('notification', (data) => {
   const badge = $('#notifications');
 
-  updateNotifications(+badge.text() + 1);
+  updateNotifications(data.notificationsLength);
 });

@@ -1,4 +1,4 @@
-module.exports = ({ statusData, userData }) => {
+module.exports = ({ statusData, userData }, renderer) => {
     return {
         createStatus(req, res) {
             if (!req.user) {
@@ -21,8 +21,17 @@ module.exports = ({ statusData, userData }) => {
 
                     return statusData.createStatus(status);
                 })
-                .then(() => {
-                    return res.json({ status: status });
+                .then((stat) => {
+                    return renderer.render('status-template',
+                        {
+                            statusAuthor: status.author,
+                            status: stat.ops[0],
+                            currentUser: req.user,
+                        });
+                })
+                .then((result) => {
+                    console.log(result);
+                    return res.json({ compiledTemplate: result });
                 });
         },
         addCommentToStatus(req, res) {
