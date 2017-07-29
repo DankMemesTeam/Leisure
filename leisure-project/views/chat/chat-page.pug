@@ -4,6 +4,7 @@ block append styles
     link(rel='stylesheet', href='/css/chat/style.css')
 block append footer
     script(src='/js/chat/personal-chat.js')
+include ../mixins/chat-avatar
 block append page-content
     #mail-app.section
         .row
@@ -13,24 +14,20 @@ block append page-content
                         li.collection-header.center.green.lighten-3
                             h6.flow-text.white-text Conversations
                         each details in privateDetails
-                            li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
-                                img.circle.z-depth-2.responsive-img.activator(src=details.profilePic)
-                                span.chat-title
-                                    | #{details.fullName}
-                                p.truncate.grey-text.ultra-small
-                                    | Send message to #{details.fullName}
+                            if user.notifications.includes(details.chatId)
+                                +avatar(details.chatId, details.profilePic, details.fullName, 'active')
+                            else
+                                +avatar(details.chatId, details.profilePic, details.fullName)
                         else
                             li.collection-header.center.green.lighten-3.white-text
                                 | No conversations
                         li.collection-header.center.green.lighten-3
                             h6.flow-text.white-text Events
                         each event in eventDetails
-                            li(chatId=event.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
-                                img.circle.z-depth-2.responsive-img.activator(src=event.chatIcon)
-                                span.chat-title
-                                    | #{event.chatTitle}
-                                p.truncate.grey-text.ultra-small
-                                    | Send message to #{event.chatTitle}
+                            if user.notifications.includes(details.chatId)
+                                +avatar(event.chatId, event.chatIcon, event.chatTitle, 'active')
+                            else
+                                +avatar(event.chatId, event.chatIcon, event.chatTitle)
                         else
                             li.collection-header.center.green.lighten-3.white-text
                                 | No events

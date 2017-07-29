@@ -1,20 +1,16 @@
-.messages-row{
-    margin-right: 2%;
-}
-
 .collection-header{
   padding-top:1%;
   padding-bottom:1%;
 }
 
 .chats-container{
-  max-height: 50%;
-  overflow-y:scroll;
+  max-height: 60%;
+  overflow-y:auto;
 }
 
 .message-container{
-    height: 50%;
-    overflow-y:scroll;
+    max-height: 60%;
+    overflow-y:auto;
 }
 
 *, *:before, *:after {
@@ -36,6 +32,10 @@
   content: " ";
   clear: both;
   height: 0;
+}
+
+.active{
+  background-color: #e8e8e8 !important; 
 }
 
 .chat-btn:hover 

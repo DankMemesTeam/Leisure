@@ -42,7 +42,6 @@ block append page-content
             p.btn.message-btn.card-title
               i.material-icons markunread
               |  Message
-            //- ////////////////////// pageUser - owner of page, currentUser - visitor
             if currentUser.followed.includes(pageUser.username)
               p.btn.card-title#follow-user-btn.followed
                 i.material-icons.right 

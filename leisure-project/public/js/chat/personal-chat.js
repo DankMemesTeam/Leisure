@@ -1,4 +1,4 @@
-/* global $, io, socket */
+/* global $, io, socket, updateNotifications */
 let currentChatId = null;
 
 const getRecentMessages = (currentUser, chatId) => {
@@ -73,11 +73,16 @@ $('.chat-btn').click((ev) => {
     $('.message-container').html('');
 
     getRecentMessages(currentUser, currentChatId)
-        .then((messages) => {
+        .then((results) => {
+            const messages = results.messages;
+
+            updateNotifications(results.notificationsLength);
+
             const container = $('<div/>');
 
             for (let i = 0; i < messages.length; i += 1) {
-                const $message = createMessageBox(messages[i].author, messages[i].content);
+                const $message =
+                createMessageBox(messages[i].author, messages[i].content);
                 container.append($message);
             }
 

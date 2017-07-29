@@ -18,12 +18,18 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
                         { message: 'User with that name does not exist. ' });
                 }
                 hashGenerator.verify(password, foundUser.hashedPassword)
-                    .then(() => {
-                        return done(null, foundUser);
+                    .then((correctPassword) => {
+                        if (correctPassword) {
+                            return done(null, foundUser);
+                        } else {
+                            return done(null, false,
+                                { message: 'Incorrect password.' });
+                        }
+
                     })
-                    .catch(() => {
-                        return done(null, false,
-                            { message: 'Incorrect password.' });
+                    .catch((err) => {
+                        console.log(err);
+                        // logger
                     });
             });
     }));
@@ -62,7 +68,9 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
             .then((foundUser) => {
                 done(null, foundUser);
             })
-            .catch(done);
+            .catch((err) => {
+                done(null, false);
+            });
     });
 
     app.use((req, res, next) => {

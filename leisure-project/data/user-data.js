@@ -69,5 +69,20 @@ module.exports = (usersCollection, validator, models, logger) => {
                 userToUnfollowUpdate,
             ]);
         },
+        addNotification(username, chatId) {
+            return usersCollection.findAndModify(
+                { username: username },
+                { $addToSet: { notifications: chatId } }
+            );
+        },
+        removeNotification(username, chatId) {
+            return usersCollection.findAndModify(
+                { username: username },
+                { $pull: { notifications: chatId } },
+                {
+                    returnOriginal: false,
+                },
+            );
+        },
     };
 };
