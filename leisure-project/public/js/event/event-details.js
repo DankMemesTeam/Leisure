@@ -3,7 +3,7 @@
 const addChat = (postUrl, chatTitle) => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: postUrl + '/chat',
+            url: postUrl,
             type: 'POST',
             dataType: 'json',
             data: { chatTitle: chatTitle },

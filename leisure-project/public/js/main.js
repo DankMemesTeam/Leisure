@@ -30,7 +30,5 @@ socket.on('conneting user', () => {
 });
 
 socket.on('notification', (data) => {
-  const badge = $('#notifications');
-
   updateNotifications(data.notificationsLength);
 });

@@ -24,7 +24,11 @@ module.exports = ({ userData, eventData, chatData }) => {
                 });
         },
         loadCreationPage(req, res) {
-            res.render('event/event-create');
+            if (req.user) {
+                res.render('event/event-create');
+            } else {
+                res.redirect('/auth/login');
+            }
         },
         loadEventDetailsPage(req, res) {
             eventData.getEventById(req.params.eventId)
@@ -80,6 +84,7 @@ module.exports = ({ userData, eventData, chatData }) => {
         addUserToEvent(req, res) {
             eventData.addUserToEvent(req.params.eventId, req.user.username)
                 .then((event) => {
+                    console.log(event);
                     if (event.value.chatTitle) {
                         chatData
                             .addUserToChat(event.value.chatTitle, req.user.username);
