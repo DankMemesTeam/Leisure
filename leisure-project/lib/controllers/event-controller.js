@@ -99,5 +99,26 @@ module.exports = ({ userData, eventData, chatData }) => {
                     res.redirect('/events/' + req.params.eventId);
                 });
         },
+        loadEventEditPage(req, res) {
+            return eventData.getEventById(req.params.eventId)
+                .then((event) => {
+                    res.render('event/event-edit', {
+                        event,
+                        currentUser: req.user
+                            ? req.user.username
+                            : null,
+                    });
+                });
+        },
+        editEvent(req, res) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
+            return eventData.editEvent(req.params.eventId, req.body.title, req.body.description, req.body.headerImage)
+                .then(() => {
+                    res.redirect(`/events/${req.params.eventId}`);
+                });
+        },
     };
 };

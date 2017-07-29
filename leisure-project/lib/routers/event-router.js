@@ -4,9 +4,11 @@ module.exports = ({ app, express, controllers }) => {
 
     router
         .get('/', eventController.loadEventsPage)
-        .post('/', eventController.createEvent)
         .get('/create', eventController.loadCreationPage)
         .get('/:eventId', eventController.loadEventDetailsPage)
+        .get('/:eventId/edit', eventController.loadEventEditPage)
+        .post('/', eventController.createEvent)
+        .post('/:eventId/edit', eventController.editEvent)
         .post('/:eventId/chat', eventController.addEventChat)
         .post('/:eventId/participate', eventController.addUserToEvent);
 

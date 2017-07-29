@@ -3,6 +3,8 @@
 $('.button-collapse').sideNav();
 
 $(document).ready(() => {
+  $('select').material_select();
+
   $('ul.tabs').tabs();
   $('ul.tabs').tabs('select_tab', 'tab_id');
 });

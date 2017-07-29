@@ -1,9 +1,6 @@
 /* globals $ */
 
-// selects not rendering otherwise
-$(document).ready(() => {
-    $('select').material_select();
-});
+
 
 // chips initialization
 const tags = [];

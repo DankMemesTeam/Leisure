@@ -43,5 +43,20 @@ module.exports = (eventCollection, validator, models, logger) => {
                 }
             );
         },
+        editEvent(id, title, description, headerImage) {
+            const query = {
+                _id: eventCollection.generateId(id),
+            };
+
+            const update = {
+                $set: {
+                    title,
+                    description,
+                    headerImage,
+                },
+            };
+
+            return eventCollection.findAndModify(query, update);
+        },
     };
 };

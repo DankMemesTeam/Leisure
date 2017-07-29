@@ -34,6 +34,10 @@ block append page-content
                     | Published by: #{event.creator}
                 p 
                     | #{event.description}
+                if locals.user && event.creator == locals.user.username
+                        a.secondary-content(href="/events/" + event._id + "/edit")
+                            i.material-icons
+                                | edit  
     else
         h1
             | No events found.
