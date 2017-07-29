@@ -76,6 +76,7 @@ module.exports = ({ userData, eventData, chatData }) => {
         addUserToEvent(req, res) {
             eventData.addUserToEvent(req.params.eventId, req.user.username)
                 .then((event) => {
+                    console.log(event);
                     if (event.value.chatTitle) {
                         chatData
                             .addUserToChat(event.value.chatTitle, req.user.username);

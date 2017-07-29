@@ -24,7 +24,7 @@ block append page-content
                         li.collection-header.center.green.lighten-3
                             h6.flow-text.white-text Events
                         each event in eventDetails
-                            if user.notifications.includes(details.chatId)
+                            if user.notifications.includes(event.chatId)
                                 +avatar(event.chatId, event.chatIcon, event.chatTitle, 'active')
                             else
                                 +avatar(event.chatId, event.chatIcon, event.chatTitle)
