@@ -67,7 +67,7 @@ module.exports = ({ userData, statusData }) => {
 
             return userData.getUserFollowed(req.user.username)
                 .then((usersFollowed) => {
-                    return statusData.getFeed(usersFollowed.followed || [], pageNumber, pageSize);    // pageNumber, pageSize
+                    return statusData.getFeed(usersFollowed.followed || [], pageNumber, pageSize); // pageNumber, pageSize
                 })
                 .then(([statuses, count]) => {
                     return res.render('user/user-feed', {

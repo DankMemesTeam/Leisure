@@ -9,7 +9,8 @@ block append page-content
     each stat in statuses
         //- pageuser, status, currentuser
         +status(stat, locals.user)
-    +pagination(null, pageNumber, pagesCount, "feed")
+    .row.center
+        +pagination(null, pageNumber, pagesCount, "feed")
 
 block append footer
     script(src="js/status-comment.js")

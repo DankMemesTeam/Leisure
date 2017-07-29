@@ -56,10 +56,15 @@ module.exports = (chatroomCollection, validator, models, logger) => {
                 .then((result) => {
                     if (!result) {
                         return chatroomCollection.insertOne(chatroom);
-                    } else {
-                        return Promise.reject('Chat name already exists!');
                     }
+                    return Promise.reject('Chat name already exists!');
                 });
+        },
+        addUserToChat(chatTitle, username) {
+            return chatroomCollection.findAndModify(
+                { chatTitle: chatTitle },
+                { $addToSet: { participants: username } }
+            );
         },
         addMessageToChat(messageObj) {
             const message = new Message(messageObj.author, messageObj.content);

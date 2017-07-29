@@ -1,11 +1,11 @@
 /* globals $ */
-// $(document).ready(() => {
-//     $('#event-form :checkbox').change((ev) => {
-//         console.log($(ev.target));
-//         if ($(ev.target).checked) {
-//             $('#chatTitleContainer').removeClass('hidden');
-//         } else {
-//             $('#chatTitleContainer').addClass('hidden');
-//         }
-//     });
-// });
+$(document).ready(() => {
+    $('#event-form :checkbox').change((ev) => {
+        console.log($(ev.target).val());
+        if ($('#event-form :checkbox:checked').length > 0) {
+            $('#chatTitleContainer').removeClass('hidden');
+        } else {
+            $('#chatTitleContainer').addClass('hidden');
+        }
+    });
+});

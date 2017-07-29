@@ -5,7 +5,6 @@ module.exports = class Event {
         this.dateCreated = new Date();
         this.title = title;
         this.creator = creator;
-        // Must be unique
         this.chatTitle = chatTitle;
         this.description = description;
         this.headerImage = constants.event.defaultHeaderPic;

@@ -34,8 +34,8 @@ module.exports = ({ userData, chatData }) => {
         for (let i = 0; i < chatrooms.length; i += 1) {
             details.push({
                 chatId: chatrooms[i]._id,
-                chatTitle: chatrooms[i].title,
-                chatIcon: chatrooms[i].headerImage,
+                chatTitle: chatrooms[i].chatTitle,
+                chatIcon: chatrooms[i].chatIcon,
                 chatRoom: chatrooms[i],
             });
         }
@@ -72,7 +72,6 @@ module.exports = ({ userData, chatData }) => {
 
             return chatData.createPrivateChatroom(participants, chatType)
                 .then((resultChatroom) => {
-                    // res.send(`/users/${req.user.username}/chats`);
                     res.json({ redirect: `/users/${req.user.username}/chats` });
                 });
         },

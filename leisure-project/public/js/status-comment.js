@@ -54,8 +54,7 @@ $(() => {
 
                     $collection = $ul;
                     $(ev.target).parent().parent().parent().next().children().append($ul);
-                }
-                else {
+                } else {
                     $collection = $(selector).children('ul');
 
                     // if ($collection.length === 0) {
@@ -65,7 +64,6 @@ $(() => {
                     //     $(selector).append($ul);
                     //     $collection = $ul;
                     // }
-
                 }
 
                 if ($collection.length === 0) {

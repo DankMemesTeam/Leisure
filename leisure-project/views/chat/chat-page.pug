@@ -24,13 +24,13 @@ block append page-content
                                 | No conversations
                         li.collection-header.center.green.lighten-3
                             h6.flow-text.white-text Events
-                        each details in eventDetails
-                            li(chatId=details.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
-                                img.circle.z-depth-2.responsive-img.activator(src=details.chatIcon)
+                        each event in eventDetails
+                            li(chatId=event.chatId).chat-btn.collection-item.avatar.hoverable.z-depth-3
+                                img.circle.z-depth-2.responsive-img.activator(src=event.chatIcon)
                                 span.chat-title
-                                    | #{details.chatTitle}
+                                    | #{event.chatTitle}
                                 p.truncate.grey-text.ultra-small
-                                    | Send message to #{details.chatTitle}
+                                    | Send message to #{event.chatTitle}
                         else
                             li.collection-header.center.green.lighten-3.white-text
                                 | No events

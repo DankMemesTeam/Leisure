@@ -43,27 +43,27 @@ mixin status(status, currentUser)
                     
                 .row
                     .col.s12
-                    - var tabSize = 5
-                    - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
-                    if tabsNeeded > 0
-                        - var n = 1
-                        ul.tabs
-                            while n <= tabsNeeded
-                                li.tab
-                                    a(href='#' + status._id + n)
-                                        | #{n++}
-                    - var k = 1
-                    - var index = 0
-                    while k <= tabsNeeded
-                        div(id=status._id + k).col.s12                            
-                            ul.collection
-                                while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
-                                    li.collection-item
-                                        a.comment-username(href='/users/' + status.comments[index].author.username)
-                                            | #{status.comments[index].author.username} 
-                                        | said: #{status.comments[index].content}
-                                        - index++
-                            - k++
+                        - var tabSize = 5
+                        - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
+                        if tabsNeeded > 0
+                            - var n = 1
+                            ul.tabs
+                                while n <= tabsNeeded
+                                    li.tab
+                                        a(href='#' + status._id + n)
+                                            | #{n++}
+                        - var k = 1
+                        - var index = 0
+                        while k <= tabsNeeded
+                            div(id=status._id + k).col.s12                            
+                                ul.collection
+                                    while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
+                                        li.collection-item
+                                            a.comment-username(href='/users/' + status.comments[index].author.username)
+                                                | #{status.comments[index].author.username} 
+                                            | said: #{status.comments[index].content}
+                                            - index++
+                                - k++
 
 
 

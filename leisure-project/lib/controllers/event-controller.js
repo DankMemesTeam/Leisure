@@ -43,7 +43,7 @@ module.exports = ({ userData, eventData, chatData }) => {
 
             chatPromise
                 .then((chat) => {
-                    return eventData.createEvent(eventObj, chat.chatTitle || null);
+                    return eventData.createEvent(eventObj, req.body.chatTitle || null);
                 })
                 .then((event) => {
                     req.toastr.success('Successfully created event!');
@@ -55,11 +55,36 @@ module.exports = ({ userData, eventData, chatData }) => {
                     res.redirect('/events/create');
                 });
         },
-        createEventChat(req, res) {
-            // eventData.getEventById(// id)
-            // chatData.createEventChatroom()
-
-            // then assign all event participants to chat and make event chatTitle = new ChatTitle
+        addEventChat(req, res) {
+            eventData.addChatToEvent(req.params.eventId, req.body.chatTitle)
+                .then((event) => {
+                    return chatData.createEventChatroom(event.value.participants, 'event', req.body.chatTitle);
+                })
+                .then((chat) => {
+                    res.json({ redirect: '/events/' + req.params.eventId });
+                })
+                .catch((err) => {
+                    // should send json with the error message
+                    req.toastr.error(err);
+                    res.redirect('/events/' + req.params.eventId);
+                });
+        },
+        addUserToEvent(req, res) {
+            eventData.addUserToEvent(req.params.eventId, req.user.username)
+                .then((event) => {
+                    if (event.value.chatTitle) {
+                        chatData
+                            .addUserToChat(event.value.chatTitle, req.user.username);
+                    }
+                })
+                .then((result) => {
+                    res.json({ redirect: '/events/' + req.params.eventId });
+                })
+                .catch((err) => {
+                    // should send json with the error message
+                    req.toastr.error(err);
+                    res.redirect('/events/' + req.params.eventId);
+                });
         },
     };
 };
