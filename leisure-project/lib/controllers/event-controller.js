@@ -12,7 +12,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             loadEvents
                 .then((events) => {
                     res.render('event/event-page',
-                        { currentUser: req.user.username, events: events });
+                        { currentUser: req.user || null, events: events });
                 });
         },
         loadCreationPage(req, res) {
@@ -22,7 +22,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             eventData.getEventById(req.params.eventId)
                 .then((event) => {
                     res.render('event/event-details',
-                        { currentUser: req.user.username, event: event });
+                        { currentUser: req.user || null, event: event });
                 });
         },
         createEvent(req, res) {
