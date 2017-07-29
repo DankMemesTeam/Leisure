@@ -63,6 +63,17 @@ const createComment = (comment) => {
     $('#comments-list').prepend($li);
 };
 
+const deleteArticle = (articleId) => {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: '/articles/' + articleId + '/remove',
+            type: 'POST',
+            success: resolve,
+            error: reject,
+        });
+    });
+};
+
 $('#rate-btn').on('click', (ev) => {
     const $target = $('#rate-btn');
     const state = $target.text();
@@ -96,3 +107,13 @@ $('#send-comment-btn').on('click', (ev) => {
             console.log('Error');
         });
 });
+
+$('#article-delete-btn').on('click', (ev) => {
+    const articleId = window.location.href.replace(/.*articles\/([0-9a-zA-Z]+).*/, '$1')
+
+    deleteArticle(articleId)
+        .then(() => {
+            window.location.replace('/articles');
+        });
+});
+

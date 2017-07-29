@@ -19,10 +19,12 @@ $('#profile-picture-form').submit((ev) => {
             return sendImageUrl(postUrl, 'profilePic', imageUrl);
         })
         .then((response) => {
+            $('#modal-loading').modal('close');
+            $('#modal-done').modal('open');
             console.log(response);
 
-            if (response.redirect) {
-                window.location.replace(response.redirect);
-            }
+            // if (response.redirect) {
+            //     window.location.replace(response.redirect);
+            // }
         });
 });

@@ -12,6 +12,7 @@ module.exports = ({ app, express, controllers }) => {
         .post('/:id/like', articlesController.likeArticle)
         .post('/:id/unlike', articlesController.unlikeArticle)
         .post('/:id/edit', articlesController.editArticle)
+        .post('/:id/remove', articlesController.removeArticle)
         .post('/:id', articlesController.addComment);
 
     app.use('/articles', router);

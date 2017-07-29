@@ -36,6 +36,13 @@ module.exports = (articleCollection, validator, models, logger) => {
 
             return articleCollection.findAndModify(query, update);
         },
+        removeArticle(id) {
+            const query = {
+                _id: articleCollection.generateId(id),
+            };
+
+            return articleCollection.deleteOne(query);
+        },
         getAllArticles(pageNumber, pageSize) {
             const sort = { dateCreated: - 1 };
 

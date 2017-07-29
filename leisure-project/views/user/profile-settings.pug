@@ -1,9 +1,11 @@
 extends ../shared/_master
 
+include ../mixins/loading-modal
 block append styles
   link(rel='stylesheet', href='/css/user-profile/style-horizontal.css')
   link(rel='stylesheet', href='/css/user-profile/style.css')
 block append page-content
+  +loadingModal("Uploading image", "Uploaded.")
   .row
     .col-md-8
       .well

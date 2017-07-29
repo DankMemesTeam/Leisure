@@ -39,7 +39,7 @@ const getCollection = (connection, collectionName) => {
             return collection.findOne(new ObjectId(query));
         };
 
-    const updateMany = 
+    const updateMany =
         (query, update) => {
             return collection.update(query, update, { multi: true });
         };

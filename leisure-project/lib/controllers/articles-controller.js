@@ -20,10 +20,13 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 articlesPromise = articleData.findArticles(req.query.query, pageNumber, pageSize);
             }
 
-            return Promise.all([
-                articlesPromise,
-                categoryData.getAllCategoryNames(),
-            ])
+            return categoryData.initCategories()
+                .then(() => {
+                    return Promise.all([
+                        articlesPromise,
+                        categoryData.getAllCategoryNames(),
+                    ])
+                })
                 .then(([[articles, count], categories]) => {
                     return res.render('article/article-page', {
                         articles,
@@ -149,9 +152,40 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         editArticle(req, res) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
+
             return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content)
-                .then(() => {
+                .then((result) => {
+
+                    const article = {
+                        author: result.value.author,
+                        _id: req.params.id,
+                        title: req.body.title,
+                        description: req.body.description,
+                        content: req.body.content,
+                    };
+
+                    return categoryData.updateCategoryArticle(req.params.id, article);
+                })
+                .then((result) => {
+                    console.log(result);
                     res.redirect(`/articles/${req.params.id}`);
+                });
+        },
+        removeArticle(req, res) {
+            return Promise.all([
+                articleData.removeArticle(req.params.id),
+                categoryData.removeArticleFromCategory(req.params.id),
+            ])
+                .then((result) => {
+                    console.log(result[1]);
+                    return articleData.removeArticle(req.params.id)
+                        .then(() => {
+                            res.sendStatus(200);
+                        });
                 });
         },
     };
