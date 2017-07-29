@@ -2,6 +2,13 @@ module.exports = (statusCollection, validator, models, logger) => {
     const { Status } = models;
 
     return {
+        updateStatusFields(username, updateData) {
+            const statusAuthorQuery = { 'author.username': username };
+
+            return statusCollection.updateMany(statusAuthorQuery, {
+                $set: { author: updateData },
+            });
+        },
         findStatusesByUser(username, pageNumber, pageSize) {
             const query = { 'author.username': username };
             const sort = { dateCreated: -1 };

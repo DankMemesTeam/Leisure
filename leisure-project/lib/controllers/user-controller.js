@@ -1,4 +1,4 @@
-module.exports = ({ userData, statusData }) => {
+module.exports = ({ userData, statusData, articleData }) => {
     const pageSize = 2;
 
     return {
@@ -47,6 +47,27 @@ module.exports = ({ userData, statusData }) => {
                     }
 
                     userData.editUser(foundUser.username, req.body)
+                        .then((editResult) => {
+                            // Update fields
+                            const user = {
+                                username: editResult.value.username,
+                                firstName: editResult.value.firstName,
+                                lastName: editResult.value.lastName,
+                                profilePic: editResult.value.profilePic,
+                            };
+
+                            for (const key in req.body) {
+                                // check for allowed fields only
+                                if (req.body[key]) {
+                                    user[key] = req.body[key];
+                                }
+                            }
+
+                            return Promise.all([
+                                articleData.updateArticleFields(user.username, user),
+                                statusData.updateStatusFields(user.username, user),
+                            ]);
+                        })
                         .then(() => {
                             if (req.body.profilePic) {
                                 return res.json({

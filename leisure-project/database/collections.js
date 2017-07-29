@@ -6,6 +6,14 @@ const getCollection = (connection, collectionName) => {
         collection = db.collection(collectionName);
     });
 
+    // REMOVE ME
+
+    const exposedFind = (query) => {
+        return collection.find(query);
+    };
+
+    // REMOVE
+
     const find =
         (query, projection, sort) => {
             return collection.find(query, projection).sort(sort).toArray();
@@ -29,6 +37,11 @@ const getCollection = (connection, collectionName) => {
     const findById =
         (query) => {
             return collection.findOne(new ObjectId(query));
+        };
+
+    const updateMany = 
+        (query, update) => {
+            return collection.update(query, update, { multi: true });
         };
 
     const findAndModify =
@@ -64,6 +77,9 @@ const getCollection = (connection, collectionName) => {
         insertOne,
         deleteOne,
         generateId,
+        updateMany,
+        // REMOVE
+        exposedFind,
     };
 
 
