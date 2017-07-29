@@ -16,7 +16,11 @@ module.exports = ({ userData, eventData, chatData }) => {
                 });
         },
         loadCreationPage(req, res) {
-            res.render('event/event-create');
+            if (req.user) {
+                res.render('event/event-create');
+            } else {
+                res.redirect('/auth/login');
+            }
         },
         loadEventDetailsPage(req, res) {
             eventData.getEventById(req.params.eventId)

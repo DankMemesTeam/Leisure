@@ -4,16 +4,10 @@ block append styles
     link(rel='stylesheet', href='/css/event/style.css')
 block append page-content
     div.row
-        if currentUser
-            a.waves-effect.waves-light.btn.left(href='/events/create')
-                | Create event
-                i.material-icons.right
-                    | add
-        else
-            a.waves-effect.waves-light.btn.left(href='/auth/login')
-                | Create event
-                i.material-icons.right
-                    | add
+        a.waves-effect.waves-light.btn.left(href='/events/create')
+            | Create event
+            i.material-icons.right
+                | add
     nav
         div.nav-wrapper
             form
