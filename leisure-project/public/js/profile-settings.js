@@ -21,7 +21,8 @@ $('#profile-picture-form').submit((ev) => {
         .then((response) => {
             $('#modal-loading').modal('close');
             $('#modal-done').modal('open');
-            console.log(response);
+
+            input.parentElement.removeChild(input);
 
             // if (response.redirect) {
             //     window.location.replace(response.redirect);
