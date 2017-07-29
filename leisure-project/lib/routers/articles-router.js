@@ -6,10 +6,13 @@ module.exports = ({ app, express, controllers }) => {
         .get('/', articlesController.loadArticlesPage)
         .get('/add', articlesController.loadArticleAddingPage)
         .get('/categories/:category', articlesController.loadCategoryPage)
+        .get('/:id/edit', articlesController.loadArticleEditPage)
         .get('/:id', articlesController.loadDetailsPage)
         .post('/add', articlesController.addArticle)
         .post('/:id/like', articlesController.likeArticle)
         .post('/:id/unlike', articlesController.unlikeArticle)
+        .post('/:id/edit', articlesController.editArticle)
+        .post('/:id/remove', articlesController.removeArticle)
         .post('/:id', articlesController.addComment);
 
     app.use('/articles', router);

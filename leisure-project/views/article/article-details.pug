@@ -5,6 +5,13 @@ block append page-content
     each tag in article.tags
         div.chip
             | ##{tag}
+    if locals.user
+        if locals.user.username == article.author.username
+            a#article-delete-btn.btn.right
+                | Delete article
+        if locals.user.username == article.author.username
+            a(href="/articles/" + article._id + "/edit").btn.right
+                | Edit article
     h1
         | #{article.title}
     p
@@ -15,8 +22,10 @@ block append page-content
     p
         | Summary: #{article.description}
     hr
-    p
-        | Content: #{article.content}
+    .row
+        .col.s12.m12
+            p(style="white-space: pre-wrap;")
+                | Content: #{article.content}
     if currentUser
         div.row
             .col.s3.s2

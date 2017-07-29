@@ -17,10 +17,11 @@ block append page-content
                         | No categories found
 
     div.row
-        a.waves-effect.waves-light.btn.left(href="/articles/add")
-            | Add new article
-            i.material-icons.right
-                | add
+        if locals.user
+            a.waves-effect.waves-light.btn.left(href="/articles/add")
+                | Add new article
+                i.material-icons.right
+                    | add
         a.btn.dropdown-button.right(data-activates="categories-dropdown")
             | Categories
             i.material-icons.right
@@ -42,17 +43,18 @@ block append page-content
             ul.collection
                 li.collection-item.avatar
                     img.circle(src="https://ih1.redbubble.net/image.92221274.3543/st%2Csmall%2C215x235-pad%2C210x230%2Cf8f8f8.lite-1.jpg")
-                    a.title(href="#")
-                        | #{article.title}
+                    a.title(href="/articles/" + article._id)
+                        | > #{article.title}
                     p 
                         | Published by: #{article.author.username}
                     p 
                         | #{article.description}
                     p
                         | Category : #{article.category}
-                    a.secondary-content(href="/articles/" + article._id)
-                        i.material-icons
-                            | open_in_new    
+                    if locals.user && article.author.username == locals.user.username
+                        a.secondary-content(href="/articles/" + article._id + "/edit")
+                            i.material-icons
+                                | edit  
         +pagination(query, pageNumber, pagesCount, "articles")            
     else
         h1

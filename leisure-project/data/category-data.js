@@ -53,8 +53,40 @@ module.exports = (categoryCollection, validator,
 
             return categoryCollection.findAndModify(filter, update);
         },
-        removeArticleFromCategory(articleId, categoryName) {
-            // ...
+        removeArticleFromCategory(articleId) {
+            const query = {
+                'articles': {
+                    $elemMatch: {
+                        _id: categoryCollection.generateId(articleId),
+                    },
+                },
+            };
+
+            const update = {
+                $pull: {
+                    'articles': {
+                        _id: categoryCollection.generateId(articleId),
+                    },
+                },
+            };
+
+            return categoryCollection.findAndModify(query, update);
+        },
+        updateCategoryArticle(id, updateData) {
+            const query = {
+                'articles._id': categoryCollection.generateId(id),
+            };
+
+            const update = {
+                $set: {
+                    'articles.$.title': updateData.title,
+                    'articles.$._id': updateData._id,
+                    'articles.$.author': updateData.author,
+                    'articles.$.description': updateData.description,
+                },
+            };
+
+            return categoryCollection.findAndModify(query, update);
         },
         getAllCategoryNames() {
             const query = {};

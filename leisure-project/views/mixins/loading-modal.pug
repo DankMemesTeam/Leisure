@@ -1,0 +1,17 @@
+mixin loadingModal(loadingText, doneText)
+    a.waves-effect.waves-light.btn.modal-trigger.hidden(href='#modal-loading')
+    #modal-loading.modal
+        .modal-content
+            p 
+                | #{loadingText}
+            .progress
+                .indeterminate
+
+
+    a.waves-effect.waves-light.btn.modal-trigger.hidden(href='#modal-done')
+    #modal-done.modal
+        .modal-content
+            p 
+                | #{doneText}
+            a.modal-close.btn(href="#!")
+                | Close
