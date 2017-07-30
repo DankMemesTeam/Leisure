@@ -2,11 +2,14 @@ extends ../shared/_master
 block append styles
     link(rel='stylesheet', href='/css/event/style.css')
     script(src='/js/event/event-details.js')
+block append footer
 block append page-content
-    //- div.row
-    //- each tag in article.tags
-    //-     div.chip
-    //-         | ##{tag}
+    if event.location.longitude.length > 0 && event.location.latitude.length > 0
+    .row.hidden
+        #event-lat
+            =event.location.latitude
+        #event-long
+            =event.location.longitude
     .row
         .col.s12.m12.l12
             img.header-image(src=event.headerImage)
@@ -21,6 +24,8 @@ block append page-content
             if event.location.address.length > 0
                 p
                     | Location: #{event.location.address}
+                p#distance-from-user
+                    | Distance from you:
             else
                 p
                     | Location: Not specified
@@ -71,6 +76,3 @@ block append page-content
         else
             h5
                 | There are currently no comments on this article
-
-block append footer
-    script(src='/js/article-details.js')
