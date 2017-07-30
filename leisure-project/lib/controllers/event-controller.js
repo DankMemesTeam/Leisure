@@ -56,7 +56,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             const long = req.body.longitude;
 
             const mapType = 'maptype=roadmap';
-            const mapSize = 'size=1200x800';
+            const mapSize = 'size=600x300';
             const zoom = 'zoom=17';
             const center = `center=${lat},${long}`;
             const marker = `&markers=color:red%7Clabel:C%7C${lat},${long}`;

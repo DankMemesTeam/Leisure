@@ -16,7 +16,7 @@ block append page-content
             +status(stat, locals.user)
         if statuses.length > 0
             .row.center
-                +pagination(null, pageNumber, pagesCount, 'feed')
+                +pagination(null, pageNumber, pagesCount, '')
 
 block append footer
     script(src="js/status-comment.js")
