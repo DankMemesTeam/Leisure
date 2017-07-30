@@ -18,9 +18,16 @@ block append page-content
                     a(href="/users/" + event.creator)
                         | #{event.creator}
                 hr
+            if event.location.address.length > 0
+                p
+                    | Location: #{event.location.address}
+            else
+                p
+                    | Location: Not specified
             p.center
                 | Summary: #{event.description}
             hr
+        
             if currentUser
                 if event.creator !== currentUser.username && !event.participants.includes(currentUser.username)
                     div#join-event-btn.btn

@@ -43,6 +43,11 @@ module.exports = ({ userData, eventData, chatData }) => {
                 description: req.body.description,
                 creator: req.user.username,
                 participants: [req.user.username],
+                location: {
+                    address: req.body.address,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
+                },
             };
 
             let chatPromise = Promise.resolve(null);

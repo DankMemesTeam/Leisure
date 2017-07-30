@@ -20,7 +20,7 @@ module.exports = (eventCollection, validator, models, logger) => {
         },
         createEvent(eventObject, chatTitle) {
             const event = new Event(eventObject.title, eventObject.creator,
-                eventObject.description, eventObject.participants, chatTitle);
+                eventObject.description, eventObject.participants, chatTitle, eventObject.location);
 
             return eventCollection.insertOne(event);
         },
