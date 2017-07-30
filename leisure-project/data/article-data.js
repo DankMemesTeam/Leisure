@@ -1,4 +1,4 @@
-module.exports = (articleCollection, validator, models, logger) => {
+module.exports = (articleCollection, validator, models, logger, { article }) => {
     const { Article } = models;
 
     return {
@@ -43,15 +43,16 @@ module.exports = (articleCollection, validator, models, logger) => {
 
             return articleCollection.deleteOne(query);
         },
-        getAllArticles(pageNumber, pageSize) {
+        getAllArticles(pageNumber) {
             const sort = { dateCreated: - 1 };
 
             return Promise.all([
-                articleCollection.findPaged({}, {}, pageNumber, pageSize, sort),
+                articleCollection.findPaged({}, {}, pageNumber, article.defaultPageSize, sort),
                 articleCollection.count({}),
+                article.defaultPageSize,
             ]);
         },
-        findArticles(query, pageNumber, pageSize) {
+        findArticles(query, pageNumber) {
             const sort = { dateCreated: - 1 };
 
             const search = {
@@ -63,7 +64,7 @@ module.exports = (articleCollection, validator, models, logger) => {
             };
 
             return Promise.all([
-                articleCollection.findPaged(search, {}, pageNumber, pageSize, sort),
+                articleCollection.findPaged(search, {}, pageNumber, article.defaultPageSize, sort),
                 articleCollection.count(search),
             ]);
         },

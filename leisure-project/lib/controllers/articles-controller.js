@@ -6,8 +6,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
         });
     };
 
-    const pageSize = 4;
-
     return {
         loadArticlesPage(req, res) {
             let articlesPromise;
@@ -15,9 +13,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
             const pageNumber = req.query.page || 1;
 
             if (!req.query.query) {
-                articlesPromise = articleData.getAllArticles(pageNumber, pageSize);
+                articlesPromise = articleData.getAllArticles(pageNumber);
             } else {
-                articlesPromise = articleData.findArticles(req.query.query, pageNumber, pageSize);                
+                articlesPromise = articleData.findArticles(req.query.query, pageNumber);
             }
 
             return categoryData.initCategories()
@@ -25,9 +23,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return Promise.all([
                         articlesPromise,
                         categoryData.getAllCategoryNames(),
-                    ])
+                    ]);
                 })
-                .then(([[articles, count], categories]) => {
+                .then(([[articles, count, pageSize], categories]) => {
                     return res.render('article/article-page', {
                         articles,
                         categories,

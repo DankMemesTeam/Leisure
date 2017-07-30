@@ -1,5 +1,5 @@
 module.exports = (categoryCollection, validator,
-    models, logger, { categories }) => {
+    models, logger, { article }) => {
     return {
         initCategories() {
             const promises = [];
@@ -7,7 +7,7 @@ module.exports = (categoryCollection, validator,
             return categoryCollection.find({})
                 .then((result) => {
                     if (result.length === 0) {
-                        for (const cat of categories.initialCategories) {
+                        for (const cat of article.initialCategories) {
                             console.log(cat);
                             promises.push(
                                 categoryCollection.insertOne({

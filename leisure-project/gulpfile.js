@@ -10,10 +10,15 @@ const app = require('./config')(logger);
 let server = null;
 
 gulp.task('start', () => {
-  server = app.listen(config.port, () =>
-    logger.debug('Express server listening on port ' + config.port)
-  );
+  return app
+    .then((application) => {
+      application.listen(config.port, () =>
+        logger.debug('Express server listening on port ' + config.port)
+      )
+    });
 });
+
+// Fix the following when needed
 
 gulp.task('server:restart', () => {
   const pr = Promise.resolve();

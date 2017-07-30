@@ -1,21 +1,22 @@
-module.exports = (eventCollection, validator, models, logger) => {
+module.exports = (eventCollection, validator, models, logger, { event }) => {
     const { Event } = models;
 
     return {
-        getAllEvents(pageNumber, pageSize) {
+        getAllEvents(pageNumber) {
             const query = {};
             const projection = {};
             const sort = {};
 
             return Promise.all([
-                eventCollection.findPaged(query, projection, pageNumber, pageSize, sort),
+                eventCollection.findPaged(query, projection, pageNumber, event.defaultPageSize, sort),
                 eventCollection.count({}),
+                event.defaultPageSize,
             ]);
         },
         getEventById(id) {
             return eventCollection.findById(id);
         },
-        getEventsBy(title, pageNumber, pageSize) {
+        getEventsBy(title, pageNumber) {
             const regexExpression = `.*${title}.*`;
 
             const query = {
@@ -27,8 +28,9 @@ module.exports = (eventCollection, validator, models, logger) => {
             const sort = {};
 
             return Promise.all([
-                eventCollection.findPaged(query, projection, pageNumber, pageSize, sort),
+                eventCollection.findPaged(query, projection, pageNumber, event.defaultPageSize, sort),
                 eventCollection.count(query),
+                event.defaultPageSize,
             ]);
         },
         createEvent(eventObject, chatTitle) {

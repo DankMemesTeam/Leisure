@@ -1,5 +1,4 @@
 module.exports = ({ userData, eventData, chatData }) => {
-    const pageSize = 4;
     return {
         loadEventsPage(req, res) {
             const pageNumber = req.query.page || 1;
@@ -7,14 +6,14 @@ module.exports = ({ userData, eventData, chatData }) => {
             let loadEvents = null;
 
             if (!req.query.query) {
-                loadEvents = eventData.getAllEvents(pageNumber, pageSize);
+                loadEvents = eventData.getAllEvents(pageNumber);
             } else {
                 // Take care of paging
-                loadEvents = eventData.getEventsBy(req.query.query, pageNumber, pageSize);
+                loadEvents = eventData.getEventsBy(req.query.query, pageNumber);
             }
 
             loadEvents
-                .then(([events, count]) => {
+                .then(([events, count, pageSize]) => {
                     res.render('event/event-page', {
                         currentUser: req.user || null,
                         events: events,
@@ -49,16 +48,14 @@ module.exports = ({ userData, eventData, chatData }) => {
                     longitude: req.body.longitude,
                     latitude: req.body.latitude,
                 },
-            };
-
-            
+            };            
 
             const apiKey = 'AIzaSyCLFJNN2PJekPGTkfqk_weQTi-u7HCOuaI';
 
             const lat = req.body.latitude;
             const long = req.body.longitude;
 
-            const mapType = 'maptype=roadmap'
+            const mapType = 'maptype=roadmap';
             const mapSize = 'size=1200x800';
             const zoom = 'zoom=17';
             const center = `center=${lat},${long}`;
@@ -67,7 +64,6 @@ module.exports = ({ userData, eventData, chatData }) => {
             const googleMapsLink = `https://maps.googleapis.com/maps/api/staticmap?${mapSize}&${zoom}&${center}&${marker}&${mapType}&key=${apiKey}`;
 
             eventObj.location.mapUrl = googleMapsLink;
-
 
             let chatPromise = Promise.resolve(null);
             // SHOULD be able to create event chat after event is created also

@@ -1,17 +1,19 @@
 module.exports = {
-    categories: {
+    user: {
+        defaultProfilePic: 'lorem ipsum',
+    },
+    event: {
+        defaultHeaderPic: '/images/event/default-header.jpg',
+        defaultPageSize: 4,
+    },
+    article: {
+        defaultPageSize: 2,
         initialCategories: [
             'Programming',
             'Science',
             'Math',
             'Other',
         ],
-    },
-    user: {
-
-    },
-    event: {
-        defaultHeaderPic: '/images/event/default-header.jpg',
     },
     // Export default profile picture etc here?
 };

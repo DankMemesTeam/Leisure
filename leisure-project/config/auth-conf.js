@@ -36,7 +36,7 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
         return session({
             secret: secretString,
             store: new MongoStore({
-                dbPromise: db,
+                db,
             }),
             resave: true,
             saveUninitialized: true,
