@@ -79,25 +79,6 @@ module.exports = ({ userData, statusData, articleData }) => {
                         });
                 });
         },
-        loadUserFeed(req, res) {
-            if (!req.user) {
-                return res.redirect('auth/login');
-            }
-
-            const pageNumber = req.query.page || 1;
-
-            return userData.getUserFollowed(req.user.username)
-                .then((usersFollowed) => {
-                    return statusData.getFeed(usersFollowed.followed || [], pageNumber, pageSize); // pageNumber, pageSize
-                })
-                .then(([statuses, count]) => {
-                    return res.render('user/user-feed', {
-                        statuses,
-                        pageNumber,
-                        pagesCount: Math.ceil(count / pageSize),
-                    });
-                });
-        },
         followUser(req, res) {
             if (!req.user) {
                 return res.redirect('auth/login');

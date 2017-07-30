@@ -3,7 +3,7 @@ mixin pagination(additionalQuery, pageNumber, pagesCount, link)
     - var q = ""
     if additionalQuery
         - q = "&query=" + additionalQuery
-    ul.pagination
+    ul.pagination.center
         if pageNumber > 1
             li.waves-effect
                     - var prev = pageNumber

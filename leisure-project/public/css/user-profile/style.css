@@ -40,7 +40,7 @@
   padding: 0px 5px;
 }
 
-#profile-page-wall-posts .profile-small{
+ #profile-page-wall-posts .profile-small{
   height: 250px;
   overflow: hidden;
 }
@@ -59,4 +59,78 @@
 }
 #profile-page-wall-posts .card-action-share{
   padding: 16px;
+}
+
+ #profile-page-header .card-image{
+  height: 30%;
+} 
+
+.btn{
+  text-align: center;
+  padding: 0 5px !important;
+}
+
+i{
+  margin-right:7px !important;
+}
+
+.profile-page-wall-post{
+  padding:10px;
+}
+
+.profile-page-wall-post *{
+  margin:0;
+  padding:0;
+}
+
+.status-details{
+  padding: 1% 2%;
+  border-bottom: 1px solid #efefef;
+}
+
+.status-content{
+  padding:5% 5%;
+  font-size: 25px;
+}
+
+#profile-page-wall .profile-image-post{
+  margin:0;
+}
+
+#profile-page-wall-posts .card-action-share{
+  padding: 0;
+}
+
+.interaction-container{
+  padding-bottom: 4%;
+  border-bottom: 1px solid #efefef;
+}
+
+.comment-container{
+  border-bottom: 1px solid #efefef;
+}
+
+.profile-page-wall-post .collection{
+  border: none;
+  border-bottom: 1px solid #efefef;
+}
+
+.profile-page-wall-post .collection .collection-item {
+  padding:10px 1px;
+}
+
+#profile-page-header .card-profile-image{
+  top:120px;
+}
+
+.profile-details-container{
+  margin-bottom: 0;
+}
+
+#profile-page .card-content .row{
+  margin-bottom: 0;
+}
+
+.card .card-image img{
+  height: 100%;
 }
