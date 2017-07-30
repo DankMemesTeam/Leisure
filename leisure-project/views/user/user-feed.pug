@@ -1,22 +1,23 @@
 extends ../shared/_master
-
 include ../mixins/pagination.pug
+include ../mixins/status.pug
 
+block append styles
+  link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
+  link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')
 block append page-content
-    include ../mixins/status.pug
-    h2
-        | #{statuses.length} statuses
-    each stat in statuses
-        //- pageuser, status, currentuser
-        +status(stat, locals.user)
-    .row.center
-        +pagination(null, pageNumber, pagesCount, "feed")
+    if statuses.length == 0
+        h2.center
+        | You have no statuses, visit
+        a(href='/contacts')
+            | Users page    
+    .container.feed-container
+        each stat in statuses
+            +status(stat, locals.user)
+        .row.center
+            +pagination(null, pageNumber, pagesCount, "feed")
 
 block append footer
     script(src="js/status-comment.js")
     script(src="js/status-rating.js")
     script(src='/js/utils.js')
-
-block append styles
-  link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
-  link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')

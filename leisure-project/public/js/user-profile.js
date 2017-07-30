@@ -1,4 +1,4 @@
-/* globals $, uploadToApi, uploadUrl, clientId */
+/* globals $, uploadToApi, uploadUrl, clientId, getIcon */
 
 const followOrUnfollow = (action) => {
     const url = window.location.href;
@@ -16,7 +16,8 @@ const followOrUnfollow = (action) => {
 };
 
 const sendStatusData = (statusData) => {
-    const postUrl = window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
+    const postUrl =
+     window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
 
     return new Promise((resolve, reject) => {
         $.ajax({

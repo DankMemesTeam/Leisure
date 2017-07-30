@@ -6,7 +6,8 @@ mixin status(status, currentUser)
                     img.circle.responsive-img.valign.profile-image-post(src=status.author.profilePic)
                 .col.s9
                     p.grey-text.text-darken-4.margin
-                        | #{status.author.firstName} #{status.author.lastName}
+                        a(href='/users/' + status.author.username)
+                            | #{status.author.firstName} #{status.author.lastName}
                     span.grey-text.text-darken-1.ultra-small Shared publicly  -   #{status.dateCreated.getDate() + '/' + (status.dateCreated.getMonth() + 1) + '/' + status.dateCreated.getUTCFullYear()}
             if status.content.length > 0
                 .row.status-content
