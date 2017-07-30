@@ -5,39 +5,47 @@ block append styles
     link(rel='stylesheet', href='/css/event/style.css')
 block append page-content
     .row
-        .col.s12.m3
+        .col.s12.m10.offset-m1
             a.create-event-btn.waves-effect.waves-light.btn(href='/events/create')
                 | Create event
                 i.material-icons.right
                     | add
     if events.length > 0
-        nav
-            div.nav-wrapper
-                form
-                    div.input-field
-                        input#search-article.white(type='search' name='query', placeholder='Type to search for events...')
-                        label.label-icon(for='search-article')
-                            i.material-icons
-                                | search
-                        i.material-icons
-                            | close
-
-        each event in events
-            ul.collection
-                li.collection-item.avatar
-                    a.title(href='/events/' + event._id)
-                        | #{event.title}
-                    p 
-                        | Published by: #{event.creator}
-                    p 
-                        | #{event.description}
-                    if locals.user && event.creator == locals.user.username
-                            a.secondary-content(href="/events/" + event._id + "/edit")
+        .row
+            .col.s12.m10.offset-m1
+                nav
+                    div.nav-wrapper
+                        form
+                            div.input-field
+                                input#search-article.white(type='search' name='query', placeholder='Type to search for events...')
+                                label.label-icon(for='search-article')
+                                    i.material-icons
+                                        | search
                                 i.material-icons
-                                    | edit 
-        else
-            h4.center
-                | No events found.
+                                    | close
+
+        .row
+            .col.s12.m10.offset-m1
+                each event in events
+                    //- for cycle and insert new row when reached 12cols
+                    .row
+                        .col.s12.m4
+                            .card.z-depth-3
+                                .card-image
+                                    img(src=event.headerImage)
+                                    a.card-title(href='/events/' + event._id)
+                                        | #{event.title}
+                                    if locals.user && event.creator == locals.user.username
+                                        a(href="/events/" + event._id + "/edit").btn-floating.halfway-fab.waves-effect.waves-light.red
+                                            i.material-icons edit
+                                .card-content
+                                    p
+                                        | Publisher: #{event.creator}
+                                    p
+                                        | #{event.description}
+                else
+                    h4.center
+                        | No events found.
         .row
             //- Add search query as 1st parameter if one exists
             +pagination(query, pageNumber, pagesCount, "events")
