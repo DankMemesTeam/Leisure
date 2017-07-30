@@ -1,4 +1,4 @@
-module.exports = (usersCollection, validator, models, logger) => {
+module.exports = (usersCollection, { userValidator }, models, logger) => {
     const { User } = models;
     // On insert - create user from userObject - validate and then insert
     return {
@@ -19,9 +19,17 @@ module.exports = (usersCollection, validator, models, logger) => {
                 userObject.email,
                 userObject.hashedPassword);
 
+            if (!userValidator.isValid(user)) {
+                return Promise.reject();
+            }
+
             return usersCollection.insertOne(user);
         },
         editUser(username, data) {
+            if (!userValidator.isValidEditData(username, data)) {
+                return Promise.reject();
+            }
+
             return usersCollection.findAndModify(
                 { username: username },
                 { $set: data },

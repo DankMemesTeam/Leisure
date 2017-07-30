@@ -1,4 +1,4 @@
-module.exports = (chatroomCollection, validator, models, logger) => {
+module.exports = (chatroomCollection, { chatValidator }, models, logger) => {
     const { PrivateChat, EventChat, Message } = models;
     const getChatById = (id) => {
         return chatroomCollection.findById(id);
@@ -27,6 +27,10 @@ module.exports = (chatroomCollection, validator, models, logger) => {
         createPrivateChatroom(participants, chatType) {
             const chatroom = new PrivateChat(participants, chatType);
 
+            if (!chatValidator.isValidPrivateChat(chatroom)) {
+                return Promise.reject();
+            }
+
             return chatroomCollection.findOne(
                 {
                     $and: [
@@ -44,6 +48,10 @@ module.exports = (chatroomCollection, validator, models, logger) => {
         },
         createEventChatroom(participants, chatType, chatTitle) {
             const chatroom = new EventChat(participants, chatType, chatTitle);
+
+            if (!chatValidator.isValidEventChat(chatroom)) {
+                return Promise.reject();
+            }
 
             return chatroomCollection.findOne(
                 {
@@ -68,6 +76,10 @@ module.exports = (chatroomCollection, validator, models, logger) => {
         },
         addMessageToChat(messageObj) {
             const message = new Message(messageObj.author, messageObj.content);
+
+            if (!chatValidator.isValidMessage(message)) {
+                return Promise.reject();
+            }
 
             return chatroomCollection.findAndModify(
                 { _id: chatroomCollection.generateId(messageObj.chatId) },

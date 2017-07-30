@@ -1,4 +1,4 @@
-module.exports = (statusCollection, validator, models, logger) => {
+module.exports = (statusCollection, { statusValidator }, models, logger) => {
     const { Status } = models;
 
     return {
@@ -25,9 +25,17 @@ module.exports = (statusCollection, validator, models, logger) => {
                 statusObject.imageUrl
             );
 
+            if (!statusValidator.isValid(status)) {
+                return Promise.reject();
+            }
+
             return statusCollection.insertOne(status);
         },
         addStatusComment(statusAuthor, statusId, comment) {
+            if (!statusValidator.isValidStatusComment(statusAuthor, statusId, comment)) {
+                return Promise.reject();
+            }
+
             return statusCollection.findAndModify({
                 _id: statusCollection.generateId(statusId),
             },
