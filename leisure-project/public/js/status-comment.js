@@ -27,7 +27,7 @@ const createComment = (comment, $collection) => {
     $a.html(comment.author.username);
 
     $li.append($a);
-    $li.append('said: ' + comment.content);
+    $li.append(' said: ' + comment.content);
 
     $collection.append($li);
 };
@@ -56,14 +56,6 @@ $(() => {
                     $(ev.target).parent().parent().parent().next().children().append($ul);
                 } else {
                     $collection = $(selector).children('ul');
-
-                    // if ($collection.length === 0) {
-                    //     const $ul = $('<ul></ul>');
-                    //     $ul.addClass('collection');
-
-                    //     $(selector).append($ul);
-                    //     $collection = $ul;
-                    // }
                 }
 
                 if ($collection.length === 0) {

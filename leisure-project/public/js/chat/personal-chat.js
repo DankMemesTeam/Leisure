@@ -95,7 +95,6 @@ $('.chat-btn').click((ev) => {
 });
 
 $(() => {
-    // const socket = io.connect();
     const currentUsername = $('#username').text();
 
     $('#replyBtn').click((ev) => {

@@ -1,3 +1,5 @@
+/* globals $, getNumberValue */
+
 const sendRate = (url) => {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -12,9 +14,8 @@ const sendRate = (url) => {
 $(() => {
     $('.rate-btn').click((ev) => {
         const $target = $(ev.target);
-
-        let postUrl = $target.first().parent()
-            .children().first().text();
+        const $likesText = $target.next().next();
+        let postUrl = $target.next().text();
 
         if ($target.hasClass('liked')) {
             postUrl = postUrl + '/dislike';
@@ -24,16 +25,16 @@ $(() => {
 
         sendRate(postUrl)
             .then(() => {
-                let statusLikes = getNumberValue($target.prev().html());
+                let statusLikes = getNumberValue($likesText.html());
 
                 $target.toggleClass('liked');
 
                 if ($target.hasClass('liked')) {
                     $target.html('Unlike');
-                    $target.prev().html(++statusLikes + ' likes.');
+                    $likesText.html(++statusLikes + ' likes');
                 } else {
                     $target.html('Like');
-                    $target.prev().html(--statusLikes + ' likes.');
+                    $likesText.html(--statusLikes + ' likes');
                 }
             });
     });

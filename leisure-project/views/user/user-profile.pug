@@ -13,11 +13,11 @@ include ../mixins/status.pug
 include ../mixins/pagination.pug
 include ../mixins/loading-modal.pug
 block append page-content
-  #profile-page.section
+  #profile-page
     // profile-page-header
     #profile-page-header.z-depth-2.card
       .card-image.waves-effect.waves-block.waves-light
-        img.activator(src='/images/user-profile-bg.jpg', alt='user background')
+        img.activator(src='/images/profile/header-image-2.png', alt='user background')
       figure.card-profile-image
         img.circle.z-depth-2.responsive-img.activator(src=pageUser.profilePic)
       .card-content
@@ -26,7 +26,7 @@ block append page-content
             a.btn-floating.activator.waves-effect.waves-light.darken-2.right
               i.material-icons 
                 | perm_identity
-        .row
+        .row.profile-details-container
           .col.s12
             h4.card-title.grey-text.text-darken-4
               | #{pageUser.firstName} #{pageUser.lastName}
@@ -52,7 +52,7 @@ block append page-content
                 i.material-icons.right 
                   | remove_red_eye
                 |  Follow
-        .card.green.lighten-4
+        .card.blue-grey.lighten-2
           .card-content.white-text
             span.card-title About Me!
             p
@@ -92,7 +92,7 @@ block append page-content
                   | Not set
         // / Profile About Details
         // Profile About
-        .card.green.darken-2
+        .card.deep-orange.darken-3
           .card-content.white-text.center-align
             p.card-title
               i.material-icons group_add
@@ -104,28 +104,26 @@ block append page-content
         if isOwner
           .row
             .col.s12
-              ul.tabs.tab-profile.z-depth-3.green.lighten-2
+              ul.tabs.tab-profile.z-depth-3.blue-grey.darken-2
                 li.tab.col.s3
                   a.white-text.waves-effect.waves-light.active(href='#')
                     i.material-icons border_color
                     |  Update Status
               // UpdateStatus
               #UpdateStatus.tab-content.col.s12.grey.lighten-4
-                form#publish-status-form 
-                  //- (action='/users/' + pageUser.username + '/statuses', method='POST')
                   .row
                     .col.s3.m2
                       img.circle.responsive-img.valign.profile-image-post(src=pageUser.profilePic)
                     .input-field.col.s9
                       textarea#status-text-input.materialize-textarea(name='statusInput', placeholder='What\'s on your mind?', row='2')
                   .row
-                    .col.s12.m6.left-align
+                    .col.s7.m6.left-align
                       // Dropdown Trigger
                       input#status-image-input(type="file" style="display: none")
                       label(for="status-image-input").waves-effect.waves-light.btn
                         i.material-icons.left file_upload
                         | Upload image
-                    .col.s12.m6.right-align
+                    .col.s5.m6.right-align
                       // Dropdown Trigger
                       div#post-status-btn.waves-effect.waves-light.btn
                         i.material-icons.left rate_review
