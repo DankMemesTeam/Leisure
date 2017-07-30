@@ -39,27 +39,28 @@
                         .commentInput-field.col.s8.margin
                             form.comment-form(action='/users/' + status.author.username + '/' + status._id, method='POST')
                                 input.commentInput#profile-comments.validate.margin(name="commentContent", type='text' placeholder='Write a comment')
-            .row
-                .col.s12
-                    - var tabSize = 5
-                    - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
-                    
-                    - var k = 1
-                    - var index = 0
-                    while k <= tabsNeeded
-                        div(id=status._id + k).col.s12                            
-                            ul.collection
-                                while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
-                                    li.collection-item
-                                        a.comment-username(href='/users/' + status.comments[index].author.username)
-                                            | #{status.comments[index].author.username} 
-                                        | said: #{status.comments[index].content}
-                                        - index++
-                            - k++
-                    if tabsNeeded > 0
-                        - var n = 1
-                        ul.pagination.center
-                            while n <= tabsNeeded
-                                li.tab.waves-effect
-                                    a(href='#' + status._id + n)
-                                        | #{n++}
+            if statuses.comments.length > 0
+                .row
+                    .col.s12
+                        - var tabSize = 5
+                        - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
+                        
+                        - var k = 1
+                        - var index = 0
+                        while k <= tabsNeeded
+                            div(id=status._id + k).col.s12                            
+                                ul.collection
+                                    while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
+                                        li.collection-item
+                                            a.comment-username(href='/users/' + status.comments[index].author.username)
+                                                | #{status.comments[index].author.username} 
+                                            | said: #{status.comments[index].content}
+                                            - index++
+                                - k++
+                        if tabsNeeded > 0
+                            - var n = 1
+                            ul.pagination.center
+                                while n <= tabsNeeded
+                                    li.tab.waves-effect
+                                        a(href='#' + status._id + n)
+                                            | #{n++}

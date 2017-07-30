@@ -65,3 +65,7 @@ nav{
 .btn{
   background-color: #455a64;
 }
+
+.btn:hover{
+  background-color: #546e7a;
+}

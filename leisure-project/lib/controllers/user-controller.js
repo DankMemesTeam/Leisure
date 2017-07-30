@@ -11,6 +11,10 @@ module.exports = ({ userData, statusData, articleData }) => {
                 .findStatusesByUser(req.params.username, pageNumber, pageSize),
             ])
                 .then(([foundUser, [statuses, count]]) => {
+                    if (!foundUser) {
+                        return res.redirect('/');
+                    }
+
                     const isOwner = req.user &&
                      req.user.username === req.params.username;
 

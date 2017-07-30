@@ -23,9 +23,6 @@ nav.main-nav
         | Events
     if user
       li
-        a(href='/feed')
-          | Feed
-      li
         a(href= '/users/' + user.username + '/chats')
           if user.notifications.length > 0
             span.new.badge#notifications.right
