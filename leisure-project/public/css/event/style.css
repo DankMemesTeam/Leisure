@@ -1,4 +1,5 @@
 .page-content{
+    padding: 2% 0;
     max-width: 100%;
 }
 
@@ -11,4 +12,12 @@
     color:white;
     position: absolute;
     top:10%;
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    .create-event-btn{
+        width: 100%;
+    }
 }

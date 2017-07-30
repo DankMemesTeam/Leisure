@@ -3,8 +3,8 @@
 $('.button-collapse').sideNav();
 
 $(document).ready(() => {
-  $('ul.pagination').tabs();
-  $('ul.pagination').tabs('select_tab', 'tab_id');
+  $('ul.tabs').tabs();
+  $('ul.tabs').tabs('select_tab', 'tab_id');
 });
 
 const updateNotifications = (badgeValue) => {

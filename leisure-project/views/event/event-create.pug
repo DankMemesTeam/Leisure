@@ -2,50 +2,41 @@ extends ../shared/_master
 
 block append styles
     link(rel='stylesheet', href='/css/event/create-page.css')
-    
 block append page-content
-    div.row
-        form#event-form.col.s12(action='/events', method='POST')
-            div.row
-                div.input-field.col.s6
-                    input#title(type='text' name='title')
-                    label(for='title')
-                        | Title            
-            div.row
-                div.input-field.col.s6
-                    input#description(type='text' name='description')
-                    label(for='description')
-                        | Description           
-
-
-
-            //- HERE IS GOOGLE CODE                         
-            div.row
-                div.input-field.col.s6
-                    input#location(type='text')
-                    input#event-addr(type="hidden" name="address")
-                    input#event-long(type="hidden" name="longitude")
-                    input#event-lat(type="hidden" name="latitude")
-            //- GOOGLE CODE                
-
-
-            div.row
-                .switch.col.s6
-                    label
-                        | Off
-                        input#chatCheckbox(name='addChat', type='checkbox')
-                        span.lever
-                        |       On
-                div#chatTitleContainer.col.s6.hidden
-                    input#chatTitle(type='text' name='chatTitle')
-                    label(for='chatTitle')
-                        | Chat title
-            div.row
-            div.row
-                button.btn.waves-effect.waves-light(type='submit')
-                    | Publish
-                    i.material-icons.right
-                        | send
+    .row.center-align
+        .col.s12.m8.offset-m2.z-depth-4.card-panel
+            form#event-form(action='/events', method='POST')
+                .row
+                    .col.s6.offset-m3
+                        h4.blue-grey-text.lighten-3 Create event
+                        p.blue-grey-text.lighten-5.center Now works with Google Maps!
+                .row
+                    div.input-field.offset-m3.col.s6
+                        input#title(type='text' name='title', placeholder='Title')
+                .row
+                    div.input-field.offset-m3.col.s6
+                        input#description(type='text' name='description', placeholder='Description')
+                .row
+                    div.input-field.offset-m3.col.s6
+                        input#location(type='text', placeholder='Location')
+                        input#event-addr(type="hidden" name="address")
+                        input#event-long(type="hidden" name="longitude")
+                        input#event-lat(type="hidden" name="latitude")
+                .row
+                    .switch.offset-m3.col.s6
+                        label
+                            | Off
+                            input#chatCheckbox(name='addChat', type='checkbox')
+                            span.lever
+                            |       On
+                    div#chatTitleContainer.offset-m3.col.s6.hidden
+                        input#chatTitle(type='text' name='chatTitle', placeholder='Chat title')
+                .row
+                .row
+                    button.btn.waves-effect.waves-light(type='submit')
+                        | Publish
+                        i.material-icons.right
+                            | send
 block append footer
     script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLFJNN2PJekPGTkfqk_weQTi-u7HCOuaI&libraries=places&callback=initAutocomplete" async defer)
     script(src="/js/event/init-maps.js")

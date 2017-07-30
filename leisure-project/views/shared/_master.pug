@@ -20,7 +20,7 @@ block footer
     include ./_footer.pug
     script(src='http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js')
     != toasts()
-    //- if currentUser
+    //- if req.user
     script(src='/socket.io/socket.io.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js')
     script(src='/js/main.js')
