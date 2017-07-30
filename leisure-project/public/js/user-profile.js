@@ -76,7 +76,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function (data) {
+            success: function(data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }

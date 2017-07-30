@@ -157,7 +157,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content)
                 .then((result) => {
-
                     const article = {
                         author: result.value.author,
                         _id: req.params.id,

@@ -1,14 +1,13 @@
 /* globals $ */
 
-$(document).ready(function () {
-
+$(document).ready(function() {
     scaleVideoContainer();
 
     initBannerVideoSize('.video-container .poster img');
     initBannerVideoSize('.video-container .filter');
     initBannerVideoSize('.video-container video');
 
-    $(window).on('resize', function () {
+    $(window).on('resize', function() {
         scaleVideoContainer();
         scaleBannerVideoSize('.video-container .poster img');
         scaleBannerVideoSize('.video-container .filter');
@@ -21,8 +20,7 @@ function scaleVideoContainer() {
 }
 
 function initBannerVideoSize(element) {
-
-    $(element).each(function () {
+    $(element).each(function() {
         $(this).data('height', $(this).height());
         $(this).data('width', $(this).width());
     });
@@ -31,14 +29,13 @@ function initBannerVideoSize(element) {
 }
 
 function scaleBannerVideoSize(element) {
-
     const windowWidth = $(window).width();
     const windowHeight = $(window).height() + 5;
     let videoWidth = null;
     let videoHeight = null;
 
-    $(element).each(function () {
-        var videoAspectRatio = $(this).data('height') / $(this).data('width');
+    $(element).each(function() {
+        const videoAspectRatio = $(this).data('height') / $(this).data('width');
 
         $(this).width(windowWidth);
 

@@ -14,7 +14,7 @@ gulp.task('start', () => {
     .then((application) => {
       application.listen(config.port, () =>
         logger.debug('Express server listening on port ' + config.port)
-      )
+      );
     });
 });
 

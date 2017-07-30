@@ -48,7 +48,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                     longitude: req.body.longitude,
                     latitude: req.body.latitude,
                 },
-            };            
+            };
 
             const apiKey = 'AIzaSyCLFJNN2PJekPGTkfqk_weQTi-u7HCOuaI';
 
@@ -75,7 +75,8 @@ module.exports = ({ userData, eventData, chatData }) => {
 
             chatPromise
                 .then((chat) => {
-                    return eventData.createEvent(eventObj, req.body.chatTitle || null);
+                    return eventData
+                    .createEvent(eventObj, req.body.chatTitle || null);
                 })
                 .then((event) => {
                     req.toastr.success('Successfully created event!');
@@ -90,7 +91,9 @@ module.exports = ({ userData, eventData, chatData }) => {
         addEventChat(req, res) {
             eventData.addChatToEvent(req.params.eventId, req.body.chatTitle)
                 .then((event) => {
-                    return chatData.createEventChatroom(event.value.participants, 'event', req.body.chatTitle);
+                    return chatData
+                    .createEventChatroom(event.value.participants,
+                         'event', req.body.chatTitle);
                 })
                 .then((chat) => {
                     res.json({ redirect: '/events/' + req.params.eventId });
@@ -107,7 +110,8 @@ module.exports = ({ userData, eventData, chatData }) => {
                     console.log(event);
                     if (event.value.chatTitle) {
                         chatData
-                            .addUserToChat(event.value.chatTitle, req.user.username);
+                            .addUserToChat(event.value.chatTitle,
+                                 req.user.username);
                     }
                 })
                 .then((result) => {
@@ -135,7 +139,9 @@ module.exports = ({ userData, eventData, chatData }) => {
                 return res.redirect('/auth/login');
             }
 
-            return eventData.editEvent(req.params.eventId, req.body.title, req.body.description, req.body.headerImage)
+            return eventData
+            .editEvent(req.params.eventId, req.body.title,
+                 req.body.description, req.body.headerImage)
                 .then(() => {
                     res.redirect(`/events/${req.params.eventId}`);
                 });

@@ -109,7 +109,7 @@ $('#send-comment-btn').on('click', (ev) => {
 });
 
 $('#article-delete-btn').on('click', (ev) => {
-    const articleId = window.location.href.replace(/.*articles\/([0-9a-zA-Z]+).*/, '$1')
+    const articleId = window.location.href.replace(/.*articles\/([0-9a-zA-Z]+).*/, '$1');
 
     deleteArticle(articleId)
         .then(() => {

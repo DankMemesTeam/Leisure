@@ -1,7 +1,6 @@
 /* globals $ */
 
 
-
 // chips initialization
 const tags = [];
 

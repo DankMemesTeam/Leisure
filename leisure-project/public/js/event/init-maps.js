@@ -12,7 +12,7 @@ function initAutocomplete() {
     // When the user selects an address from the dropdown, populate the address
     // fields in the form.
     autocomplete.addListener('place_changed', fillInAddress);
-};
+}
 
 function fillInAddress() {
     const place = autocomplete.getPlace();
@@ -28,4 +28,4 @@ function fillInAddress() {
     $('#event-addr').val(address);
     $('#event-long').val(long);
     $('#event-lat').val(lat);
-};
+}
