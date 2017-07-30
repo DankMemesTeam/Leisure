@@ -3,6 +3,8 @@ extends ../shared/_master
 block append styles
     link(rel='stylesheet', href='/css/event/create-page.css')
 block append page-content
+    script
+        include ../../public/js/event/init-maps.js
     .row.center-align
         .col.s12.m8.offset-m2.z-depth-4.card-panel
             form#event-form(action='/events', method='POST')
@@ -18,7 +20,7 @@ block append page-content
                         input#description(type='text' name='description', placeholder='Description')
                 .row
                     div.input-field.offset-m3.col.s6
-                        input#location(type='text', placeholder='Location')
+                        input#location(type='text', placeholder='Location' required)
                         input#event-addr(type="hidden" name="address")
                         input#event-long(type="hidden" name="longitude")
                         input#event-lat(type="hidden" name="latitude")
@@ -38,5 +40,5 @@ block append page-content
                             | send
 block append footer
     script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLFJNN2PJekPGTkfqk_weQTi-u7HCOuaI&libraries=places&callback=initAutocomplete" async defer)
-    script(src="/js/event/init-maps.js")
     script(src='/js/event/event-create.js')
+    //- script(src="/js/event/init-maps.js")

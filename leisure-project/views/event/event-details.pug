@@ -1,7 +1,7 @@
 extends ../shared/_master
 block append styles
     link(rel='stylesheet', href='/css/event/event-details.css')
-    //- script(src='/js/event/event-details.js')
+    script(src='/js/event/event-details.js')
 block append page-content
     if event.location.longitude.length > 0 && event.location.latitude.length > 0
     .row.hidden
@@ -12,12 +12,11 @@ block append page-content
     //- Header image
     .filter
         img.header-image(src='/images/event/default-header-2.jpg')
-    //- img.header-image(src=event.location.mapUrl)
     .title-container.center
         h1
             | #{event.title}
         h4
-            | organized by  
+            | organized by
         h4
             a.white-text(href="/users/" + event.creator)
                 | #{event.creator}
@@ -39,14 +38,17 @@ block append page-content
                         | Event description
                     h5.description
                         | #{event.description}
-            //- if event.location.address.length > 0
-            //-     p
-            //-         | Location: #{event.location.address}
-            //-     p#distance-from-user
-            //-         | Distance from you:
-            //- else
-            //-     p
-            //-         | Location: Not specified
+            .row.center-align
+                .col.s12.m12.col.moffset-2
+                    if event.location.address.length > 0
+                        img.map-image(src=event.location.mapUrl)
+                        p
+                            | Location: #{event.location.address}
+                        p#distance-from-user
+                            | Distance from you:
+                    else
+                        p
+                            | Location: Not specified
             hr.content-divider
             if currentUser && !event.chatTitle && event.creator === currentUser.username
                 .center-align
