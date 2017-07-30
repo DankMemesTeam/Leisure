@@ -7,7 +7,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
     };
 
     return {
-        loadArticlesPage(req, res) {
+        loadArticlesPage(req, res, next) {
             let articlesPromise;
 
             const pageNumber = req.query.page || 1;
