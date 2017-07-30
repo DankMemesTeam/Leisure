@@ -134,3 +134,7 @@ i{
 .card .card-image img{
   height: 100%;
 }
+
+#follow-user-btn{
+  width:100%;
+}

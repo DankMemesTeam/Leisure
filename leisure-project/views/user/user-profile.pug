@@ -43,14 +43,15 @@ block append page-content
             p.btn.message-btn.card-title
               i.material-icons markunread
               |  Message
+          .card-content.white-text.center-align
             if currentUser.followed.includes(pageUser.username)
               p.btn.card-title#follow-user-btn.followed
-                i.material-icons.right 
+                i.material-icons
                   | remove_red_eye
                 |  Unfollow
             else
               p.btn.card-title#follow-user-btn
-                i.material-icons.right 
+                i.material-icons 
                   | remove_red_eye
                 |  Follow
         .card.blue-grey.lighten-2

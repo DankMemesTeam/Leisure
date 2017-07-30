@@ -92,12 +92,12 @@ $(() => {
         if ($btn.hasClass('followed')) {
             followOrUnfollow('follow')
                 .then(() => {
-                    $btn.html('Unfollow' + getIcon('remove_red_eye'));
+                    $btn.html(getIcon('remove_red_eye') + 'Unfollow');
                 });
         } else {
             followOrUnfollow('unfollow')
                 .then(() => {
-                    $btn.html('Follow' + getIcon('remove_red_eye'));
+                    $btn.html(getIcon('remove_red_eye') + 'Follow');
                 });
         }
     });
