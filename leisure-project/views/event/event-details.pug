@@ -9,6 +9,7 @@ block append page-content
             =event.location.latitude
         #event-long
             =event.location.longitude
+    //- Header image
     .filter
         img.header-image(src='/images/event/default-header-2.jpg')
     //- img.header-image(src=event.location.mapUrl)
@@ -20,8 +21,24 @@ block append page-content
         h4
             a.white-text(href="/users/" + event.creator)
                 | #{event.creator}
+        p.btn.going-btn
+            i.material-icons.left
+                | person_pin
+            | #{event.participants.length} going!
+        p
+            if currentUser && event.creator !== currentUser.username && !event.participants.includes(currentUser.username)
+                div#join-event-btn.btn-large
+                    | Join event
+
+    //- Page content
     .row.page-info.center.z-depth-3
         .col.s12.m12.center-align.content-container
+            .row.center-align
+                .col.s12.m12.col.moffset-2
+                    h4.mini-title.flow-text
+                        | Event description
+                    h5.description
+                        | #{event.description}
             //- if event.location.address.length > 0
             //-     p
             //-         | Location: #{event.location.address}
@@ -30,50 +47,43 @@ block append page-content
             //- else
             //-     p
             //-         | Location: Not specified
-            p.center
-                | Summary: #{event.description}
-            hr
-        
-            if currentUser
-                if event.creator !== currentUser.username && !event.participants.includes(currentUser.username)
-                    div#join-event-btn.btn
-                        | Join event
-                else if !event.chatTitle && event.creator === currentUser.username
-                    div#create-chat-btn.btn
-                        | Create event chat
-                    div#chatTitleContainer.col.s6
-                        input#chatTitle(type='text')
-                        label(for='chatTitle')
-                            | Chat title
-    if currentUser
-        div.row
-            .col.s3.s2
-                p
-                    i.material-icons.right
-                        | person_pin
-                    | Participants: #{event.participants.length}
-        div.row
-            div.row
-                div.input-field.col.s6
-                    input#comment-content(type="text" name="text")
-                    label(for="comment-content")
-                        | Add comment
-                .col.s4.m2
-                    button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
-                        | Send
-                        i.material-icons.right
-                            | send
-    p
-        | Comment section: 
-    ul#comments-list.collection
-        each comment in event.comments
-            li.collection-item.avatar
-                img.circle(src=comment.author.profilePic)
-                a.title(href="/users/" + comment.author.username)
-                    | #{comment.author}
-                p
-                    | #{comment.content}
+            hr.content-divider
+            if currentUser && !event.chatTitle && event.creator === currentUser.username
+                .center-align
+                    .col.s12.m12.col.moffset-2
+                        h4.mini-title
+                            | Admin Panel
+                .row.center-align
+                    .col.s12.m12.col.moffset-2
+                        div#chatTitleContainer.col.s6.m6
+                            input#chatTitle(type='text', placeholder='Chat title')
+                        div#create-chat-btn.btn.col.s4.m4
+                            | Create event chat
+                hr.content-divider
+            .row.center-align
+                .col.s12.m12.col.moffset-2
+                    h4.mini-title
+                        | Comment section
+                    if currentUser
+                        div.row
+                            div.input-field.col.s6
+                                input#comment-content(type="text" name="text")
+                                label(for="comment-content")
+                                    | Add comment
+                            .col.s4.m2
+                                div#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                                    | Send
+                                    i.material-icons.left
+                                        | send
+                    ul#comments-list.collection
+                        each comment in event.comments
+                            li.collection-item.avatar
+                                img.circle(src=comment.author.profilePic)
+                                a.title(href="/users/" + comment.author.username)
+                                    | #{comment.author}
+                                p
+                                    | #{comment.content}
 
-        else
-            h5
-                | There are currently no comments on this article
+                        else
+                            h5
+                                | There are currently no comments on this event
