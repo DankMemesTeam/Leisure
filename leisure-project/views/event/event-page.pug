@@ -1,8 +1,14 @@
 extends ../shared/_master
+include ../mixins/pagination.pug
 
 block append styles
     link(rel='stylesheet', href='/css/event/style.css')
 block append page-content
+    div.row
+        //- Add search query as 1st parameter if one exists
+        h1
+            | #{pagesCount}
+        +pagination(query, pageNumber, pagesCount, "events")
     div.row
         a.waves-effect.waves-light.btn.left(href='/events/create')
             | Create event
@@ -28,6 +34,10 @@ block append page-content
                     | Published by: #{event.creator}
                 p 
                     | #{event.description}
+                if locals.user && event.creator == locals.user.username
+                        a.secondary-content(href="/events/" + event._id + "/edit")
+                            i.material-icons
+                                | edit  
     else
         h1
             | No events found.

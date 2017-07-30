@@ -1,18 +1,27 @@
 module.exports = ({ userData, eventData, chatData }) => {
+    const pageSize = 4;
     return {
         loadEventsPage(req, res) {
+            const pageNumber = req.query.page || 1;
+
             let loadEvents = null;
 
             if (!req.query.query) {
-                loadEvents = eventData.getAllEvents();
+                loadEvents = eventData.getAllEvents(pageNumber, pageSize);
             } else {
-                loadEvents = eventData.getEventsBy(req.query.query);
+                // Take care of paging
+                loadEvents = eventData.getEventsBy(req.query.query, pageNumber, pageSize);
             }
 
             loadEvents
-                .then((events) => {
-                    res.render('event/event-page',
-                        { currentUser: req.user || null, events: events });
+                .then(([events, count]) => {
+                    res.render('event/event-page', {
+                        currentUser: req.user || null,
+                        events: events,
+                        pageNumber,
+                        pagesCount: Math.ceil(count / pageSize),
+                        query: req.query.query,
+                    });
                 });
         },
         loadCreationPage(req, res) {
@@ -35,7 +44,30 @@ module.exports = ({ userData, eventData, chatData }) => {
                 description: req.body.description,
                 creator: req.user.username,
                 participants: [req.user.username],
+                location: {
+                    address: req.body.address,
+                    longitude: req.body.longitude,
+                    latitude: req.body.latitude,
+                },
             };
+
+            
+
+            const apiKey = 'AIzaSyCLFJNN2PJekPGTkfqk_weQTi-u7HCOuaI';
+
+            const lat = req.body.latitude;
+            const long = req.body.longitude;
+
+            const mapType = 'maptype=roadmap'
+            const mapSize = 'size=1200x800';
+            const zoom = 'zoom=17';
+            const center = `center=${lat},${long}`;
+            const marker = `&markers=color:red%7Clabel:C%7C${lat},${long}`;
+
+            const googleMapsLink = `https://maps.googleapis.com/maps/api/staticmap?${mapSize}&${zoom}&${center}&${marker}&${mapType}&key=${apiKey}`;
+
+            eventObj.location.mapUrl = googleMapsLink;
+
 
             let chatPromise = Promise.resolve(null);
             // SHOULD be able to create event chat after event is created also
@@ -89,6 +121,27 @@ module.exports = ({ userData, eventData, chatData }) => {
                     // should send json with the error message
                     req.toastr.error(err);
                     res.redirect('/events/' + req.params.eventId);
+                });
+        },
+        loadEventEditPage(req, res) {
+            return eventData.getEventById(req.params.eventId)
+                .then((event) => {
+                    res.render('event/event-edit', {
+                        event,
+                        currentUser: req.user
+                            ? req.user.username
+                            : null,
+                    });
+                });
+        },
+        editEvent(req, res) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
+            return eventData.editEvent(req.params.eventId, req.body.title, req.body.description, req.body.headerImage)
+                .then(() => {
+                    res.redirect(`/events/${req.params.eventId}`);
                 });
         },
     };

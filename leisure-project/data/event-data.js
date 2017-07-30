@@ -2,18 +2,38 @@ module.exports = (eventCollection, validator, models, logger) => {
     const { Event } = models;
 
     return {
-        getAllEvents() {
-            return eventCollection.find();
+        getAllEvents(pageNumber, pageSize) {
+            const query = {};
+            const projection = {};
+            const sort = {};
+
+            return Promise.all([
+                eventCollection.findPaged(query, projection, pageNumber, pageSize, sort),
+                eventCollection.count({}),
+            ]);
         },
         getEventById(id) {
             return eventCollection.findById(id);
         },
-        getEventsBy(query) {
-            // to implement
+        getEventsBy(title, pageNumber, pageSize) {
+            const regexExpression = `.*${title}.*`;
+
+            const query = {
+                title: {
+                    $regex: regexExpression,
+                },
+            };
+            const projection = {};
+            const sort = {};
+
+            return Promise.all([
+                eventCollection.findPaged(query, projection, pageNumber, pageSize, sort),
+                eventCollection.count(query),
+            ]);
         },
         createEvent(eventObject, chatTitle) {
             const event = new Event(eventObject.title, eventObject.creator,
-                eventObject.description, eventObject.participants, chatTitle);
+                eventObject.description, eventObject.participants, chatTitle, eventObject.location);
 
             return eventCollection.insertOne(event);
         },
@@ -35,6 +55,21 @@ module.exports = (eventCollection, validator, models, logger) => {
                     returnNewDocument: true,
                 }
             );
+        },
+        editEvent(id, title, description, headerImage) {
+            const query = {
+                _id: eventCollection.generateId(id),
+            };
+
+            const update = {
+                $set: {
+                    title,
+                    description,
+                    headerImage,
+                },
+            };
+
+            return eventCollection.findAndModify(query, update);
         },
     };
 };

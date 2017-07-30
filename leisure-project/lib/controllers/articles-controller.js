@@ -17,7 +17,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
             if (!req.query.query) {
                 articlesPromise = articleData.getAllArticles(pageNumber, pageSize);
             } else {
-                articlesPromise = articleData.findArticles(req.query.query, pageNumber, pageSize);
+                articlesPromise = articleData.findArticles(req.query.query, pageNumber, pageSize);                
             }
 
             return categoryData.initCategories()
