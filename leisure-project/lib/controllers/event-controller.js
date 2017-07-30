@@ -50,6 +50,24 @@ module.exports = ({ userData, eventData, chatData }) => {
                 },
             };
 
+            
+
+            const apiKey = 'AIzaSyCLFJNN2PJekPGTkfqk_weQTi-u7HCOuaI';
+
+            const lat = req.body.latitude;
+            const long = req.body.longitude;
+
+            const mapType = 'maptype=roadmap'
+            const mapSize = 'size=1200x800';
+            const zoom = 'zoom=17';
+            const center = `center=${lat},${long}`;
+            const marker = `&markers=color:red%7Clabel:C%7C${lat},${long}`;
+
+            const googleMapsLink = `https://maps.googleapis.com/maps/api/staticmap?${mapSize}&${zoom}&${center}&${marker}&${mapType}&key=${apiKey}`;
+
+            eventObj.location.mapUrl = googleMapsLink;
+
+
             let chatPromise = Promise.resolve(null);
             // SHOULD be able to create event chat after event is created also
             if (req.body.addChat) {

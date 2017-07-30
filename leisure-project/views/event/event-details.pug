@@ -13,6 +13,7 @@ block append page-content
     .row
         .col.s12.m12.l12
             img.header-image(src=event.headerImage)
+            img.header-image(src=event.location.mapUrl)
             .container.center.event-info-container
                 h1
                     | #{event.title}
