@@ -10,7 +10,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                 loadEvents = eventData.getAllEvents(pageNumber, pageSize);
             } else {
                 // Take care of paging
-                loadEvents = eventData.getEventsBy(req.query.query);
+                loadEvents = eventData.getEventsBy(req.query.query, pageNumber, pageSize);
             }
 
             loadEvents
@@ -20,6 +20,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                         events: events,
                         pageNumber,
                         pagesCount: Math.ceil(count / pageSize),
+                        query: req.query.query,
                     });
                 });
         },

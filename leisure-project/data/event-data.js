@@ -15,8 +15,21 @@ module.exports = (eventCollection, validator, models, logger) => {
         getEventById(id) {
             return eventCollection.findById(id);
         },
-        getEventsBy(query) {
-            // to implement
+        getEventsBy(title, pageNumber, pageSize) {
+            const regexExpression = `.*${title}.*`;
+
+            const query = {
+                title: {
+                    $regex: regexExpression,
+                },
+            };
+            const projection = {};
+            const sort = {};
+
+            return Promise.all([
+                eventCollection.findPaged(query, projection, pageNumber, pageSize, sort),
+                eventCollection.count(query),
+            ]);
         },
         createEvent(eventObject, chatTitle) {
             const event = new Event(eventObject.title, eventObject.creator,
