@@ -89,16 +89,14 @@ module.exports = ({ userData, statusData, articleData }) => {
                             ]);
                         })
                         .catch((err) => {
-                            return res.redirect(`/users/${req.params.username}/settings`);
+                            return res.redirect({ errorMessage: 'Oops something went wrong!' });
                         })
                         .then(() => {
                             if (req.body.profilePic) {
-                                return res.json({
-                                    redirectUrl: `/users/${req.params.username}`,
-                                });
+                                return res.json({});
                             }
 
-                            return res.json({ errorMessage: 'Oops something went wrong!' });
+                            return res.json({});
                         });
                 });
         },

@@ -18,7 +18,7 @@ block append page-content
         h4
             | organized by
         h4
-            a.white-text(href="/users/" + event.creator)
+            a.white-text(href='/users/' + event.creator)
                 | #{event.creator}
         p.btn.going-btn
             i.material-icons.left
@@ -69,11 +69,11 @@ block append page-content
                     if currentUser
                         div.row
                             div.input-field.col.s6
-                                input#comment-content(type="text" name="text")
-                                label(for="comment-content")
+                                input#comment-content(type='text' name='text')
+                                label(for='comment-content')
                                     | Add comment
                             .col.s4.m2
-                                div#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                                div#send-comment-btn.btn.waves-effect.waves-light(type='submit')
                                     | Send
                                     i.material-icons.left
                                         | send
@@ -81,7 +81,7 @@ block append page-content
                         each comment in event.comments
                             li.collection-item.avatar
                                 img.circle(src=comment.author.profilePic)
-                                a.title(href="/users/" + comment.author.username)
+                                a.title(href='/users/' + comment.author.username)
                                     | #{comment.author}
                                 p
                                     | #{comment.content}

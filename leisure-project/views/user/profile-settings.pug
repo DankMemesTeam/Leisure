@@ -5,7 +5,7 @@ block append styles
   link(rel='stylesheet', href='/css/user-profile/style-horizontal.css')
   link(rel='stylesheet', href='/css/user-profile/style.css')
 block append page-content
-  +loadingModal("Uploading image", "Uploaded.")
+  +loadingModal('Uploading image', 'Uploaded.')
   .row
     .col-md-8
       .well
@@ -19,8 +19,8 @@ block append page-content
               | Profile picture URL: 
             form.form-inline#profile-picture-form
               div.form-group
-                input#profile-picture-input(type='file' style="display: none" accept="image/*").form-control
-                label(for="profile-picture-input").btn.btn-primary
+                input#profile-picture-input(type='file' style='display: none' accept='image/*').form-control
+                label(for='profile-picture-input').btn.btn-primary
                   | Choose image
                 button(type='submit').btn.btn-primary
                   i.material-icons
@@ -29,42 +29,42 @@ block append page-content
             strong
               | First name: 
             | #{firstName}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
                 input#firstName(type='text' name='firstName' placeholder='Edit first name').form-control
-                button(type='submit').btn.btn-primary
+                #update-firstName-btn.btn.btn-primary
                   | Edit
         ul.list-group
           li.list-group-item
             strong
               | Last name: 
             | #{lastName}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
                 input#lastName(type='text' name='lastName' placeholder='Edit last name').form-control
-                button(type='submit').btn.btn-primary
+                #update-lastname-btn.btn.btn-primary
                   | Edit
         ul.list-group
           li.list-group-item
             strong
               | Birth date: 
             | #{birthDate}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
                 input#birthDate(type='text' name='birthDate' placeholder='Edit birth date').form-control
-                button(type='submit').btn.btn-primary
+                #update-birthDate-btn.btn.btn-primary
                   | Edit
           li.list-group-item
             strong
-              | High school: 
+              | About me: 
             | #{highSchool}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
-                input#highSchool(type='text' name='highSchool' placeholder='Edit high school').form-control
-                button(type='submit').btn.btn-primary
+                input#aboutMe(type='text' name='aboutMe' placeholder='Edit about me').form-control
+                #update-aboutMe-btn.btn.btn-primary
                   | Edit
 
 block append footer
-  script(src='/js/user-profile.js')
+  script(src='/js/user/user-profile.js')
   script(src='/js/image-uploading.js')
-  script(src="/js/profile-settings.js")
+  script(src='/js/user/profile-settings.js')

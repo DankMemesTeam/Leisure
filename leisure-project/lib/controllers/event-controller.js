@@ -138,10 +138,18 @@ module.exports = ({ userData, eventData, chatData }) => {
                 });
         },
         loadEventEditPage(req, res, next) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
             return eventData.getEventById(req.params.eventId)
                 .then((event) => {
                     if (!event) {
                         return res.next(new Error('Invalid event id.'));
+                    }
+
+                    if (event.creator !== req.user.username) {
+                        return next(new Error('Invalid operation'));
                     }
 
                     return res.render('event/event-edit', {
@@ -160,13 +168,25 @@ module.exports = ({ userData, eventData, chatData }) => {
                 return res.redirect('/auth/login');
             }
 
-            return eventData
-                .editEvent(req.params.eventId, req.body.title,
-                req.body.description, req.body.headerImage)
+            return eventData.getEventById(req.params.eventId)
+                .then((ev) => {
+                    if (req.user.username !== ev.creator) {
+                        return next(new Error('Invalid operation'));
+                    }
+
+                    return Promise.resolve();
+                })
+                .then(() => {
+                    
+                    return eventData
+                        .editEvent(req.params.eventId, req.body.title,
+                        req.body.description, req.body.headerImage)
+                })
                 .then((result) => {
                     if (result.lastErrorObject.n === 0) {
                         return next(new Error('Invalid event id.'));
                     }
+
 
                     return res.json({ redirectUrl: `/events/${req.params.eventId}` });
                 })

@@ -1,27 +1,27 @@
 mixin pagination(additionalQuery, pageNumber, pagesCount, link)
     - var n = 1
-    - var q = ""
+    - var q = ''
     if additionalQuery
-        - q = "&query=" + additionalQuery
+        - q = '&query=' + additionalQuery
     ul.pagination.center
         if pageNumber > 1
             li.waves-effect
                 - var prev = pageNumber
-                a(href=link + "?page=" + --prev + q)
+                a(href=link + '?page=' + --prev + q)
                     i.material-icons.waves-effect
                         | chevron_left
         while n <= pagesCount || n <= 1
             if n == pageNumber
                 li.waves-effect.active
-                    a(href=link + "?page=" + n + q)
+                    a(href=link + '?page=' + n + q)
                         | #{n++}
             else
                 li.waves-effect
-                    a(href=link + "?page=" + n + q)
+                    a(href=link + '?page=' + n + q)
                         | #{n++}
         if pageNumber < pagesCount
             li.waves-effect
                 - var next = pageNumber
-                a(href=link + "?page=" + ++next + q)
+                a(href=link + '?page=' + ++next + q)
                     i.material-icons.waves-effect
                         | chevron_right

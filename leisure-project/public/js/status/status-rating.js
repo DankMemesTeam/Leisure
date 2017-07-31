@@ -13,6 +13,7 @@ const sendRate = (url) => {
 
 $(() => {
     $('.rate-btn').click((ev) => {
+        console.log($(ev.target));
         const $target = $(ev.target);
         const $likesText = $target.next().next();
         let postUrl = $target.next().text();

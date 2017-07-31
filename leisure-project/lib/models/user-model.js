@@ -8,6 +8,7 @@ module.exports = class User {
         this.email = email;
         this.hashedPassword = hashedPassword;
         this.profilePic = config.defaultProfilePic;
+        this.aboutMe = 'No description yet';
         this.dateJoined = new Date();
         this.notifications = [];
         this.followed = [];

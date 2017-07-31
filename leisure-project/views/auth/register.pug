@@ -3,8 +3,7 @@ extends ../shared/_master
 block append styles
     link(rel='stylesheet', href='/css/auth-form.css')
 block append footer
-    script
-        | SystemJS.import('register');
+    script(src='/js/auth/register.js')
 block append page-content
     .login-container.row.center
         .col.s12.m4.offset-m4.z-depth-4.card-panel.center
