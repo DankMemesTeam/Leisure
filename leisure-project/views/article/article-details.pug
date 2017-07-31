@@ -1,72 +1,85 @@
 extends ../shared/_master
-
+block append styles
+    link(rel='stylesheet', href='/css/event/event-details.css')
+    link(rel='stylesheet', href='/css/article/article-details.css')
 block append page-content
-    div.row
-    each tag in article.tags
-        div.chip
-            | ##{tag}
-    if locals.user
-        if locals.user.username == article.author.username
-            a#article-delete-btn.btn.right
-                | Delete article
-        if locals.user.username == article.author.username
-            a(href="/articles/" + article._id + "/edit").btn.right
-                | Edit article
-    h1
-        | #{article.title}
-    p
-        | Published by: 
-        a(href="/users/" + article.author.username)
-            | #{article.author.username}  -> #{article.author.firstName} #{article.author.lastName}
-    hr
-    p
-        | Summary: #{article.description}
-    hr
-    .row
-        .col.s12.m12
-            p(style="white-space: pre-wrap;")
-                | Content: #{article.content}
-    if currentUser
-        div.row
-            .col.s3.s2
-                if article.likes.includes(currentUser)                  
-                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
-                        | Unlike
-                        i.material-icons.right
-                            | thumb_down
-                else 
-                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
-                        | Like
-                        i.material-icons.right
-                            | thumb_up
-            .col.s3.m2
-                p#likes-count.bold
-                    | #{article.likes.length} likes.
-        div.row
-            div.row
-                div.input-field.col.s6
-                    input#comment-content(type="text" name="text")
-                    label(for="comment-content")
-                        | Add comment
-                .col.s4.m2
-                    button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
-                        | Send
-                        i.material-icons.right
-                            | send
-    p
-        | Comment section: 
-    ul#comments-list.collection
-        each comment in article.comments
-            li.collection-item.avatar
-                img.circle(src=comment.author.profilePic)
-                a.title(href="/users/" + comment.author.username)
-                    | #{comment.author.username}
-                p
-                    | #{comment.text}
+    //- Header image
+    .filter
+        img.header-image(src='/images/event/default-header-2.jpg')
+    .title-container.center
+        h1
+            | #{article.title}
+        h4
+            | by
+        h4
+            a.white-text(href="/users/" + article.author.username)
+                | #{article.author.username}
+        .row.center
+            each tag in article.tags
+                .col.s1.m1.chip.tags.z-depth-3
+                    | ##{tag}
 
-        else
-            h5
-                | There are currently no comments on this article
+    //-Page content
+    .row.page-info.center.z-depth-3
+        .col.s12.m12.center-align.content-container
+            .row.center-align
+                .col.s12.m8.col.offset-m2
+                    p(style="white-space: pre-wrap;")
+                        | #{article.content}
+                    p.blue-grey-text.lighten-4.right
+                        | Author: #{article.author.username}
+    .row.interactions-row.center.z-depth-3
+        .col.s12.m12.center-align.interactions-container
+            .row.center-align
+                .col.s12.m12
+                    if locals.user
+                        if locals.user.username == article.author.username
+                            a#article-delete-btn.btn.right
+                                | Delete article
+                        if locals.user.username == article.author.username
+                            a(href="/articles/" + article._id + "/edit").btn.right
+                                | Edit article
+                    if currentUser
+                        div.row
+                            .col.s3.s2
+                                if article.likes.includes(currentUser)                  
+                                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                                        | Unlike
+                                        i.material-icons.right
+                                            | thumb_down
+                                else 
+                                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                                        | Like
+                                        i.material-icons.right
+                                            | thumb_up
+                            .col.s3.m2
+                                p#likes-count.bold
+                                    | #{article.likes.length} likes.
+                        div.row
+                            div.row
+                                div.input-field.col.s6
+                                    input#comment-content(type="text" name="text")
+                                    label(for="comment-content")
+                                        | Add comment
+                                .col.s4.m2
+                                    button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                                        | Send
+                                        i.material-icons.right
+                                            | send
+                    p
+                        | Comment section: 
+                    ul#comments-list.collection
+                        each comment in article.comments
+                            li.collection-item.avatar
+                                img.circle(src=comment.author.profilePic)
+                                a.title(href="/users/" + comment.author.username)
+                                    | #{comment.author.username}
+                                p
+                                    | #{comment.text}
+
+                        else
+                            h5
+                                | There are currently no comments on this article
 
 block append footer
     script(src='/js/article-details.js')

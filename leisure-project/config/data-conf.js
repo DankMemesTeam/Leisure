@@ -4,7 +4,7 @@ module.exports = {
     },
     event: {
         defaultHeaderPic: '/images/event/default-header.jpg',
-        defaultPageSize: 4,
+        defaultPageSize: 6,
     },
     article: {
         defaultPageSize: 2,

@@ -6,7 +6,7 @@ module.exports = (eventCollection, validator, models, logger, { event }) => {
             const query = {};
             const projection = {};
             const sort = {};
-
+            
             return Promise.all([
                 eventCollection.findPaged(query, projection, pageNumber, event.defaultPageSize, sort),
                 eventCollection.count({}),

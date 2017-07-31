@@ -4,11 +4,11 @@ block append styles
     script(src='/js/event/event-details.js')
 block append page-content
     if event.location.longitude.length > 0 && event.location.latitude.length > 0
-    .row.hidden
-        #event-lat
-            =event.location.latitude
-        #event-long
-            =event.location.longitude
+        .row.hidden
+            #event-lat
+                =event.location.latitude
+            #event-long
+                =event.location.longitude
     //- Header image
     .filter
         img.header-image(src='/images/event/default-header-2.jpg')

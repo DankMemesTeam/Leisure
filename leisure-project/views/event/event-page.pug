@@ -30,37 +30,35 @@ block append page-content
                 - var eventsCount = events.length
                 - var index = 0
                 while index < eventsCount
-                    if index % 3 == 0
-                        .row
-                            .col.s12.m4
-                                .card.z-depth-3
-                                    .card-image
-                                        img(src=events[index].headerImage)
-                                        a.card-title(href='/events/' + events[index]._id)
-                                            | #{events[index].title}
-                                        if locals.user && events[index].creator == locals.user.username
-                                            a(href='/events/'+ events[index]._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
-                                                i.material-icons edit
-                                    .card-content
-                                        p
-                                            | Publisher: #{events[index].creator}
-                                        p
-                                            | #{events[index].description}
-                    else
-                        .col.s12.m4
-                            .card.z-depth-3
-                                .card-image
-                                    img(src=events[index].headerImage)
-                                    a.card-title(href='/events/' + events[index]._id)
-                                        | #{events[index].title}
-                                    if locals.user && events[index].creator == locals.user.username
-                                        a(href='/events/'+ events[index]._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
-                                            i.material-icons edit
-                                .card-content
-                                    p
-                                        | Publisher: #{events[index].creator}
-                                    p
-                                        | #{events[index].description}
+                    .col.s12.m4
+                        .card.z-depth-3
+                            .card-image
+                                img(src=events[index].headerImage)
+                                a.card-title(href='/events/' + events[index]._id)
+                                    | #{events[index].title}
+                                if locals.user && events[index].creator == locals.user.username
+                                    a(href='/events/'+ events[index]._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
+                                        i.material-icons edit
+                            .card-content
+                                p
+                                    | Publisher: #{events[index].creator}
+                                p
+                                    | #{events[index].description}
+                    //- else
+                    //-     .col.s12.m4
+                    //-         .card.z-depth-3
+                    //-             .card-image
+                    //-                 img(src=events[index].headerImage)
+                    //-                 a.card-title(href='/events/' + events[index]._id)
+                    //-                     | #{events[index].title}
+                    //-                 if locals.user && events[index].creator == locals.user.username
+                    //-                     a(href='/events/'+ events[index]._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
+                    //-                         i.material-icons edit
+                    //-             .card-content
+                    //-                 p
+                    //-                     | Publisher: #{events[index].creator}
+                    //-                 p
+                    //-                     | #{events[index].description}
                     - index++
                 //- else
                 //-     h4.center

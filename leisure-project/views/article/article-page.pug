@@ -16,47 +16,53 @@ block append page-content
                     a(href='/articles')
                         | No categories found
 
-    div.row
-        if locals.user
-            a.waves-effect.waves-light.btn.left(href="/articles/add")
-                | Add new article
+    .row
+        .col.s12.m10.offset-m1
+            if locals.user
+                a.waves-effect.waves-light.btn.left(href='/articles/add')
+                    | Create article
+                    i.material-icons.right
+                        | add
+            a.btn.dropdown-button.right(data-activates='categories-dropdown')
+                | Categories
                 i.material-icons.right
-                    | add
-        a.btn.dropdown-button.right(data-activates="categories-dropdown")
-            | Categories
-            i.material-icons.right
-                | arrow_drop_down
-
-    nav
-        div.nav-wrapper
-            form
-                div.input-field
-                    input#search-article(type="search" name="query")
-                    label.label-icon(for="search-article")
-                        i.material-icons
-                            | search
-                    i.material-icons
-                        | close
-
+                    | arrow_drop_down
     if articles.length > 0
-        each article in articles
-            ul.collection
-                li.collection-item.avatar
-                    img.circle(src="https://ih1.redbubble.net/image.92221274.3543/st%2Csmall%2C215x235-pad%2C210x230%2Cf8f8f8.lite-1.jpg")
-                    a.title(href="/articles/" + article._id)
-                        | > #{article.title}
-                    p 
-                        | Published by: #{article.author.username}
-                    p 
-                        | #{article.description}
-                    p
-                        | Category : #{article.category}
-                    if locals.user && article.author.username == locals.user.username
-                        a.secondary-content(href="/articles/" + article._id + "/edit")
-                            i.material-icons
-                                | edit  
-        +pagination(query, pageNumber, pagesCount, "articles")            
+        .row
+            .col.s12.m10.offset-m1
+                nav
+                    div.nav-wrapper
+                        form
+                            div.input-field
+                                input#search-article.white(type='search' name='query', placeholder='Type to search for articles...')
+                                label.label-icon(for='search-article')
+                                    i.material-icons
+                                        | search
+                                i.material-icons
+                                    | close
+        .row
+            .col.s12.m4
+                each article in articles
+                    ul.collection
+                        li.collection-item.avatar
+                            img.circle(src='https://ih1.redbubble.net/image.92221274.3543/st%2Csmall%2C215x235-pad%2C210x230%2Cf8f8f8.lite-1.jpg')
+                            a.title(href='/articles/' + article._id)
+                                | > #{article.title}
+                            p 
+                                | Published by: #{article.author.username}
+                            p 
+                                | #{article.description}
+                            p
+                                | Category : #{article.category}
+                            if locals.user && article.author.username == locals.user.username
+                                a.secondary-content(href='/articles/' + article._id + '/edit')
+                                    i.material-icons
+                                        | edit
+        .row
+            +pagination(query, pageNumber, pagesCount, 'articles')            
     else
-        h1
-            | No articles found.
+        h4.center
+            | No articles avaliable 
+        h5.center.blue-grey-text.lighten-5
+            | Click the 'Create article' button to create one!
             

@@ -47,15 +47,11 @@ nav{
   margin-right: 15px;
 }
 
-.container{
-  width: 90%;
-}
-
 .page-content {
   overflow: hidden;
   flex: 1 0 auto;
   margin-top: 0;
-  width:97%;
+  width:100%;
 }
 
 .small-margin{
