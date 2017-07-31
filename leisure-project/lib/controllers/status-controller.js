@@ -25,6 +25,7 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return res.json({ error: 'Invalid status' });
                 })
                 .then((stat) => {
+                    console.log(status);
                     return renderer.render('status-template',
                         {
                             statusAuthor: status.author,
@@ -36,7 +37,6 @@ module.exports = ({ statusData, userData }, renderer) => {
                     console.log(result);
                     return res.json({ compiledTemplate: result });
                 });
-
         },
         addCommentToStatus(req, res) {
             if (!req.user) {

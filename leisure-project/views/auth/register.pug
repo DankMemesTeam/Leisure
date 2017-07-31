@@ -2,10 +2,13 @@ extends ../shared/_master
 
 block append styles
     link(rel='stylesheet', href='/css/auth-form.css')
+block append footer
+    script
+        | SystemJS.import('register');
 block append page-content
     .login-container.row.center
         .col.s12.m4.offset-m4.z-depth-4.card-panel.center
-            form.login-form.center(action="/auth/register" method="POST")
+            .login-form.center
                 .row
                     .input-field.col.s12
                         h4 Register
@@ -13,25 +16,25 @@ block append page-content
                 .row.margin
                     .input-field.col.s12
                         i.prefix.material-icons person
-                        input#usernameInput(name="username", placeholder='Username', required='', autofocus='')
+                        input#usernameInput(name='username', placeholder='Username', required='', autofocus='')
                 .row.margin
                     .input-field.col.s12
                         i.prefix.material-icons filter_1
-                        input#firstName(name="firstName", placeholder='First name', required='', autofocus='')
+                        input#firstName(name='firstName', placeholder='First name', required='', autofocus='')
                 .row.margin
                     .input-field.col.s12
                         i.prefix.material-icons filter_2
-                        input#lastName(name="lastName", placeholder='Last name', required='', autofocus='')
+                        input#lastName(name='lastName', placeholder='Last name', required='', autofocus='')
                 .row.margin
                     .input-field.col.s12
                         i.prefix.material-icons email
-                        input#emailInput(name="email", placeholder='Email', required='', autofocus='')
+                        input#emailInput(name='email', placeholder='Email', required='', autofocus='')
                 .row.margin
                     .input-field.col.s12
                         i.prefix.material-icons lock_open
-                        input#inputPassword(name="password", type='password', placeholder='Password', required='')
+                        input#inputPassword(name='password', type='password', placeholder='Password', required='')
                 .row.margin
-                    button.btn.waves-effect.waves-light.col.s12(type='submit') Register Now
+                    #register-btn.btn.waves-effect.waves-light.col.s12 Register Now
                     .input-field.col.s12
                         p.margin.center.medium-small.sign-up
                             | Already have an account? 

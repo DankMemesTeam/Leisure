@@ -29,6 +29,6 @@ module.exports = (validator) => {
             }
 
             return validator.isEmail(email);
-        }
+        },
     };
 };

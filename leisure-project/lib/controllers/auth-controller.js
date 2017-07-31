@@ -13,11 +13,13 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
                 .then((hashedPassword) => {
                     user.hashedPassword = hashedPassword;
 
-                    return userData.createUser(user)
+                    return userData.createUser(user);
                 })
-                .then(() => res.redirect('/'))
-                .catch(() => {
-                    res.redirect('/auth/register');
+                .then(() => {
+                    return res.json({ redirectUrl: '/auth/login' });
+                })
+                .catch((err) => {
+                    return res.json({ errorMessage: 'Could not register user!' });
                 });
         },
         getUser(req, res) {

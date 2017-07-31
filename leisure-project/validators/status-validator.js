@@ -17,10 +17,6 @@ module.exports = (validator) => {
                 return false;
             }
 
-            if (!statusModel.content || !validator.isValidString(statusModel.content, minContentLen)) {
-                return false;
-            }
-
             return true;
         },
         isValidStatusComment(statusAuthor, statusId, comment) {

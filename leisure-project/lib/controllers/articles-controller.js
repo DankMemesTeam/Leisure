@@ -122,7 +122,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return res.json(comment);
                 })
                 .catch(() => {
-                    return res.json({error: 'Invalid comment'});
+                    return res.json({ error: 'Invalid comment' });
                 });
         },
         likeArticle(req, res) {

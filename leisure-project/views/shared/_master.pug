@@ -20,6 +20,10 @@ block body
         block page-content
 block footer
     include ./_footer.pug
+    script(src='/js/libs/systemjs/system.js')
+    script
+        include ../../public/js/systemjs-config.js
+    //- script(src='/js/systemjs-config.js')
     script(src='http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js')
     != toasts()
     //- if req.user
