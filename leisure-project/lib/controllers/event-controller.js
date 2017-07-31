@@ -30,11 +30,18 @@ module.exports = ({ userData, eventData, chatData }) => {
                 res.redirect('/auth/login');
             }
         },
-        loadEventDetailsPage(req, res) {
+        loadEventDetailsPage(req, res, next) {
             eventData.getEventById(req.params.eventId)
                 .then((event) => {
-                    res.render('event/event-details',
+                    if (!event) {
+                        return next(new Error('Invalid event id'));
+                    }
+
+                    return res.render('event/event-details',
                         { currentUser: req.user || null, event: event });
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
         createEvent(req, res) {
@@ -99,12 +106,15 @@ module.exports = ({ userData, eventData, chatData }) => {
                     res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
-        addUserToEvent(req, res) {
+        addUserToEvent(req, res, next) {
             eventData.addUserToEvent(req.params.eventId, req.user.username)
                 .then((event) => {
-                    console.log(event);
+                    if (event.lastErrorObject.n === 0) {
+                        return next(new Error('Invalid operation'));
+                    }
+
                     if (event.value.chatTitle) {
-                        chatData
+                        return chatData
                             .addUserToChat(event.value.chatTitle,
                             req.user.username);
                     }
@@ -116,18 +126,25 @@ module.exports = ({ userData, eventData, chatData }) => {
                     res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
-        loadEventEditPage(req, res) {
+        loadEventEditPage(req, res, next) {
             return eventData.getEventById(req.params.eventId)
                 .then((event) => {
-                    res.render('event/event-edit', {
+                    if (!event) {
+                        return res.next(new Error('Invalid event id.'));
+                    }
+
+                    return res.render('event/event-edit', {
                         event,
                         currentUser: req.user
                             ? req.user.username
                             : null,
                     });
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
-        editEvent(req, res) {
+        editEvent(req, res, next) {
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
@@ -135,7 +152,11 @@ module.exports = ({ userData, eventData, chatData }) => {
             return eventData
                 .editEvent(req.params.eventId, req.body.title,
                 req.body.description, req.body.headerImage)
-                .then(() => {
+                .then((result) => {
+                    if (result.lastErrorObject.n === 0) {
+                        return next(new Error('Invalid event id.'));
+                    }
+
                     return res.json({ redirectUrl: `/events/${req.params.eventId}` });
                 })
                 .catch(() => {

@@ -14,6 +14,10 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             ]);
         },
         getEventById(id) {
+            if (!eventValidator.isValidId(id)) {
+                return Promise.reject();
+            }
+
             return eventCollection.findById(id);
         },
         getEventsBy(title, pageNumber) {
@@ -57,6 +61,10 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             );
         },
         addChatToEvent(chatId, chatTitle) {
+            if (!eventValidator.isValidId(chatId)) {
+                return Promise.reject();
+            }
+
             if (!eventValidator.isValidChatAdding(chatId, chatTitle)) {
                 return Promise.reject();
             }
@@ -71,6 +79,10 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             );
         },
         editEvent(id, title, description, headerImage) {
+            if (!eventValidator.isValidId(id)) {
+                return Promise.reject();
+            }
+
             if (!eventValidator.isValidEventEdit(title, description, headerImage)) {
                 return Promise.reject();
             }

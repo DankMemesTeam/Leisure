@@ -20,5 +20,8 @@ module.exports = (validator) => {
         isValidEditData(username, data) {
             return true;
         },
+        isValidId(id) {
+            return validator.isValidMongoId(id);
+        },
     };
 };

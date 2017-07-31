@@ -52,5 +52,8 @@ module.exports = (validator) => {
                 validator.isValidString(description, minDescriptionLen) &&
                 validator.isValidString(headerImage);
         },
+        isValidId(id) {
+            return validator.isValidMongoId(id);
+        }
     };
 };

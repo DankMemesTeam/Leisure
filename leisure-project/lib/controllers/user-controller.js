@@ -2,7 +2,7 @@ module.exports = ({ userData, statusData, articleData }) => {
     const pageSize = 2;
 
     return {
-        loadProfilePage(req, res) {
+        loadProfilePage(req, res, next) {
             const pageNumber = req.query.page || 1;
 
             Promise.all([
@@ -26,25 +26,37 @@ module.exports = ({ userData, statusData, articleData }) => {
                         pageNumber,
                         pagesCount: Math.ceil(count / pageSize),
                     });
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
-        loadProfileSettingsPage(req, res) {
+        loadProfileSettingsPage(req, res, next) {
             userData.findUserBy({ username: req.params.username })
                 .then((foundUser) => {
-                    if (foundUser.username !== req.user.username) {
-                        res.redirect(`/users/${req.params.username}`);
-                        return;
+                    if (!foundUser) {
+                        return next(new Error('Invalid username'));
                     }
 
-                    res.render('user/profile-settings', foundUser);
+                    if (foundUser.username !== req.user.username) {
+                        return res.redirect(`/users/${req.params.username}`);
+                    }
+
+                    return res.render('user/profile-settings', foundUser);
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
-        editUserProfile(req, res) {
+        editUserProfile(req, res, next) {
             userData.findUserBy({ username: req.params.username })
                 .then((foundUser) => {
+                    if (!foundUser) {
+                        return next(new Error('Invalid username'));
+                    }
+
                     if (foundUser.username !== req.user.username) {
-                        res.redirect(`/users/${req.params.username}`);
-                        return;
+                        return res.redirect(`/users/${req.params.username}`);
                     }
 
                     if (req.body.profilePic) {
@@ -52,7 +64,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                             .replace(/(.*imgur.com\/)(.*)(\..*)/, '$1$2b$3');
                     }
 
-                    userData.editUser(foundUser.username, req.body)
+                    return userData.editUser(foundUser.username, req.body)
                         .then((editResult) => {
                             // Update fields
                             const user = {
@@ -114,7 +126,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                 })
                 .catch(() => {
                     return res.json({ errorMessage: 'Oops something went wrong!' });
-                });;
+                });
         },
     };
 };

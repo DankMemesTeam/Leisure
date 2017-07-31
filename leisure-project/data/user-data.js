@@ -6,6 +6,10 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
             return usersCollection.find({});
         },
         getUserById(id) {
+            if (!userValidator.isValidId(id)) {
+                return Promise.reject();
+            }
+            
             return usersCollection.findById(id);
         },
         findUserBy(query) {
