@@ -23,7 +23,6 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
                 userObject.email,
                 userObject.hashedPassword);
 
-            console.log(user);
             if (!userValidator.isValid(user)) {
                 return Promise.reject();
             }

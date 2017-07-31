@@ -19,6 +19,7 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
                 }
                 hashGenerator.verify(password, foundUser.hashedPassword)
                     .then((correctPassword) => {
+                        console.log(correctPassword);
                         if (correctPassword) {
                             return done(null, foundUser);
                         }
