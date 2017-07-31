@@ -1,6 +1,4 @@
-import $ from 'jquery';
-import toastr from 'toastr';
-import { validatorModule } from 'validator-module';
+console.log('register js loaded');
 
 const registerUser = (userObj) => {
     return new Promise((resolve, reject) => {
@@ -16,11 +14,11 @@ const registerUser = (userObj) => {
 };
 
 $('#register-btn').click((ev) => {
-    const username = validatorModule.validateUsername($('#usernameInput').val());
-    const firstName = validatorModule.validateName($('#firstName').val(), 'First name');
-    const lastname = validatorModule.validateName($('#lastName').val(), 'Last name');
-    const email = validatorModule.validateEmail($('#emailInput').val());
-    const password = validatorModule.validatePassword($('#inputPassword').val());
+    const username = validateUsername($('#usernameInput').val());
+    const firstName = validateName($('#firstName').val(), 'First name');
+    const lastName = validateName($('#lastName').val(), 'Last name');
+    const email = validateEmail($('#emailInput').val());
+    const password = validatePassword($('#inputPassword').val());
     console.log(toastr);
     if (!username.isValid) {
         toastr.error(username.message);
@@ -32,8 +30,8 @@ $('#register-btn').click((ev) => {
         return;
     }
 
-    if (!lastname.isValid) {
-        toastr.error(lastname.message);
+    if (!lastName.isValid) {
+        toastr.error(lastName.message);
         return;
     }
 
@@ -48,7 +46,7 @@ $('#register-btn').click((ev) => {
         registerUser({
             username: username.result,
             firstName: firstName.result,
-            lastname: lastname.result,
+            lastName: lastName.result,
             email: email.result,
             password: password.result,
         })
@@ -57,6 +55,7 @@ $('#register-btn').click((ev) => {
                     return toastr.error(response.errorMessage);
                 }
 
+                toastr.success('Successfully registered!');
                 window.location.replace(response.redirectUrl);
             });
     }

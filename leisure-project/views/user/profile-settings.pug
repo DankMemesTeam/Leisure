@@ -39,34 +39,32 @@ block append page-content
             strong
               | Last name: 
             | #{lastName}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
                 input#lastName(type='text' name='lastName' placeholder='Edit last name').form-control
-                button(type='submit').btn.btn-primary
+                #update-lastname-btn.btn.btn-primary
                   | Edit
         ul.list-group
           li.list-group-item
             strong
               | Birth date: 
             | #{birthDate}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
                 input#birthDate(type='text' name='birthDate' placeholder='Edit birth date').form-control
-                button(type='submit').btn.btn-primary
+                #update-birthDate-btn.btn.btn-primary
                   | Edit
           li.list-group-item
             strong
-              | High school: 
+              | About me: 
             | #{highSchool}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
-                input#highSchool(type='text' name='highSchool' placeholder='Edit high school').form-control
-                button(type='submit').btn.btn-primary
+                input#aboutMe(type='text' name='aboutMe' placeholder='Edit about me').form-control
+                #update-aboutMe-btn.btn.btn-primary
                   | Edit
 
 block append footer
-  script
-        | SystemJS.import('profile-settings');
   script(src='/js/user/user-profile.js')
   script(src='/js/image-uploading.js')
   script(src='/js/user/profile-settings.js')

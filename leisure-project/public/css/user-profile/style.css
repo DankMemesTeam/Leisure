@@ -8,12 +8,21 @@
 #profile-page-header .card-profile-image {
   width: 110px;
   position: absolute;
-  top: 190px;
+  top: 54%;
   z-index: 1;
   left: 40px;
   cursor: pointer;
   margin: 0;
 }
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) {
+    .card-profile-image{
+        top: 38% !important;
+    }
+}
+
 #profile-page-header .card-content{
   margin-top: -40px;
 }
@@ -117,10 +126,6 @@ i{
 
 .profile-page-wall-post .collection .collection-item {
   padding:10px 1px;
-}
-
-#profile-page-header .card-profile-image{
-  top:120px;
 }
 
 .profile-details-container{
