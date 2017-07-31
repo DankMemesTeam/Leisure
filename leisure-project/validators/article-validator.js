@@ -36,6 +36,8 @@ module.exports = (validator) => {
             return result;
         },
         isValidEdit(id, title, description, content) {
+            const isValidId = this.isValidId(id);
+
             const isValidTitle = validator.isValidString(title, minTitleLen);
 
             const isValidDescription = validator.isValidString(description, minDescriptionLen);
@@ -43,12 +45,16 @@ module.exports = (validator) => {
             const isValidContent = validator.isValidString(content, minContentLen);
 
 
-            return isValidTitle &&
+            return isValidId &&
+                isValidTitle &&
                 isValidDescription &&
                 isValidContent;
         },
         isValidComment(articleId, comment) {
             return validator.isValidString(comment.text, minCommentLen);
         },
+        isValidId(id) {
+            return validator.isValidMongoId(id);
+        }
     };
 };

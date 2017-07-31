@@ -30,5 +30,8 @@ module.exports = (validator) => {
 
             return validator.isEmail(email);
         },
+        isValidMongoId(id) {
+            return validator.isMongoId(id);
+        },
     };
 };

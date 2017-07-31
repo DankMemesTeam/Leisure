@@ -37,13 +37,23 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         // CURRENTLY BROKEN AF
-        loadCategoryPage(req, res) {
+        loadCategoryPage(req, res, next) {
             return Promise.all([
                 // Paging here too
                 categoryData.getCategoryArticles(req.params.category),
                 categoryData.getAllCategoryNames(),
             ])
                 .then(([categoryContent, categories]) => {
+                    console.log(categories);
+                    const foundCategories = categories.find((cat) => {
+                        return req.params.category.toLowerCase() ===
+                            cat.name.toLowerCase()
+                    });
+
+                    if (!foundCategories) {
+                        return next(new Error(`Category with name ${req.params.category} does not exist`));
+                    }
+
                     return renderArticlesPage(res,
                         categoryContent.articles,
                         categories);
@@ -93,15 +103,22 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
-        loadDetailsPage(req, res) {
+        loadDetailsPage(req, res, next) {
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
+                    if (!article) {
+                        return next(new Error('Invalid article id'));
+                    }
+
                     res.render('article/article-details', {
                         article,
                         currentUser: req.user
                             ? req.user.username
                             : null,
                     });
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
         addComment(req, res) {
@@ -125,35 +142,56 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return res.json({ errorMessage: 'Invalid comment!' });
                 });
         },
-        likeArticle(req, res) {
+        likeArticle(req, res, next) {
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
 
             return articleData.likeArticle(req.params.id, req.user.username)
-                .then(() => {
+                .then((result) => {
+                    if (!result) {
+                        return next(new Error('Invalid operation'));
+                    }
+
                     return res.sendStatus(200);
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
-        unlikeArticle(req, res) {
+        unlikeArticle(req, res, next) {
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
 
             return articleData.unlikeArticle(req.params.id, req.user.username)
-                .then(() => {
+                .then((result) => {
+                    if (!result) {
+                        return next(new Error('Invalid operation'));
+                    }
+
                     return res.sendStatus(200);
+                })
+                .catch(() => {
+                    return next(new Error('Invalid operation'));
                 });
         },
-        loadArticleEditPage(req, res) {
+        loadArticleEditPage(req, res, next) {
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
-                    res.render('article/article-edit', {
+                    if (!article) {
+                        return next(new Error('Invalid article id'));
+                    }
+
+                    return res.render('article/article-edit', {
                         article,
                         currentUser: req.user
                             ? req.user.username
                             : null,
                     });
+                })
+                .catch((err) => {
+                    return next(new Error('Invalid article id'));
                 });
         },
         editArticle(req, res) {
@@ -163,6 +201,8 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content)
                 .then((result) => {
+
+
                     const article = {
                         author: result.value.author,
                         _id: req.params.id,

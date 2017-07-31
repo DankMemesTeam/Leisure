@@ -22,7 +22,7 @@ module.exports = (logger) => {
 
             // Move somewhere appropriate
             app.use((err, req, res, next) => {
-                return res.redirect('/');
+                return res.send(err.message);
             });
 
             return Promise.resolve(server);

@@ -77,9 +77,16 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
             ]);
         },
         getArticleById(id) {
+            if (!articleValidator.isValidId(id)) {
+                return Promise.reject();
+            }
             return articleCollection.findById(id);
         },
         addCommentToArticle(articleId, comment) {
+            if (!articleValidator.isValidId(articleId)) {
+                return Promise.reject();
+            }
+
             if (!articleValidator.isValidComment(articleId, comment)) {
                 return Promise.reject();
             }
@@ -97,6 +104,10 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
             return articleCollection.findAndModify(filter, update);
         },
         likeArticle(articleId, likerUsername) {
+            if (!articleValidator.isValidId(articleId)) {
+                return Promise.reject();
+            }
+
             const filter = {
                 _id: articleCollection.generateId(articleId),
             };
@@ -110,6 +121,10 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
             return articleCollection.findAndModify(filter, update);
         },
         unlikeArticle(articleId, unlikerUsername) {
+            if (!articleValidator.isValidId(articleId)) {
+                return Promise.reject();
+            }
+
             const filter = {
                 _id: articleCollection.generateId(articleId),
             };
