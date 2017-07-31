@@ -3,5 +3,8 @@ module.exports = (validator) => {
         isValid(userModel) {
             return true;
         },
+        isValidEditData(username, data) {
+            return true;
+        },
     };
 };

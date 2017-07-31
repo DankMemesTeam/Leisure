@@ -2,6 +2,7 @@ module.exports = (validator) => {
     const minTitleLen = 5;
     const minDescriptionLen = 5;
     const minContentLen = 15;
+    const minCommentLen = 2;
 
     // isValidString(str, min, max)
     // isValidArray(arr, min, max)
@@ -47,7 +48,7 @@ module.exports = (validator) => {
                 isValidContent;
         },
         isValidComment(articleId, comment) {
-            return validator.isValidString(comment.text, 2);
+            return validator.isValidString(comment.text, minCommentLen);
         },
     };
 };
