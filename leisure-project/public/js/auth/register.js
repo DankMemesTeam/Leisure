@@ -21,7 +21,8 @@ $('#register-btn').click((ev) => {
     const lastname = validatorModule.validateName($('#lastName').val(), 'Last name');
     const email = validatorModule.validateEmail($('#emailInput').val());
     const password = validatorModule.validatePassword($('#inputPassword').val());
-    console.log(toastr);
+    console.log(lastname.result);
+
     if (!username.isValid) {
         toastr.error(username.message);
         return;
@@ -48,7 +49,7 @@ $('#register-btn').click((ev) => {
         registerUser({
             username: username.result,
             firstName: firstName.result,
-            lastname: lastname.result,
+            lastName: lastname.result,
             email: email.result,
             password: password.result,
         })

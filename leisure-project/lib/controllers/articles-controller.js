@@ -125,6 +125,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
+
             const comment = req.body;
             comment.author = {
                 username: req.user.username,
@@ -177,10 +178,18 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 });
         },
         loadArticleEditPage(req, res, next) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
                     if (!article) {
                         return next(new Error('Invalid article id'));
+                    }
+
+                    if (article.author.username !== req.user.username) {
+                        return next(new Error('You are not the article owner'));
                     }
 
                     return res.render('article/article-edit', {
@@ -194,15 +203,23 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return next(new Error('Invalid article id'));
                 });
         },
-        editArticle(req, res) {
+        editArticle(req, res, next) {
             if (!req.user) {
                 return res.redirect('/auth/login');
             }
 
-            return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content)
+            return articleData.getArticleById(req.params.id)
+                .then((article) => {
+                    if (!article || article.author.username !== req.user.username) {
+                        return next(new Error('Invalid operation'));
+                    }
+
+                    return Promise.resolve();
+                })
+                .then(() => {
+                    return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content);
+                })
                 .then((result) => {
-
-
                     const article = {
                         author: result.value.author,
                         _id: req.params.id,
@@ -220,11 +237,25 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
-        removeArticle(req, res) {
-            return Promise.all([
-                articleData.removeArticle(req.params.id),
-                categoryData.removeArticleFromCategory(req.params.id),
-            ])
+        removeArticle(req, res, next) {
+            if (!req.user) {
+                res.redirect('/auth/login');
+            }
+
+            return articleData.getArticleById(req.params.id)
+                .then((article) => {
+                    if (!article || article.author.username !== req.user.username) {
+                        return next(new Error('You are not the owner of this article'));
+                    }
+
+                    return Promise.resolve();
+                })
+                .then(() => {
+                    return Promise.all([
+                        articleData.removeArticle(req.params.id),
+                        categoryData.removeArticleFromCategory(req.params.id),
+                    ])
+                })
                 .then((result) => {
                     return articleData.removeArticle(req.params.id)
                         .then(() => {

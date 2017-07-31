@@ -25,7 +25,8 @@ const validateString = (input, objName) => {
         return { message: objName + ' cannot be empty!' };
     }
 
-    if (validator.isLength(input, { min: minStringLength, max: maxStringLength })) {
+    if (!validator.isLength(input, { min: minStringLength, max: maxStringLength })) {
+        console.log(input.length);
         return { message: `Invalid ${objName.toLowerCase()} length!` };
     }
 
@@ -60,7 +61,7 @@ const validatorModule = {
             return { message: 'Email cannot be empty!' };
         }
 
-        if (validator.isEmail(email)) {
+        if (!validator.isEmail(email)) {
             return { message: 'Email is not valid!' };
         }
 
