@@ -47,7 +47,6 @@ module.exports = ({ userData, statusData, articleData }) => {
                         return;
                     }
 
-                    // welp...
                     if (req.body.profilePic) {
                         req.body.profilePic = req.body.profilePic
                             .replace(/(.*imgur.com\/)(.*)(\..*)/, '$1$2b$3');
@@ -83,12 +82,11 @@ module.exports = ({ userData, statusData, articleData }) => {
                         .then(() => {
                             if (req.body.profilePic) {
                                 return res.json({
-                                    redirect: `/users/${req.params.username}`,
+                                    redirectUrl: `/users/${req.params.username}`,
                                 });
                             }
 
-                            return res
-                                .redirect(`/users/${req.params.username}/settings`);
+                            return res.json({ errorMessage: 'Oops something went wrong!' });
                         });
                 });
         },
@@ -99,7 +97,10 @@ module.exports = ({ userData, statusData, articleData }) => {
 
             return userData.followUser(req.user.username, req.params.username)
                 .then(() => {
-                    return res.sendStatus(200);
+                    return res.json({});
+                })
+                .catch(() => {
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         unfollowUser(req, res) {
@@ -109,8 +110,11 @@ module.exports = ({ userData, statusData, articleData }) => {
 
             return userData.unfollowUser(req.user.username, req.params.username)
                 .then(() => {
-                    return res.sendStatus(200);
-                });
+                    return res.json({});
+                })
+                .catch(() => {
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                });;
         },
     };
 };

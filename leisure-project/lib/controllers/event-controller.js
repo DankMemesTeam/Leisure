@@ -66,7 +66,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             eventObj.location.mapUrl = googleMapsLink;
 
             let chatPromise = Promise.resolve(null);
-            // SHOULD be able to create event chat after event is created also
+
             if (req.body.addChat) {
                 chatPromise = chatData
                     .createEventChatroom([req.user.username],
@@ -79,13 +79,10 @@ module.exports = ({ userData, eventData, chatData }) => {
                         .createEvent(eventObj, req.body.chatTitle || null);
                 })
                 .then((event) => {
-                    req.toastr.success('Successfully created event!');
-                    res.redirect('/events');
+                    res.json({ redirectUrl: '/events' });
                 })
                 .catch((err) => {
-                    // Should not redirect when error
-                    req.toastr.error(err);
-                    res.redirect('/events/create');
+                    res.json({ errorMessage: 'Invalid event!' });
                 });
         },
         addEventChat(req, res) {
@@ -96,12 +93,10 @@ module.exports = ({ userData, eventData, chatData }) => {
                         'event', req.body.chatTitle);
                 })
                 .then((chat) => {
-                    res.json({ redirect: '/events/' + req.params.eventId });
+                    res.json({ redirectUrl: '/events/' + req.params.eventId });
                 })
                 .catch((err) => {
-                    // should send json with the error message
-                    req.toastr.error(err);
-                    res.redirect('/events/' + req.params.eventId);
+                    res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         addUserToEvent(req, res) {
@@ -115,12 +110,10 @@ module.exports = ({ userData, eventData, chatData }) => {
                     }
                 })
                 .then((result) => {
-                    res.json({ redirect: '/events/' + req.params.eventId });
+                    res.json({ redirectUrl: '/events/' + req.params.eventId });
                 })
                 .catch((err) => {
-                    // should send json with the error message
-                    req.toastr.error(err);
-                    res.redirect('/events/' + req.params.eventId);
+                    res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         loadEventEditPage(req, res) {
@@ -143,10 +136,10 @@ module.exports = ({ userData, eventData, chatData }) => {
                 .editEvent(req.params.eventId, req.body.title,
                 req.body.description, req.body.headerImage)
                 .then(() => {
-                    return res.redirect(`/events/${req.params.eventId}`);
+                    return res.json({ redirectUrl: `/events/${req.params.eventId}` });
                 })
                 .catch(() => {
-                    return res.redirect(`/events/${req.params.eventId}/edit`);
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
     };

@@ -87,10 +87,10 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return categoryData.addArticleToCategory(articleObj, articleObj.category);
                 })
                 .then(() => {
-                    res.redirect('/articles');
+                    res.json({ redirectUrl: '/articles' });
                 })
                 .catch(() => {
-                    res.redirect('/articles/add');
+                    res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         loadDetailsPage(req, res) {
@@ -122,7 +122,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return res.json(comment);
                 })
                 .catch(() => {
-                    return res.json({ error: 'Invalid comment' });
+                    return res.json({ errorMessage: 'Invalid comment!' });
                 });
         },
         likeArticle(req, res) {
@@ -161,7 +161,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 return res.redirect('/auth/login');
             }
 
-
             return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content)
                 .then((result) => {
                     const article = {
@@ -175,11 +174,10 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return categoryData.updateCategoryArticle(req.params.id, article);
                 })
                 .then((result) => {
-                    console.log(result);
-                    res.redirect(`/articles/${req.params.id}`);
+                    res.json({ redirectUrl: `/articles/${req.params.id}` });
                 })
                 .catch(() => {
-                    return res.redirect(`/articles/${req.params.id}/edit`);
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         removeArticle(req, res) {
@@ -188,7 +186,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 categoryData.removeArticleFromCategory(req.params.id),
             ])
                 .then((result) => {
-                    console.log(result[1]);
                     return articleData.removeArticle(req.params.id)
                         .then(() => {
                             res.sendStatus(200);

@@ -25,7 +25,6 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return res.json({ error: 'Invalid status' });
                 })
                 .then((stat) => {
-                    console.log(status);
                     return renderer.render('status-template',
                         {
                             statusAuthor: status.author,
@@ -34,7 +33,6 @@ module.exports = ({ statusData, userData }, renderer) => {
                         });
                 })
                 .then((result) => {
-                    console.log(result);
                     return res.json({ compiledTemplate: result });
                 });
         },
@@ -67,27 +65,27 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return res.json(comment);
                 })
                 .catch((err) => {
-                    return res.json({ error: 'Invalid comment' });
+                    return res.json({ errorMessage: 'Invalid comment!' });
                 });
         },
         likeStatus(req, res) {
             return statusData.likeStatus(req.params.username,
                 req.params.statusId, req.user.username)
                 .then(() => {
-                    return res.sendStatus(200);
+                    return res.json({});
                 })
                 .catch((err) => {
-                    console.log(err);
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         dislikeStatus(req, res) {
             return statusData.dislikeStatus(req.params.username,
                 req.params.statusId, req.user.username)
                 .then(() => {
-                    return res.sendStatus(200);
+                    return res.json({});
                 })
                 .catch((err) => {
-                    console.log(err);
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
     };

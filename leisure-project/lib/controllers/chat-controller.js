@@ -85,7 +85,7 @@ module.exports = ({ userData, chatData }) => {
                     res.json({ redirect: `/users/${req.user.username}/chats` });
                 })
                 .catch(() => {
-                    res.json({ error: 'Invalid personal chat.' });
+                    res.json({ errorMessage: 'Invalid personal chat.' });
                 });
         },
     };
