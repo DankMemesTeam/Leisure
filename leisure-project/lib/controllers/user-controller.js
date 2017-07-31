@@ -81,9 +81,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                         })
                         .then(() => {
                             if (req.body.profilePic) {
-                                return res.json({
-                                    redirectUrl: `/users/${req.params.username}`,
-                                });
+                                return res.json({});
                             }
 
                             return res.json({});
