@@ -9,7 +9,7 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
             if (!userValidator.isValidId(id)) {
                 return Promise.reject();
             }
-            
+
             return usersCollection.findById(id);
         },
         findUserBy(query) {
@@ -22,7 +22,7 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
                 userObject.lastName,
                 userObject.email,
                 userObject.hashedPassword);
-            
+
             console.log(user);
             if (!userValidator.isValid(user)) {
                 return Promise.reject();

@@ -98,7 +98,7 @@ $('#update-birthDate-btn').click((ev) => {
 
 
 $('#update-aboutMe-btn').click((ev) => {
-    const newDescription = validateText($('#aboutMe').val());
+    const newDescription = validateText($('#aboutMe').val(), 'About me');
     const postUrl = window.location.href;
 
     if (!newDescription.isValid) {

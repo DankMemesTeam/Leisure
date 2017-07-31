@@ -55,6 +55,6 @@ module.exports = (validator) => {
         },
         isValidId(id) {
             return validator.isValidMongoId(id);
-        }
+        },
     };
 };

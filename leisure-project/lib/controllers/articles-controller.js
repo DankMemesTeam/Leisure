@@ -47,7 +47,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     console.log(categories);
                     const foundCategories = categories.find((cat) => {
                         return req.params.category.toLowerCase() ===
-                            cat.name.toLowerCase()
+                            cat.name.toLowerCase();
                     });
 
                     if (!foundCategories) {
@@ -254,7 +254,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return Promise.all([
                         articleData.removeArticle(req.params.id),
                         categoryData.removeArticleFromCategory(req.params.id),
-                    ])
+                    ]);
                 })
                 .then((result) => {
                     return articleData.removeArticle(req.params.id)
