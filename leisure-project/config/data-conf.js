@@ -1,6 +1,6 @@
 module.exports = {
     user: {
-        defaultProfilePic: 'lorem ipsum',
+        defaultProfilePic: '/images/default-user.png',
     },
     event: {
         defaultHeaderPic: '/images/event/default-header.jpg',

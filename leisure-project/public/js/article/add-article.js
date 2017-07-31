@@ -4,6 +4,7 @@
 // chips initialization
 const tags = [];
 
+
 $('.chips-placeholder').material_chip({
     placeholder: 'Enter a tag',
 });

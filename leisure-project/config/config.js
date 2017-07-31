@@ -9,6 +9,9 @@ const env = process.env.NODE_ENV || 'dev';
 const envPort = process.env.PORT;
 // eslint-disable-next-line no-process-env
 const envConnString = process.env.MONGO;
+// eslint-disable-next-line no-process-env
+const envDbSecret = process.env.SECRET;
+
 
 // Probably contants should be automaticaly adjusted
 // to environment ( not explicitly named .dev or .prod )
@@ -20,8 +23,7 @@ const config = {
 		},
 		port: envPort || 3000,
 		connectionString: envConnString || 'mongodb://localhost:27017/leisureDb',
-		secretString: 'Secret magical popcorn',
-		defaultProfilePic: '/images/default-user.png',
+		secretString: envDbSecret || 'Secret magical popcorn',
 	},
 	production: {
 		root: rootPath,
@@ -30,8 +32,7 @@ const config = {
 		},
 		port: envPort,
 		connectionString: envConnString,
-		secretString: 'Secret magical popcorn',
-		defaultProfilePic: '/images/default-user.png',
+		secretString: envDbSecret,
 	},
 };
 
