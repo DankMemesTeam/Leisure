@@ -1,17 +1,13 @@
-const isValidPrivateChat = (chatModel) => {
-    return true;
-};
-
-const isValidEventChat = (chatModel) => {
-    return true;
-};
-
-const isValidMessage = (messageModel) => {
-    return true;
-};
-
-module.exports = {
-    isValidPrivateChat,
-    isValidEventChat,
-    isValidMessage,
+module.exports = (validator) => {
+    return {
+        isValidPrivateChat(chatModel) {
+            return true;
+        },
+        isValidEventChat(chatModel) {
+            return true;
+        },
+        isValidMessage(messageModel) {
+            return true;
+        },
+    };
 };

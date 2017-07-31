@@ -1,12 +1,10 @@
-const isValid = (statusModel) => {
-    return true;
-};
-
-const isValidStatusComment = (statusAuthor, statusId, comment) => {
-    return true;
-}
-
-module.exports = {
-    isValid,
-    isValidStatusComment,
+module.exports = (validator) => {
+    return {
+        isValid(statusModel) {
+            return true;
+        },
+        isValidStatusComment(statusAuthor, statusId, comment) {
+            return true;
+        },
+    };
 };

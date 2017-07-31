@@ -1,22 +1,17 @@
-const isValid = (eventModel) => {
-    return true;
-};
+module.exports = (validator) => {
+    return {
+        isValid(eventModel) {
+            return true;
+        },
+        isValidUserAdding(eventId, username) {
+            return true;
+        },
 
-const isValidUserAdding = (eventId, username) => {
-    return true;
-};
-
-const isValidChatAdding = (chatId, chatTitle) => {
-    return true;
-};
-
-const isValidEventEdit = (id, title, description, headerImage) => {
-    return true;
-};
-
-module.exports = {
-    isValid,
-    isValidUserAdding,
-    isValidChatAdding,
-    isValidEventEdit,
+        isValidChatAdding(chatId, chatTitle) {
+            return true;
+        },
+        isValidEventEdit(id, title, description, headerImage) {
+            return true;
+        },
+    };
 };

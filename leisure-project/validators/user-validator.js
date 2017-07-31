@@ -1,7 +1,7 @@
-const isValid = (userModel) => {
-    return true;
-};
-
-module.exports = {
-    isValid,
+module.exports = (validator) => {
+    return {
+        isValid(userModel) {
+            return true;
+        },
+    };
 };

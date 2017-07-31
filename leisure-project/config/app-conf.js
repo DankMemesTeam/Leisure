@@ -1,8 +1,10 @@
 module.exports = (logger) => {
+    const validator = require('validator');
+
     const config = require('./config');
     const app = require('./express-conf')(config.dev, logger);
     const express = require('express');
-    const validators = require('../validators')();
+    const validators = require('../validators')(validator);
     const hashGenerator = require('../bin/hash-generator');
     const loadedModels = require('../lib/models')();
     const dataConfig = require('./data-conf');
@@ -20,8 +22,8 @@ module.exports = (logger) => {
 
             // Move somewhere appropriate
             app.use((err, req, res, next) => {
-				return res.redirect('/');
-			});
+                return res.redirect('/');
+            });
 
             return Promise.resolve(server);
         });
