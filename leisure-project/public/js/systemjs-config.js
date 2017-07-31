@@ -7,6 +7,7 @@ SystemJS.config({
         'plugin-babel': '/js/libs/systemjs-plugin-babel/plugin-babel.js',
         'systemjs-babel-build': '/js/libs/systemjs-plugin-babel/systemjs-babel-browser.js',
         register: '/js/auth/register.js',
+        'profile-settings': '/js/user/profile-settings.js',
         'validator-module': '/js/validation/validator.js',
         jquery: 'https://code.jquery.com/jquery-3.2.1.min.js',
         validator: 'https://cdnjs.cloudflare.com/ajax/libs/validator/8.0.0/validator.min.js',

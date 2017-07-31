@@ -29,10 +29,10 @@ block append page-content
             strong
               | First name: 
             | #{firstName}
-            form(action='/users/' + username + '/settings' method='POST').form-inline
+            .form-inline
               div.form-group
                 input#firstName(type='text' name='firstName' placeholder='Edit first name').form-control
-                button(type='submit').btn.btn-primary
+                #update-firstName-btn.btn.btn-primary
                   | Edit
         ul.list-group
           li.list-group-item
@@ -65,6 +65,8 @@ block append page-content
                   | Edit
 
 block append footer
+  script
+        | SystemJS.import('profile-settings');
   script(src='/js/user/user-profile.js')
   script(src='/js/image-uploading.js')
   script(src='/js/user/profile-settings.js')
