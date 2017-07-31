@@ -1,4 +1,4 @@
-module.exports = (eventCollection, validator, models, logger, { event }) => {
+module.exports = (eventCollection, { eventValidator }, models, logger, { event }) => {
     const { Event } = models;
 
     return {
@@ -37,9 +37,17 @@ module.exports = (eventCollection, validator, models, logger, { event }) => {
             const event = new Event(eventObject.title, eventObject.creator,
                 eventObject.description, eventObject.participants, chatTitle, eventObject.location);
 
+            if (!eventValidator.isValid(event)) {
+                return Promise.reject();
+            }
+
             return eventCollection.insertOne(event);
         },
         addUserToEvent(eventId, username) {
+            if (!eventValidator.isValidUserAdding(username)) {
+                return Promise.reject();
+            }
+
             return eventCollection.findAndModify(
                 { _id: eventCollection.generateId(eventId) },
                 { $addToSet: { participants: username } },
@@ -49,6 +57,10 @@ module.exports = (eventCollection, validator, models, logger, { event }) => {
             );
         },
         addChatToEvent(chatId, chatTitle) {
+            if (!eventValidator.isValidChatAdding(chatId, chatTitle)) {
+                return Promise.reject();
+            }
+
             return eventCollection.findAndModify(
                 { _id: eventCollection.generateId(chatId) },
                 { $set: { chatTitle: chatTitle } },
@@ -59,6 +71,10 @@ module.exports = (eventCollection, validator, models, logger, { event }) => {
             );
         },
         editEvent(id, title, description, headerImage) {
+            if (!eventValidator.isValidEventEdit(title, description, headerImage)) {
+                return Promise.reject();
+            }
+
             const query = {
                 _id: eventCollection.generateId(id),
             };

@@ -1,4 +1,4 @@
-module.exports = (articleCollection, validator, models, logger, { article }) => {
+module.exports = (articleCollection, { articleValidator }, models, logger, { article }) => {
     const { Article } = models;
 
     return {
@@ -10,7 +10,7 @@ module.exports = (articleCollection, validator, models, logger, { article }) => 
             });
         },
         createArticle(articleObject) {
-            const article = new Article(
+            const articleModel = new Article(
                 articleObject.author,
                 articleObject.title,
                 articleObject.description,
@@ -19,9 +19,17 @@ module.exports = (articleCollection, validator, models, logger, { article }) => 
                 articleObject.tags,
             );
 
-            return articleCollection.insertOne(article);
+            if (!articleValidator.isValid(articleModel)) {
+                return Promise.reject();
+            }
+
+            return articleCollection.insertOne(articleModel);
         },
         editArticle(id, title, description, content) {
+            if (!articleValidator.isValidEdit(id, title, description, content)) {
+                return Promise.reject();
+            }
+
             const query = {
                 _id: articleCollection.generateId(id),
             };
@@ -72,6 +80,10 @@ module.exports = (articleCollection, validator, models, logger, { article }) => 
             return articleCollection.findById(id);
         },
         addCommentToArticle(articleId, comment) {
+            if (!articleValidator.isValidComment(articleId, comment)) {
+                return Promise.reject();
+            }
+
             const filter = {
                 _id: articleCollection.generateId(articleId),
             };

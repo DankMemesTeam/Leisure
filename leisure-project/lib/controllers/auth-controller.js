@@ -9,17 +9,15 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
         registerUser(req, res) {
             const user = req.body;
 
-            if (!validator.isUserValid(user)) {
-                res.redirect('/auth/register');
-                return;
-            }
-
             hashGenerator.generateHash(user.password)
                 .then((hashedPassword) => {
                     user.hashedPassword = hashedPassword;
 
-                    userData.createUser(user)
-                        .then(res.redirect('/'));
+                    return userData.createUser(user)
+                })
+                .then(() => res.redirect('/'))
+                .catch(() => {
+                    res.redirect('/auth/register');
                 });
         },
         getUser(req, res) {

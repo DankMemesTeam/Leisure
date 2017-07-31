@@ -7,10 +7,11 @@ module.exports = ({ articleData, categoryData, userData }) => {
     };
 
     return {
-        loadArticlesPage(req, res) {
+        loadArticlesPage(req, res, next) {
             let articlesPromise;
 
             const pageNumber = req.query.page || 1;
+
 
             if (!req.query.query) {
                 articlesPromise = articleData.getAllArticles(pageNumber);
@@ -87,6 +88,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 })
                 .then(() => {
                     res.redirect('/articles');
+                })
+                .catch(() => {
+                    res.redirect('/articles/add');
                 });
         },
         loadDetailsPage(req, res) {
@@ -116,6 +120,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 })
                 .then(() => {
                     return res.json(comment);
+                })
+                .catch(() => {
+                    return res.json({error: 'Invalid comment'});
                 });
         },
         likeArticle(req, res) {
@@ -170,6 +177,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 .then((result) => {
                     console.log(result);
                     res.redirect(`/articles/${req.params.id}`);
+                })
+                .catch(() => {
+                    return res.redirect(`/articles/${req.params.id}/edit`);
                 });
         },
         removeArticle(req, res) {
