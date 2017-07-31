@@ -1,4 +1,4 @@
-/*globals validator */
+/* globals validator */
 
 const minStringLength = 5;
 const maxStringLength = 20;

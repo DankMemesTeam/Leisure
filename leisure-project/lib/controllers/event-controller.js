@@ -177,10 +177,9 @@ module.exports = ({ userData, eventData, chatData }) => {
                     return Promise.resolve();
                 })
                 .then(() => {
-                    
                     return eventData
                         .editEvent(req.params.eventId, req.body.title,
-                        req.body.description, req.body.headerImage)
+                        req.body.description, req.body.headerImage);
                 })
                 .then((result) => {
                     if (result.lastErrorObject.n === 0) {

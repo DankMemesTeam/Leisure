@@ -22,7 +22,8 @@ module.exports = (logger) => {
 
             // Move somewhere appropriate
             app.use((err, req, res, next) => {
-                return res.json({ errorMessage: err.message });
+                return res.render('page-not-found', { errorMessage: err.message });
+                // return res.json({ errorMessage: err.message });
             });
 
             return Promise.resolve(server);
