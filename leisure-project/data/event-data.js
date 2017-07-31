@@ -44,7 +44,7 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             return eventCollection.insertOne(event);
         },
         addUserToEvent(eventId, username) {
-            if (!eventValidator.isValidUserAdding(eventId, username)) {
+            if (!eventValidator.isValidUserAdding(username)) {
                 return Promise.reject();
             }
 
@@ -71,7 +71,7 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             );
         },
         editEvent(id, title, description, headerImage) {
-            if (!eventValidator.isValidEventEdit(id, title, description, headerImage)) {
+            if (!eventValidator.isValidEventEdit(title, description, headerImage)) {
                 return Promise.reject();
             }
 
