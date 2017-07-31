@@ -24,11 +24,11 @@ module.exports = ({ userData, eventData, chatData }) => {
                 });
         },
         loadCreationPage(req, res) {
-            if (req.user) {
-                res.render('event/event-create');
-            } else {
-                res.redirect('/auth/login');
+            if (!req.user) {
+                return res.redirect('/auth/login');
             }
+
+            return res.render('event/event-create');
         },
         loadEventDetailsPage(req, res, next) {
             eventData.getEventById(req.params.eventId)
@@ -45,6 +45,11 @@ module.exports = ({ userData, eventData, chatData }) => {
                 });
         },
         createEvent(req, res) {
+            if (!req.user) {
+                return res.json({ redirectUrl: '/auth/login' });
+            }
+
+
             const eventObj = {
                 title: req.body.title,
                 description: req.body.description,
@@ -107,7 +112,11 @@ module.exports = ({ userData, eventData, chatData }) => {
                 });
         },
         addUserToEvent(req, res, next) {
-            eventData.addUserToEvent(req.params.eventId, req.user.username)
+            if (!req.user) {
+                return res.json({ redirectUrl: '/auth/login' });
+            }
+
+            return eventData.addUserToEvent(req.params.eventId, req.user.username)
                 .then((event) => {
                     if (event.lastErrorObject.n === 0) {
                         return next(new Error('Invalid operation'));
@@ -118,12 +127,14 @@ module.exports = ({ userData, eventData, chatData }) => {
                             .addUserToChat(event.value.chatTitle,
                             req.user.username);
                     }
+
+                    return Promise.reject();
                 })
                 .then((result) => {
-                    res.json({ redirectUrl: '/events/' + req.params.eventId });
+                    return res.json({ redirectUrl: '/events/' + req.params.eventId });
                 })
                 .catch((err) => {
-                    res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         loadEventEditPage(req, res, next) {

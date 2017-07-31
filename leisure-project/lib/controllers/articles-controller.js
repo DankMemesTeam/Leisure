@@ -110,7 +110,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                         return next(new Error('Invalid article id'));
                     }
 
-                    res.render('article/article-details', {
+                    return res.render('article/article-details', {
                         article,
                         currentUser: req.user
                             ? req.user.username
