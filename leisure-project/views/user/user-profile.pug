@@ -4,16 +4,16 @@ block append styles
   link(href='/css/user-profile/style.css', type='text/css', rel='stylesheet', media='screen,projection')
   link(href='/css/user-profile/style-horizontal.css', type='text/css', rel='stylesheet', media='screen,projection')
 block append footer
-  script(src="/js/image-uploading.js")
-  script(src='/js/user-profile.js')
-  script(src='/js/status-rating.js')
-  script(src='/js/status-comment.js')
+  script(src='/js/image-uploading.js')
+  script(src='/js/user/user-profile.js')
+  script(src='/js/status/status-rating.js')
+  script(src='/js/status/status-comment.js')
   script(src='/js/utils.js')
 include ../mixins/status.pug
 include ../mixins/pagination.pug
 include ../mixins/loading-modal.pug
 block append page-content
-  +loadingModal("Submitting status...", "Status submitted.")
+  +loadingModal('Submitting status...', 'Status submitted.')
   #profile-page.section
     // profile-page-header
     #profile-page-header.z-depth-2.card
@@ -121,8 +121,8 @@ block append page-content
                   .row
                     .col.s7.m6.left-align
                       // Dropdown Trigger
-                      input#status-image-input(type="file" style="display: none")
-                      label(for="status-image-input").waves-effect.waves-light.btn
+                      input#status-image-input(type='file' style='display: none')
+                      label(for='status-image-input').waves-effect.waves-light.btn
                         i.material-icons.left file_upload
                         | Upload image
                     .col.s5.m6.right-align

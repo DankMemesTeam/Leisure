@@ -44,28 +44,10 @@ block append page-content
                                     | Publisher: #{events[index].creator}
                                 p
                                     | #{events[index].description}
-                    //- else
-                    //-     .col.s12.m4
-                    //-         .card.z-depth-3
-                    //-             .card-image
-                    //-                 img(src=events[index].headerImage)
-                    //-                 a.card-title(href='/events/' + events[index]._id)
-                    //-                     | #{events[index].title}
-                    //-                 if locals.user && events[index].creator == locals.user.username
-                    //-                     a(href='/events/'+ events[index]._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
-                    //-                         i.material-icons edit
-                    //-             .card-content
-                    //-                 p
-                    //-                     | Publisher: #{events[index].creator}
-                    //-                 p
-                    //-                     | #{events[index].description}
+                    
                     - index++
-                //- else
-                //-     h4.center
-                //-         | No events found.
         .row
-            //- Add search query as 1st parameter if one exists
-            +pagination(query, pageNumber, pagesCount, "events")
+            +pagination(query, pageNumber, pagesCount, 'events')
     else
         h4.center
             | No events avaliable 

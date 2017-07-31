@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $, google */
 
 let autocomplete;
 

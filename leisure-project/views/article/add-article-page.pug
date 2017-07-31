@@ -3,41 +3,41 @@ extends ../shared/_master
 block append page-content
 
     div.row
-        form.col.s12#article-submit-form(method="POST")
+        form.col.s12#article-submit-form(method='POST')
             div.row
                 div.input-field
-                    select(name="category")
+                    select(name='category')
                         each cat in categories
                             option(value=cat.name)
                                 | #{cat.name}
-                    label(for="category-selection")
+                    label(for='category-selection')
                         | Select category
             div.row
                 div.chips-placeholder.input-field.col.s6
             
             div.row
                 div.input-field.col.s6
-                    input#title(type="text" name="title")
-                    label(for="title")
+                    input#title(type='text' name='title')
+                    label(for='title')
                         | Title            
             div.row
                 div.input-field.col.s6
-                    input#description(type="text" name="description")
-                    label(for="description")
+                    input#description(type='text' name='description')
+                    label(for='description')
                         | Description
             div.row
                 div.input-field.col.s12
-                    textarea.materialize-textarea#article-content(name="content")
-                    label(for="article-content")
+                    textarea.materialize-textarea#article-content(name='content')
+                    label(for='article-content')
                         | Text
             div.row
-                button.btn.waves-effect.waves-light(type="submit")
+                button.btn.waves-effect.waves-light(type='submit')
                     | Publish
                     i.material-icons.right
                         | send
 
 
 block append footer
-    script(src='/js/add-article.js')
+    script(src='/js/article/add-article.js')
 
                         

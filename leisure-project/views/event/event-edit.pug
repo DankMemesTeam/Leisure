@@ -7,46 +7,46 @@ block append page-content
         | Title: #{event.title}
     p
         | Created by: 
-        a(href="/users/" + event.creator)
+        a(href='/users/' + event.creator)
             | #{event.creator}
     hr
-    form(action="/events/" + event._id + "/edit" method="POST")
+    form(action='/events/' + event._id + '/edit' method='POST')
         .row
             .col.s12.m12.l12
                 img.header-image(src=event.headerImage)
         .row
             div.input-field
-                select#header-image(name="headerImage")
+                select#header-image(name='headerImage')
                         //- Upload images (in imgur, keep in config and each here)
                         option(value=event.headerImage)
                             | Default
-                        option(value="http://fanaru.com/doge/image/136052-doge-doge.jpg")
+                        option(value='http://fanaru.com/doge/image/136052-doge-doge.jpg')
                             | Doge
-                        option(value="https://i.ytimg.com/vi/_wPez9bGd0g/maxresdefault.jpg")
+                        option(value='https://i.ytimg.com/vi/_wPez9bGd0g/maxresdefault.jpg')
                             | datboi
-                        option(value="https://ih1.redbubble.net/image.189043363.1852/flat,800x800,075,f.jpg")
+                        option(value='https://ih1.redbubble.net/image.189043363.1852/flat,800x800,075,f.jpg')
                             | Pepe
-                label(for="header-image")
+                label(for='header-image')
                     | Header image
         .row
-            label(for="title")
+            label(for='title')
                 | Edit title
             .input-field.col.s12             
-                input#title(value=event.title name="title")
+                input#title(value=event.title name='title')
         .row
-            label(for="description")
+            label(for='description')
                 | Edit description
             .input-field.col.s12             
-                textarea#description.materialize-textarea(name="description")
+                textarea#description.materialize-textarea(name='description')
                     =event.description 
 
         .row
-            button.btn.right(type="submit")
+            button.btn.right(type='submit')
                 | Save changes
-            a.btn.left(href="/events")
+            a.btn.left(href='/events')
                 | Cancel
     h1
         | It works
 
 block append footer
-    script(src="/js/event-edit.js")
+    script(src='/js/event-edit.js')

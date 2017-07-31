@@ -50,8 +50,8 @@ $(() => {
 
         addChat(postUrl, $chatTitle)
             .then((data) => {
-                if (data.redirect) {
-                    window.location.replace(data.redirect);
+                if (data.redirectUrl) {
+                    window.location.replace(data.redirecturl);
                 }
             })
             .catch((err) => {
@@ -65,8 +65,8 @@ $(() => {
 
         addPersonToEvent(postUrl)
             .then((data) => {
-                if (data.redirect) {
-                    window.location.replace(data.redirect);
+                if (data.redirecturl) {
+                    window.location.replace(data.redirecturl);
                 }
             })
             .catch((err) => {

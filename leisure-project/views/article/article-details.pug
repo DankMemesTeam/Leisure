@@ -12,7 +12,7 @@ block append page-content
         h4
             | by
         h4
-            a.white-text(href="/users/" + article.author.username)
+            a.white-text(href='/users/' + article.author.username)
                 | #{article.author.username}
         .row.center
             each tag in article.tags
@@ -24,7 +24,7 @@ block append page-content
         .col.s12.m12.center-align.content-container
             .row.center-align
                 .col.s12.m8.col.offset-m2
-                    p(style="white-space: pre-wrap;")
+                    p(style='white-space: pre-wrap;')
                         | #{article.content}
                     p.blue-grey-text.lighten-4.right
                         | Author: #{article.author.username}
@@ -37,18 +37,18 @@ block append page-content
                             a#article-delete-btn.btn.right
                                 | Delete article
                         if locals.user.username == article.author.username
-                            a(href="/articles/" + article._id + "/edit").btn.right
+                            a(href='/articles/' + article._id + '/edit').btn.right
                                 | Edit article
                     if currentUser
                         div.row
                             .col.s3.s2
                                 if article.likes.includes(currentUser)                  
-                                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                                    button.btn.waves-effect.waves-light#rate-btn(type='submit')
                                         | Unlike
                                         i.material-icons.right
                                             | thumb_down
                                 else 
-                                    button.btn.waves-effect.waves-light#rate-btn(type="submit")
+                                    button.btn.waves-effect.waves-light#rate-btn(type='submit')
                                         | Like
                                         i.material-icons.right
                                             | thumb_up
@@ -58,11 +58,11 @@ block append page-content
                         div.row
                             div.row
                                 div.input-field.col.s6
-                                    input#comment-content(type="text" name="text")
-                                    label(for="comment-content")
+                                    input#comment-content(type='text' name='text')
+                                    label(for='comment-content')
                                         | Add comment
                                 .col.s4.m2
-                                    button#send-comment-btn.btn.waves-effect.waves-light(type="submit")
+                                    button#send-comment-btn.btn.waves-effect.waves-light(type='submit')
                                         | Send
                                         i.material-icons.right
                                             | send
@@ -72,7 +72,7 @@ block append page-content
                         each comment in article.comments
                             li.collection-item.avatar
                                 img.circle(src=comment.author.profilePic)
-                                a.title(href="/users/" + comment.author.username)
+                                a.title(href='/users/' + comment.author.username)
                                     | #{comment.author.username}
                                 p
                                     | #{comment.text}
@@ -82,4 +82,4 @@ block append page-content
                                 | There are currently no comments on this article
 
 block append footer
-    script(src='/js/article-details.js')
+    script(src='/js/article/article-details.js')

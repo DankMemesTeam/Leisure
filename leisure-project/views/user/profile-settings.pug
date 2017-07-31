@@ -5,7 +5,7 @@ block append styles
   link(rel='stylesheet', href='/css/user-profile/style-horizontal.css')
   link(rel='stylesheet', href='/css/user-profile/style.css')
 block append page-content
-  +loadingModal("Uploading image", "Uploaded.")
+  +loadingModal('Uploading image', 'Uploaded.')
   .row
     .col-md-8
       .well
@@ -19,8 +19,8 @@ block append page-content
               | Profile picture URL: 
             form.form-inline#profile-picture-form
               div.form-group
-                input#profile-picture-input(type='file' style="display: none" accept="image/*").form-control
-                label(for="profile-picture-input").btn.btn-primary
+                input#profile-picture-input(type='file' style='display: none' accept='image/*').form-control
+                label(for='profile-picture-input').btn.btn-primary
                   | Choose image
                 button(type='submit').btn.btn-primary
                   i.material-icons
@@ -65,6 +65,6 @@ block append page-content
                   | Edit
 
 block append footer
-  script(src='/js/user-profile.js')
+  script(src='/js/user/user-profile.js')
   script(src='/js/image-uploading.js')
-  script(src="/js/profile-settings.js")
+  script(src='/js/user/profile-settings.js')

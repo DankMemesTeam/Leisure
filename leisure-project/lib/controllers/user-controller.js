@@ -77,7 +77,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                             ]);
                         })
                         .catch((err) => {
-                            return res.redirect(`/users/${req.params.username}/settings`);
+                            return res.redirect({ errorMessage: 'Oops something went wrong!' });
                         })
                         .then(() => {
                             if (req.body.profilePic) {
@@ -86,7 +86,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                                 });
                             }
 
-                            return res.json({ errorMessage: 'Oops something went wrong!' });
+                            return res.json({});
                         });
                 });
         },
@@ -114,7 +114,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                 })
                 .catch(() => {
                     return res.json({ errorMessage: 'Oops something went wrong!' });
-                });;
+                });
         },
     };
 };

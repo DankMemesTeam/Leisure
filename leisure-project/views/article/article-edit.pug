@@ -5,34 +5,34 @@ block append page-content
         | Title: #{article.title}
     p
         | Published by: 
-        a(href="/users/" + article.author.username)
+        a(href='/users/' + article.author.username)
             | #{article.author.username}  -> #{article.author.firstName} #{article.author.lastName}
     hr
-    form(action="/articles/" + article._id + "/edit" method="POST")
+    form(action='/articles/' + article._id + '/edit' method='POST')
         .row
-            label(for="title")
+            label(for='title')
                 | Edit title
             .input-field.col.s12             
-                input#title(value=article.title name="title")
+                input#title(value=article.title name='title')
         .row
-            label(for="description")
+            label(for='description')
                 | Edit description
             .input-field.col.s12             
-                input#description(value=article.description name="description")
+                input#description(value=article.description name='description')
 
         .row
-            label(for="content")
+            label(for='content')
                 | Edit content
             .input-field.col.s12             
-                textarea#content(name="content").materialize-textarea
+                textarea#content(name='content').materialize-textarea
                     | #{article.content} 
 
         .row
-            button.btn.right(type="submit")
+            button.btn.right(type='submit')
                 | Save changes
-            a.btn.left(href="/articles")
+            a.btn.left(href='/articles')
                 | Cancel
 
 block append footer
-    script(src="/js/article-edition.js")
+    script(src='/js/article/article-edition.js')
         
