@@ -21,6 +21,9 @@ module.exports = ({ statusData, userData }, renderer) => {
 
                     return statusData.createStatus(status);
                 })
+                .catch((err) => {
+                    return res.json({ error: 'Invalid status' });
+                })
                 .then((stat) => {
                     return renderer.render('status-template',
                         {
@@ -33,6 +36,7 @@ module.exports = ({ statusData, userData }, renderer) => {
                     console.log(result);
                     return res.json({ compiledTemplate: result });
                 });
+
         },
         addCommentToStatus(req, res) {
             if (!req.user) {
@@ -61,6 +65,9 @@ module.exports = ({ statusData, userData }, renderer) => {
                 })
                 .then(() => {
                     return res.json(comment);
+                })
+                .catch((err) => {
+                    return res.json({ error: 'Invalid comment' });
                 });
         },
         likeStatus(req, res) {

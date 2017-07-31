@@ -76,7 +76,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             chatPromise
                 .then((chat) => {
                     return eventData
-                    .createEvent(eventObj, req.body.chatTitle || null);
+                        .createEvent(eventObj, req.body.chatTitle || null);
                 })
                 .then((event) => {
                     req.toastr.success('Successfully created event!');
@@ -92,8 +92,8 @@ module.exports = ({ userData, eventData, chatData }) => {
             eventData.addChatToEvent(req.params.eventId, req.body.chatTitle)
                 .then((event) => {
                     return chatData
-                    .createEventChatroom(event.value.participants,
-                         'event', req.body.chatTitle);
+                        .createEventChatroom(event.value.participants,
+                        'event', req.body.chatTitle);
                 })
                 .then((chat) => {
                     res.json({ redirect: '/events/' + req.params.eventId });
@@ -111,7 +111,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                     if (event.value.chatTitle) {
                         chatData
                             .addUserToChat(event.value.chatTitle,
-                                 req.user.username);
+                            req.user.username);
                     }
                 })
                 .then((result) => {
@@ -140,10 +140,13 @@ module.exports = ({ userData, eventData, chatData }) => {
             }
 
             return eventData
-            .editEvent(req.params.eventId, req.body.title,
-                 req.body.description, req.body.headerImage)
+                .editEvent(req.params.eventId, req.body.title,
+                req.body.description, req.body.headerImage)
                 .then(() => {
-                    res.redirect(`/events/${req.params.eventId}`);
+                    return res.redirect(`/events/${req.params.eventId}`);
+                })
+                .catch(() => {
+                    return res.redirect(`/events/${req.params.eventId}/edit`);
                 });
         },
     };

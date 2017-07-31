@@ -88,6 +88,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 })
                 .then(() => {
                     res.redirect('/articles');
+                })
+                .catch(() => {
+                    res.redirect('/articles/add');
                 });
         },
         loadDetailsPage(req, res) {
@@ -117,6 +120,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 })
                 .then(() => {
                     return res.json(comment);
+                })
+                .catch(() => {
+                    return res.json({error: 'Invalid comment'});
                 });
         },
         likeArticle(req, res) {
@@ -171,6 +177,9 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 .then((result) => {
                     console.log(result);
                     res.redirect(`/articles/${req.params.id}`);
+                })
+                .catch(() => {
+                    return res.redirect(`/articles/${req.params.id}/edit`);
                 });
         },
         removeArticle(req, res) {

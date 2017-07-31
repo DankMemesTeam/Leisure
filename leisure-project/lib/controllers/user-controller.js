@@ -8,7 +8,7 @@ module.exports = ({ userData, statusData, articleData }) => {
             Promise.all([
                 userData.findUserBy({ username: req.params.username }),
                 statusData
-                .findStatusesByUser(req.params.username, pageNumber, pageSize),
+                    .findStatusesByUser(req.params.username, pageNumber, pageSize),
             ])
                 .then(([foundUser, [statuses, count]]) => {
                     if (!foundUser) {
@@ -16,7 +16,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                     }
 
                     const isOwner = req.user &&
-                     req.user.username === req.params.username;
+                        req.user.username === req.params.username;
 
                     res.render('user/user-profile', {
                         pageUser: foundUser,
@@ -50,7 +50,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                     // welp...
                     if (req.body.profilePic) {
                         req.body.profilePic = req.body.profilePic
-                        .replace(/(.*imgur.com\/)(.*)(\..*)/, '$1$2b$3');
+                            .replace(/(.*imgur.com\/)(.*)(\..*)/, '$1$2b$3');
                     }
 
                     userData.editUser(foundUser.username, req.body)
@@ -72,10 +72,13 @@ module.exports = ({ userData, statusData, articleData }) => {
 
                             return Promise.all([
                                 articleData
-                                .updateArticleFields(user.username, user),
+                                    .updateArticleFields(user.username, user),
                                 statusData
-                                .updateStatusFields(user.username, user),
+                                    .updateStatusFields(user.username, user),
                             ]);
+                        })
+                        .catch((err) => {
+                            return res.redirect(`/users/${req.params.username}/settings`);
                         })
                         .then(() => {
                             if (req.body.profilePic) {
@@ -85,7 +88,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                             }
 
                             return res
-                            .redirect(`/users/${req.params.username}/settings`);
+                                .redirect(`/users/${req.params.username}/settings`);
                         });
                 });
         },

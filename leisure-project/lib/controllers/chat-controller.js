@@ -83,6 +83,9 @@ module.exports = ({ userData, chatData }) => {
             return chatData.createPrivateChatroom(participants, chatType)
                 .then((resultChatroom) => {
                     res.json({ redirect: `/users/${req.user.username}/chats` });
+                })
+                .catch(() => {
+                    res.json({error: 'Invalid personal chat.'});
                 });
         },
     };
