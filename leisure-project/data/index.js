@@ -29,12 +29,15 @@ module.exports = (db, validators, loadedModels, logger, dataConfig) => {
 };
 
 const normalizeModuleName = (modulePath) => {
-    const splittedPath = modulePath.split('\\');
-    const dataNamePart = splittedPath[splittedPath.length - 1];
+    // const splittedPath = modulePath.split('\\');
+    // const dataNamePart = splittedPath[splittedPath.length - 1];
 
-    const cutIndex = dataNamePart.indexOf('-data.js');
-    const dataName = dataNamePart.substring(0, cutIndex);
+    // const cutIndex = dataNamePart.indexOf('-data.js');
+    // const dataName = dataNamePart.substring(0, cutIndex);
 
-    const normalizedName = dataName + 'Data';
+    // const normalizedName = dataName + 'Data';
+
+    const normalizedName = modulePath.replace(/.*data[\/\\](.*)-.*/, '$1') + 'Data';
+
     return normalizedName;
 };

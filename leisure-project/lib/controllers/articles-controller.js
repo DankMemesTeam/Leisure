@@ -12,6 +12,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             const pageNumber = req.query.page || 1;
 
+
             if (!req.query.query) {
                 articlesPromise = articleData.getAllArticles(pageNumber);
             } else {

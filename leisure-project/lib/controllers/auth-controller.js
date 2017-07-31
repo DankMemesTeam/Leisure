@@ -8,12 +8,7 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
         },
         registerUser(req, res) {
             const user = req.body;
-
-            if (!validator.isUserValid(user)) {
-                res.redirect('/auth/register');
-                return;
-            }
-
+            
             hashGenerator.generateHash(user.password)
                 .then((hashedPassword) => {
                     user.hashedPassword = hashedPassword;

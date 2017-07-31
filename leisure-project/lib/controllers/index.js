@@ -24,12 +24,15 @@ module.exports = (data, hashGenerator, validator) => {
 };
 
 const normalizeModuleName = (modulePath) => {
-    const splittedPath = modulePath.split('\\');
-    const controllerNamePart = splittedPath[splittedPath.length - 1];
+    // const splittedPath = modulePath.split('\\');
+    // const controllerNamePart = splittedPath[splittedPath.length - 1];
 
-    const cutIndex = controllerNamePart.indexOf('-controller');
-    const controllerName = controllerNamePart.substring(0, cutIndex);
+    // const cutIndex = controllerNamePart.indexOf('-controller');
+    // const controllerName = controllerNamePart.substring(0, cutIndex);
 
-    const normalizedName = controllerName + 'Controller';
+    // const normalizedName = controllerName + 'Controller';
+
+    const normalizedName = modulePath.replace(/.*controllers[\/\\](.*)-.*/, '$1') + 'Controller';
+
     return normalizedName;
 };

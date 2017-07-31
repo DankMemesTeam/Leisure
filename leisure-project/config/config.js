@@ -18,7 +18,7 @@ const config = {
     },
     port: environmentPort || 3000,
     // connectionString: 'mongodb://localhost:27017/leisureDb',
-    connectionString: 'http://52.57.81.182:27017/',
+    connectionString: 'mongodb://52.57.81.182:27017/leisureDb',
     secretString: 'Secret magical popcorn',
     defaultProfilePic: '/images/default-user.png',
   },
