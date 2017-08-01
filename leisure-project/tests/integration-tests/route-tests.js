@@ -68,6 +68,30 @@ describe('Testing application routes', () => {
                 });
         });
 
+        it('GET articles category page', (done) => {
+            request(server)
+                .get('/articles/categories/Programming')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    return done();
+                });
+        });
+
+        it('GET articles category page with non existing cat', (done) => {
+            request(server)
+                .get('/articles/categories/Bazoozle')
+                .expect(200)
+                .end((err, res) => {
+                    if (err) {
+                        return done(err);
+                    }
+                    return done();
+                });
+        });
+
         it('GET articles adding page', (done) => {
             request(server)
                 .get('/articles/add')
@@ -79,6 +103,66 @@ describe('Testing application routes', () => {
                     return done();
                 });
         });
+
+        it('POST to create article', (done) => {
+            request(server)
+                .post('/auth/register')
+                .send({ username: 'lllevski', firstName: 'Mitko', lastName: 'Stoikov', email: 'mitko@abg.bg', password: 'mitko123' })
+                .end((err, res) => {
+                    request(server)
+                        .post('/auth/login')
+                        .send({ username: 'lllevski', password: 'mitko123' })
+                        .end((errr, ress) => {
+                            request(server)
+                                .post('/articles/add')
+                                .send({
+                                    author: { username: 'lllevski', profilePic: 'iddnu/sadas' },
+                                    title: 'Once apon a time story', description: 'Once apon a time there was a wow',
+                                    content: 'sdfdsfdsfsdfsdfdsfsdfsddsffsfsdfsfdsfsdfsfd',
+                                    category: 'Programming', tags: ['cool'],
+                                })
+                                .end((errrr, resss) => {
+                                    request(server)
+                                        .get('/api/getuser')
+                                        .end((errrrr, ressss) => {
+                                            done();
+                                        });
+                                });
+                        });
+                });
+        });
+
+        it('POST to create article which is invalid', (done) => {
+            let cookie = null;
+
+            request(server)
+                .post('/auth/register')
+                .send({ username: 'lllevski', firstName: 'Mitko', lastName: 'Stoikov', email: 'mitko@abg.bg', password: 'mitko123' })
+                .end((err, res) => {
+                    request(server)
+                        .post('/auth/login')
+                        .send({ username: 'lllevski', password: 'mitko123' })
+                        .end((errr, ress) => {
+                            cookie = ress.headers['set-cookie'];
+                            request(server)
+                                .post('/articles/add')
+                                .expect(200)
+                                .send({
+                                    author: { username: 'lllevski', profilePic: 'iddnu/sadas' },
+                                    title: '', description: 'Once apon a time there was a wow',
+                                    content: 'sdfdsfdsfsdfsdfdsfsdfsddsffsfsdfsfdsfsdfsfd',
+                                    category: 'Programming', tags: ['cool'],
+                                })
+                                .set('cookie', cookie)
+                                .end((errrr, resss) => {
+                                    console.log(ress.body);
+                                    done();
+                                });
+                        });
+                });
+        });
+
+
     });
 
     describe('AUTH ROUTER', () => {
@@ -124,6 +208,8 @@ describe('Testing application routes', () => {
                 .send({ username: 'lllevski', password: 'bi4a4os' })
                 .expect(302)
                 .end((err, res) => {
+                    console.log(res.body);
+
                     if (err) {
                         return done(err);
                     }
@@ -140,9 +226,34 @@ describe('Testing application routes', () => {
                     if (err) {
                         return done(err);
                     }
-                    
+
                     expect(res.body.errorMessage).to.exist;
                     return done();
+                });
+        });
+
+        it('POST on login should return userObj when correct', (done) => {
+            let cookie = null;
+
+            request(server)
+                .post('/auth/register')
+                .send({ username: 'lllevski', firstName: 'Mitko', lastName: 'Stoikov', email: 'mitko@abg.bg', password: 'mitko123' })
+                .expect(200)
+                .end((err, res) => {
+                    request(server)
+                        .post('/auth/login')
+                        .expect(200)
+                        .end((errr, ress) => {
+                            cookie = res.headers['set-cookie'];
+                            request(server)
+                                .post('/auth/login')
+                                .set('cookie', cookie)
+                                .expect(200)
+                                .end((errrr, resss) => {
+                                    console.log(resss);
+                                    done();
+                                });
+                        });
                 });
         });
     });
@@ -193,6 +304,46 @@ describe('Testing application routes', () => {
     });
 
     describe('USER ROUTER', () => {
+        it('load user profile when there is a existing user with such profile', (done) => {
+            request(server)
+                .post('/auth/register')
+                .send({ username: 'lllevski', firstName: 'Mitko', lastName: 'Stoikov', email: 'mitko@abg.bg', password: 'mitko123' })
+                .end((err, res) => {
+                    request(server)
+                        .get('/users/lllevski')
+                        .expect(200)
+                        .end((errr, ress) => {
+                            done();
+                        });
+                });
+        });
+
+        it('load user profile chats when there is a existing user with such profile', (done) => {
+            request(server)
+                .post('/auth/register')
+                .send({ username: 'lllevski', firstName: 'Mitko', lastName: 'Stoikov', email: 'mitko@abg.bg', password: 'mitko123' })
+                .end((err, res) => {
+                    request(server)
+                        .get('/users/lllevski/chats')
+                        .end((errr, ress) => {
+                            done();
+                        });
+                });
+        });
+
+        it('load user profile settings when there is a existing user with such profile', (done) => {
+            request(server)
+                .post('/auth/register')
+                .send({ username: 'lllevski', firstName: 'Mitko', lastName: 'Stoikov', email: 'mitko@abg.bg', password: 'mitko123' })
+                .end((err, res) => {
+                    request(server)
+                        .get('/users/lllevski/settings')
+                        .end((errr, ress) => {
+                            done();
+                        });
+                });
+        });
+
 
     });
 
