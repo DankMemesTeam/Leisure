@@ -8,7 +8,6 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
         },
         registerUser(req, res) {
             const user = req.body;
-
             hashGenerator.generateHash(user.password)
                 .then((hashedPassword) => {
                     user.hashedPassword = hashedPassword;
@@ -20,12 +19,6 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
                 })
                 .catch((err) => {
                     return res.json({ errorMessage: 'Could not register user!' });
-                });
-        },
-        getUser(req, res) {
-            userData.getAllUsers()
-                .then((users) => {
-                    console.log(users);
                 });
         },
     };

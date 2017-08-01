@@ -163,7 +163,6 @@ describe('Article controller tests', () => {
     });
     it('loadArticleAddingPage should call res.redirect if user is not logged', (done) => {
         req.user = null;
-        // console.log(controller);
         controller.loadArticleAddingPage(req, res);
 
         expect(res.redirect.callCount).to.eql(1);
