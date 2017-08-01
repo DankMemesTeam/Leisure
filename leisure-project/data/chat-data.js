@@ -37,7 +37,7 @@ module.exports = (chatroomCollection, { chatValidator }, models, logger) => {
                         { participants: { $all: participants } },
                         { chatType: chatType },
                     ],
-                },
+                }
             )
                 .then((result) => {
                     if (!result) {
@@ -59,7 +59,7 @@ module.exports = (chatroomCollection, { chatValidator }, models, logger) => {
                         { chatTitle: chatTitle },
                         { chatType: chatType },
                     ],
-                },
+                }
             )
                 .then((result) => {
                     if (!result) {

@@ -59,11 +59,22 @@ gulp.task('test:integration', ['pre-test'], () => {
 
 gulp.task('pre-test', () => {
 	return gulp
-		.src(['./lib/**/*.js'])
+		.src(['./lib/**/*.js',
+			'./data/**/*.js'])
 		.pipe(istanbul({
 			includeUntested: true,
 		}))
 		.pipe(istanbul.hookRequire());
+});
+
+gulp.task('test', ['pre-test'], () => {
+	return gulp
+		.src([
+			'./tests/integration-tests/**/*.js',
+			'./tests/unit-tests/**/*.js',
+		])
+		.pipe(mocha())
+		.pipe(istanbul.writeReports());
 });
 
 // Useless atm

@@ -36,26 +36,26 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
 
             return usersCollection.findAndModify(
                 { username: username },
-                { $set: data },
+                { $set: data }
             );
         },
         getUserFollowed(username) {
             return usersCollection.findOne(
                 { username },
-                { followed: 1, _id: 0 },
+                { followed: 1, _id: 0 }
             );
         },
         followUser(follower, userToFollow) {
             // Update follower
             const followerUpdate = usersCollection.findAndModify(
                 { username: follower },
-                { $addToSet: { followed: userToFollow } },
+                { $addToSet: { followed: userToFollow } }
             );
 
             // Update user to follow
             const userToFollowUpdate = usersCollection.findAndModify(
                 { username: userToFollow },
-                { $addToSet: { followers: follower } },
+                { $addToSet: { followers: follower } }
             );
 
             return Promise.all([
@@ -67,13 +67,13 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
             // Update follower
             const followerUpdate = usersCollection.findAndModify(
                 { username: follower },
-                { $pull: { followed: userToUnfollow } },
+                { $pull: { followed: userToUnfollow } }
             );
 
             // Update user to unfollow
             const userToUnfollowUpdate = usersCollection.findAndModify(
                 { username: userToUnfollow },
-                { $pull: { followers: follower } },
+                { $pull: { followers: follower } }
             );
 
             return Promise.all([
@@ -94,7 +94,7 @@ module.exports = (usersCollection, { userValidator }, models, logger) => {
                 { $pull: { notifications: chatId } },
                 {
                     returnOriginal: false,
-                },
+                }
             );
         },
     };

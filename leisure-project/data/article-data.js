@@ -16,8 +16,11 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
                 articleObject.description,
                 articleObject.content,
                 articleObject.category,
-                articleObject.tags,
+                articleObject.tags
             );
+
+            console.log('TEEE HEE');
+            console.log(articleModel);
 
             if (!articleValidator.isValid(articleModel)) {
                 return Promise.reject();
