@@ -53,10 +53,18 @@
 }
 
 .you-message {
-  background: #5e9e63;
+  background: #e64a19;
 }
 .me-message {
-  background: #96bdff;
+  background: #b0bec5;
+}
+
+.you {
+  color: #e64a19;
+}
+
+.me {
+  color: #b0bec5;
 }
 
 .align-left {
@@ -69,12 +77,4 @@
 
 .float-right {
   float: right;
-}
-
-.you {
-  color: #5e9e63;
-}
-
-.me {
-  color: #96bdff;
 }

@@ -11,7 +11,7 @@ block append page-content
                 =event.location.longitude
     //- Header image
     .filter
-        img.header-image(src='/images/event/default-header-2.jpg')
+        img.header-image(src=event.headerImage)
     .title-container.center
         h1
             | #{event.title}
@@ -51,16 +51,18 @@ block append page-content
                             | Location: Not specified
             hr.content-divider
             if currentUser && !event.chatTitle && event.creator === currentUser.username
-                .center-align
-                    .col.s12.m12.col.moffset-2
-                        h4.mini-title
-                            | Admin Panel
-                .row.center-align
-                    .col.s12.m12.col.moffset-2
-                        div#chatTitleContainer.col.s6.m6
-                            input#chatTitle(type='text', placeholder='Chat title')
-                        div#create-chat-btn.btn.col.s4.m4
-                            | Create event chat
+            #chat-adding-container.row.center-align
+                .col.s12.m12.col.moffset-2
+                    .center-align
+                        .col.s12.m12.col.moffset-2
+                            h4.mini-title
+                                | Admin Panel
+                    .row.center-align
+                        .col.s12.m12.col.moffset-2
+                            div#chatTitleContainer.col.s6.m6
+                                input#chatTitle(type='text', placeholder='Chat title')
+                            div#create-chat-btn.btn.col.s4.m4
+                                | Create event chat
                 hr.content-divider
             .row.center-align
                 .col.s12.m12.col.moffset-2
@@ -82,9 +84,9 @@ block append page-content
                             li.collection-item.avatar
                                 img.circle(src=comment.author.profilePic)
                                 a.title(href='/users/' + comment.author.username)
-                                    | #{comment.author}
+                                    | #{comment.author.username}
                                 p
-                                    | #{comment.content}
+                                    | #{comment.text}
 
                         else
                             h5

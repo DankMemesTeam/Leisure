@@ -1,9 +1,11 @@
 /* globals validator */
 
-const minStringLength = 5;
+const minStringLength = 3;
 const maxStringLength = 20;
 const minTextLength = 10;
-const maxTextLength = 200;
+const maxTextLength = 50;
+const minContentLength = 20;
+const maxContentLength = 500;
 
 const sanitizeStringInput = (input) => {
     input = validator.escape(input);
@@ -20,8 +22,31 @@ const isNameCase = (input) => {
     return isFirstLetterUppercase && isRestLowercase;
 };
 
+const validateExising = (input, objName) => {
+    input = validator.escape(input);
+
+    if (validator.isEmpty(input)) {
+        return { message: objName + ' is not valid!' };
+    }
+
+    return { isValid: true, result: input };
+};
+
+const validateComment = (comment) => {
+    comment = sanitizeStringInput(comment);
+
+    if (validator.isEmpty(comment)) {
+        return { message: 'Comment cannot be empty!' };
+    }
+
+    if (!validator.isLength(comment, { min: 2 })) {
+        return { message: `Invalid comment length!(min: 2)` };
+    }
+
+    return { isValid: true, result: comment };
+};
+
 const validateString = (input, objName) => {
-    console.log(input);
     input = sanitizeStringInput(input);
 
     if (validator.isEmpty(input)) {
@@ -29,7 +54,7 @@ const validateString = (input, objName) => {
     }
 
     if (!validator.isLength(input, { min: minStringLength, max: maxStringLength })) {
-        return { message: `Invalid ${objName.toLowerCase()} length!` };
+        return { message: `Invalid ${objName.toLowerCase()} length! (${minStringLength};${maxStringLength})` };
     }
 
     if (validator.contains(input, ' ')) {
@@ -89,8 +114,22 @@ const validateText = (text, objName) => {
     }
 
     if (!validator.isLength(text, { min: minTextLength, max: maxTextLength })) {
-        return { message: `Invalid ${objName.toLowerCase()} length!` };
+        return { message: `Invalid ${objName.toLowerCase()} length! (${minTextLength};${maxTextLength})` };
     }
 
     return { isValid: true, result: text };
+};
+
+const validateContent = (content, objName) =>{
+    content = sanitizeStringInput(content);
+
+    if (validator.isEmpty(content)) {
+        return { message: objName + ' cannot be empty!' };
+    }
+
+    if (!validator.isLength(content, { min: minContentLength, max: maxContentLength })) {
+        return { message: `Invalid ${objName.toLowerCase()} length! (${minContentLength};${maxContentLength})` };
+    }
+
+    return { isValid: true, result: content };
 };

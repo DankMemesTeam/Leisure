@@ -7,7 +7,7 @@ const sendComment = (commentText, url) => {
 
     return new Promise((resolve, reject) => {
         $.ajax({
-            url,
+            url: url,
             type: 'POST',
             dataType: 'json',
             data: comment,
@@ -36,14 +36,18 @@ $(() => {
     $('.comment-form').submit((ev) => {
         ev.preventDefault();
 
-        const commentText = $(ev.target).children('input').val().trim();
+        const commentText = validateComment($(ev.target).children('input').val());
         const url = $(ev.target).attr('action');
 
-        // damn
+        if (!commentText.isValid) {
+            return toastr.error(commentText.message);
+        }
+
         const statusId = url.split('/')[3];
 
-        sendComment(commentText, url)
-            .then((comment) => {
+        sendComment(commentText.result, url)
+            .then((response) => {
+                const comment = response.comment;
                 const selector = '#' + statusId + 1;
 
                 let $collection = null;

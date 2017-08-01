@@ -1,4 +1,4 @@
-/* globals $, uploadToApi, uploadUrl, clientId, sendImageUrl */
+/* globals $, uploadToApi, uploadUrl, clientId, sendImageUrl, toastr, validateName, validateDate, validateText */
 
 const getPostUrl = () => {
     return window.location.href.match(/\/users.*settings/)[0];

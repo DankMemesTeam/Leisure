@@ -1,0 +1,8 @@
+.header-image{
+    width:50%;
+    height: auto;
+}
+
+.col .header-image{
+    padding: 3% 0;
+}

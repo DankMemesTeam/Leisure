@@ -1,8 +1,8 @@
 module.exports = class EventChat {
-    constructor(participants, chatType, chatTitle) {
+    constructor(participants, chatType, chatTitle, iconImage) {
         this.chatType = chatType;
         this.chatTitle = chatTitle;
-        this.chatIcon = '/images/event/default-header.jpg';
+        this.chatIcon = iconImage;
         this.participants = participants;
         this.messages = [];
     }

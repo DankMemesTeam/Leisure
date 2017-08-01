@@ -9,8 +9,6 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
         registerUser(req, res) {
             const user = req.body;
 
-            console.log(req.body);
-
             hashGenerator.generateHash(user.password)
                 .then((hashedPassword) => {
                     user.hashedPassword = hashedPassword;

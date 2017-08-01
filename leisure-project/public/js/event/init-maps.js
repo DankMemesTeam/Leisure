@@ -21,10 +21,6 @@ function fillInAddress() {
     const long = place.geometry.location.lng();
     const lat = place.geometry.location.lat();
 
-    console.log(address);
-    console.log(long);
-    console.log(lat);
-
     $('#event-addr').val(address);
     $('#event-long').val(long);
     $('#event-lat').val(lat);

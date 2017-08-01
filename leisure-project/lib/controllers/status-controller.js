@@ -22,7 +22,7 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return statusData.createStatus(status);
                 })
                 .catch((err) => {
-                    return res.json({ error: 'Invalid status' });
+                    return res.json({ errorMessage: 'Invalid status' });
                 })
                 .then((stat) => {
                     return renderer.render('status-template',
@@ -62,7 +62,7 @@ module.exports = ({ statusData, userData }, renderer) => {
                     );
                 })
                 .then(() => {
-                    return res.json(comment);
+                    return res.json({ comment: comment });
                 })
                 .catch((err) => {
                     return res.json({ errorMessage: 'Invalid comment!' });

@@ -43,20 +43,69 @@ const addPersonToEvent = (postUrl) => {
     });
 };
 
+const sendComment = (commentText) => {
+    const eventId = window.location.href.split('events/')[1];
+
+    const comment = {
+        text: commentText,
+    };
+
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: '/events/' + eventId,
+            type: 'POST',
+            dataType: 'json',
+            data: comment,
+            success: resolve,
+            error: reject,
+        });
+    });
+};
+
+const createComment = (comment) => {
+    console.log(comment);
+    const $li = $('<li></li>');
+    $li.addClass('collection-item avatar');
+
+    const $img = $('<img>');
+    $img.addClass('circle');
+    $img.attr('src', comment.author.profilePic);
+
+    const $a = $('<a></a>');
+    $a.addClass('title');
+    $a.attr('href', '/users/' + comment.author.username);
+    $a.html(comment.author.username);
+
+    const $p = $('<p></p>');
+    $p.html(comment.text);
+
+    $li.append($img);
+    $li.append($a);
+    $li.append($p);
+
+    $('#comments-list').prepend($li);
+};
+
 $(() => {
     $('#create-chat-btn').click((ev) => {
         const postUrl = window.location.href + '/chat';
-        const $chatTitle = $('#chatTitle').val();
+        const $chatTitle = validateString($('#chatTitle').val(), 'Chat title');
 
-        addChat(postUrl, $chatTitle)
-            .then((data) => {
-                if (data.redirectUrl) {
-                    window.location.replace(data.redirecturl);
+        if (!$chatTitle.isValid) {
+            return toastr.error($chatTitle.message);
+        }
+
+        addChat(postUrl, $chatTitle.result)
+            .then((response) => {
+                if (response.errorMessage) {
+                    return toastr.error(response.errorMessage);
                 }
+
+                toastr.success('Successfully created chat!');
+                $('#chat-adding-container').addClass('hidden');
             })
             .catch((err) => {
-                // add toastr message
-                console.log(err);
+                return toastr.error(err);
             });
     });
 
@@ -72,6 +121,26 @@ $(() => {
             .catch((err) => {
                 // add toastr message
                 console.log(err);
+            });
+    });
+
+    $('#send-comment-btn').click((ev) => {
+        const commentText = validateComment($('#comment-content').val());
+
+        if (!commentText.isValid) {
+            return toastr.error(commentText.message);
+        }
+
+        sendComment(commentText.result)
+            .then((response) => {
+                if (response.errorMessage) {
+                    return toastr.error(response.errorMessage);
+                }
+                createComment(response.comment);
+                $('#comment-content').val('');
+            })
+            .catch((err) => {
+                return toastr.error(err);
             });
     });
 
