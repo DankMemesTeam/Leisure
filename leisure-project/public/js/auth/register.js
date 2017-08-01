@@ -19,7 +19,7 @@ $('#register-btn').click((ev) => {
     const lastName = validateName($('#lastName').val(), 'Last name');
     const email = validateEmail($('#emailInput').val());
     const password = validatePassword($('#inputPassword').val());
-    
+
     if (!username.isValid) {
         toastr.error(username.message);
         return;

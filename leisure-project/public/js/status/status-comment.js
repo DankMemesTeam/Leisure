@@ -7,7 +7,7 @@ const sendComment = (commentText, url) => {
 
     return new Promise((resolve, reject) => {
         $.ajax({
-            url,
+            url: url,
             type: 'POST',
             dataType: 'json',
             data: comment,
@@ -46,7 +46,8 @@ $(() => {
         const statusId = url.split('/')[3];
 
         sendComment(commentText.result, url)
-            .then((comment) => {
+            .then((response) => {
+                const comment = response.comment;
                 const selector = '#' + statusId + 1;
 
                 let $collection = null;

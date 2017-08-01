@@ -44,7 +44,6 @@ module.exports = (validator) => {
         },
         isValidUserAdding(username) {
             return validator.isValidString(username);
-
         },
         isValidComment(comment) {
             return validator.isValidString(comment.text, minCommentLen);

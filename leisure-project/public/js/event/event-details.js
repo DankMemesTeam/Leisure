@@ -90,7 +90,7 @@ $(() => {
     $('#create-chat-btn').click((ev) => {
         const postUrl = window.location.href + '/chat';
         const $chatTitle = validateString($('#chatTitle').val(), 'Chat title');
-        
+
         if (!$chatTitle.isValid) {
             return toastr.error($chatTitle.message);
         }
@@ -103,7 +103,6 @@ $(() => {
 
                 toastr.success('Successfully created chat!');
                 $('#chat-adding-container').addClass('hidden');
-
             })
             .catch((err) => {
                 return toastr.error(err);

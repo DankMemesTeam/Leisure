@@ -1,6 +1,6 @@
 /* globals $ */
 
-$(document).ready(function () {
+$(document).ready(function() {
     $('select').material_select();
 });
 
@@ -50,5 +50,4 @@ $('#update-event-btn').click((ev) => {
             toastr.success('Successfully updated event!');
             return window.location.replace(response.redirectUrl);
         });
-
 });

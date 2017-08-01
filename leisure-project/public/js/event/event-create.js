@@ -17,7 +17,6 @@ $(document).ready(() => {
     let hasChat = false;
 
     $('#event-form :checkbox').change((ev) => {
-
         if ($('#event-form :checkbox:checked').length > 0) {
             hasChat = true;
             $('#chatTitleContainer').removeClass('hidden');

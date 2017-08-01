@@ -17,7 +17,7 @@ const followOrUnfollow = (action) => {
 
 const sendStatusData = (statusData) => {
     const postUrl =
-     window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
+        window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
 
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -33,9 +33,14 @@ const sendStatusData = (statusData) => {
 $(() => {
     $('#post-status-btn').click((ev) => {
         const statusText = validateText($('#status-text-input').val(), 'Status content');
+
+        if (!statusText.isValid) {
+            return toastr.error(statusText.message);
+        }
+
         const image = document.getElementById('status-image-input').files[0];
         const statusData = {
-            content: statusText,
+            content: statusText.result,
             imageUrl: null,
         };
 
@@ -46,14 +51,20 @@ $(() => {
                     return sendStatusData(statusData);
                 })
                 .then((response) => {
+                    if (response.errorMessage) {
+                        return toastr.error(response.errorMessage);
+                    }
                     $('#modal-loading').modal('close');
                     $('#modal-done').modal('open');
                     $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });
-        } else if (statusText.length > 0) {
+        } else if (statusText.result.length > 0) {
             sendStatusData(statusData)
                 .then((response) => {
+                    if (response.errorMessage) {
+                        return toastr.error(response.errorMessage);
+                    }
                     $('#modal-loading').modal('close');
                     $('#modal-done').modal('open');
                     $('#profile-page-wall-posts')
@@ -77,7 +88,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }
