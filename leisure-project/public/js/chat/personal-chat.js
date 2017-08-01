@@ -1,4 +1,4 @@
-/* global $, sanitizeStringInput, socket, updateNotifications */
+/*eslint-disable*/
 let currentChatId = null;
 
 const getRecentMessages = (currentUser, chatId) => {

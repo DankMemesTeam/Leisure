@@ -1,4 +1,4 @@
-/* globals $ */
+/*eslint-disable*/
 const clientId = '9dd341bb27efbfd';
 const uploadUrl = 'https://api.imgur.com/3/image';
 

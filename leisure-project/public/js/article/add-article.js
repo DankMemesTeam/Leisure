@@ -1,5 +1,4 @@
-/* globals $, validateString, validateText,
- validateContent, sanitizeStringInput, toastr  */
+/*eslint-disable*/
 const tags = [];
 
 $(document).ready(function() {

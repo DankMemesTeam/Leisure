@@ -1,5 +1,4 @@
-/* globals $ */
-/* eslint no-invalid-this: 0 */
+/*eslint-disable*/
 
 $(document).ready(function() {
     scaleVideoContainer();

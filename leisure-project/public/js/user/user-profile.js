@@ -1,4 +1,4 @@
-/* globals $, uploadToApi, uploadUrl, clientId, getIcon, validateText, toastr */
+/*eslint-disable*/
 
 const followOrUnfollow = (action) => {
     const url = window.location.href;

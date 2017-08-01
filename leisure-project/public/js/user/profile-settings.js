@@ -1,5 +1,4 @@
-/* globals $, uploadToApi, uploadUrl, clientId,
- sendImageUrl, toastr, validateName, validateDate, validateText */
+/*eslint-disable*/
 
 const getPostUrl = () => {
     return window.location.href.match(/\/users.*settings/)[0];

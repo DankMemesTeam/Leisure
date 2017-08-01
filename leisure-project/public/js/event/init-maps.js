@@ -1,4 +1,4 @@
-/* globals $, google */
+/*eslint-disable*/
 
 let autocomplete;
 

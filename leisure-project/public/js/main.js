@@ -1,4 +1,4 @@
-/* globals $, io  */
+/*eslint-disable*/
 
 $('.button-collapse').sideNav();
 

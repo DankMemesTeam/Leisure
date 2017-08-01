@@ -1,5 +1,4 @@
-/* globals $, validateString, validateText,
- validateContent, sanitizeStringInput, validateComment, toastr  */
+/*eslint-disable*/
 
 const sendComment = (commentText, url) => {
     const comment = {

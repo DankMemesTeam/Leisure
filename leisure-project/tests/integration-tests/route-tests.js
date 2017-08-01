@@ -6,7 +6,6 @@ const { expect } = require('chai');
 describe('Testing application routes', () => {
     let server = null;
     let db = null;
-    let models = null;
 
     before(() => {
         const validator = require('validator');
@@ -20,15 +19,13 @@ describe('Testing application routes', () => {
         const loadedModels = require('../../lib/models')();
         const dataConfig = require('../../config/data-conf');
 
-        models = loadedModels;
-
         return require('../../database').connection(connectionString)
             .then((_db) => {
                 db = _db;
                 const data = require('../../data')(_db, validators, loadedModels, logger, dataConfig);
                 const controllers = require('../../lib/controllers')(data, hashGenerator, validators);
                 const application = require('../../config/auth-conf')(app, data, _db, config.secretString, hashGenerator);
-                const routes = require('../../lib/routers')(application, express, controllers);
+                require('../../lib/routers')(application, express, controllers);
                 const _server = require('../../config/socket-conf')(application, data, controllers.chatController);
 
                 app.use((err, req, res, next) => {

@@ -1,5 +1,4 @@
-/* globals $, validateString, validateText,
- validateContent, sanitizeStringInput, validateComment, toastr  */
+/*eslint-disable*/
 
 $(document).ready(function() {
     $('select').material_select();

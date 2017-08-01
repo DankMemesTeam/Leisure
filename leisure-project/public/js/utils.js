@@ -1,3 +1,5 @@
+/*eslint-disable*/
+
 const getNumberValue = (str) => {
     return Number.parseInt(str.match(/\d+/)[0], 10);
 };

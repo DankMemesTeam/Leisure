@@ -1,5 +1,4 @@
-/* globals $, validateText,
- validateContent, Materialize, toastr  */
+/*eslint-disable*/
 
 $(document).ready(function() {
     Materialize.updateTextFields();

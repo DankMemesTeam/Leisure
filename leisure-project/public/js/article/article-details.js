@@ -1,5 +1,4 @@
-/* globals $, validateString, validateText,
- validateContent, sanitizeStringInput, validateComment, toastr  */
+/*eslint-disable*/
 
 const getIcon = (type) => {
     return '<i class="material-icons right">' + type + '</i>';

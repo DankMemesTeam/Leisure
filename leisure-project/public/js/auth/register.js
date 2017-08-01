@@ -1,5 +1,4 @@
-/* globals $, validatePassword,
- validateEmail, validateUsername, validateName, toastr  */
+/*eslint-disable*/
 
 const registerUser = (userObj) => {
     return new Promise((resolve, reject) => {

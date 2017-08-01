@@ -10,7 +10,7 @@ describe('EventData tests', () => {
     let collection = null;
     let validators = null;
 
-    let logger = null;
+    const logger = null;
     let config = null;
     let data = null;
 

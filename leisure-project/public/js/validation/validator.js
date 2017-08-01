@@ -1,4 +1,4 @@
-/* globals validator */
+/*eslint-disable*/
 
 const minStringLength = 3;
 const maxStringLength = 20;

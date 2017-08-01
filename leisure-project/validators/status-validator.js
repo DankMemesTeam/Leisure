@@ -1,5 +1,4 @@
 module.exports = (validator) => {
-    const minContentLen = 4;
     const minCommentLen = 4;
 
     return {

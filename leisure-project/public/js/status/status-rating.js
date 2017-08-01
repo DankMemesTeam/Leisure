@@ -1,4 +1,4 @@
-/* globals $, getNumberValue */
+/*eslint-disable*/
 
 const sendRate = (url) => {
     return new Promise((resolve, reject) => {

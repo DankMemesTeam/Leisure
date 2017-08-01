@@ -1,5 +1,4 @@
-/* globals $, validateString, validateText,
- validateExising, toastr  */
+/*eslint-disable*/
 
 const createEvent = (eventObj) => {
     return new Promise((resolve, reject) => {

@@ -1,7 +1,8 @@
 const constants = require('../../config/data-conf');
 
 module.exports = class Event {
-    constructor(title, creator, description, participants, chatTitle, location) {
+    constructor(title, creator, description,
+        participants, chatTitle, location) {
         this.dateCreated = new Date();
         this.title = title;
         this.creator = creator;

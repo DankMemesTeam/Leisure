@@ -1,4 +1,4 @@
-/* globals $, sanitizeStringInput */
+/*eslint-disable*/
 
 const loginUser = (userObj) => {
     return new Promise((resolve, reject) => {
