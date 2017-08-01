@@ -19,8 +19,6 @@ gulp.task('start', () => {
 		});
 });
 
-// Fix the following when needed
-
 gulp.task('server:restart', () => {
 	const pr = Promise.resolve();
 	if (server) {
@@ -77,7 +75,6 @@ gulp.task('test', ['pre-test'], () => {
 		.pipe(istanbul.writeReports());
 });
 
-// Useless atm
 gulp.task('minify:js', () => {
 	gulp.src(['app/**/*.js', 'config/**/*.js'])
 		.pipe(minify())

@@ -1,3 +1,6 @@
+/* globals $, validateText,
+ validateContent, Materialize, toastr  */
+
 $(document).ready(function() {
     Materialize.updateTextFields();
 });

@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const eventData = require('../../../data/event-data');
 const models = require('../../../lib/models').Event;
 
@@ -7,8 +9,8 @@ const sinon = require('sinon');
 describe('EventData tests', () => {
     let collection = null;
     let validators = null;
-    let models = null;
-    let logger = null;
+
+    const logger = null;
     let config = null;
     let data = null;
 
@@ -49,12 +51,12 @@ describe('EventData tests', () => {
             },
             event: {
                 defaultPageSize: 2,
-            }
+            },
         };
 
         const model = {
             Event: models,
-        }
+        };
 
 
         data = eventData(collection, validators, model, logger, config);

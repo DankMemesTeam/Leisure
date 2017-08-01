@@ -1,3 +1,5 @@
+/* eslint-disable max-len, no-unused-expressions */
+
 const { expect } = require('chai');
 const sinon = require('sinon');
 
@@ -11,7 +13,6 @@ describe('HomeController tests', () => {
     let data = null;
 
     beforeEach(() => {
-
         req = {
             user: {},
             params: {},
@@ -86,7 +87,7 @@ describe('HomeController tests', () => {
             },
             statusData: {
                 getFeed: sinon.stub().returns(Promise.resolve([[], 1])),
-            }
+            },
         };
 
         controller = homeController(data);
@@ -95,7 +96,6 @@ describe('HomeController tests', () => {
     afterEach(() => {
         req = null;
         res = null;
-        next = null;
         data = null;
         controller = null;
     });

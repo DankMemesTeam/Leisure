@@ -1,4 +1,4 @@
-/* globals $, uploadToApi, uploadUrl, clientId, getIcon */
+/* globals $, uploadToApi, uploadUrl, clientId, getIcon, validateText, toastr */
 
 const followOrUnfollow = (action) => {
     const url = window.location.href;
@@ -32,7 +32,8 @@ const sendStatusData = (statusData) => {
 };
 $(() => {
     $('#post-status-btn').click((ev) => {
-        const statusText = validateText($('#status-text-input').val(), 'Status content');
+        const statusText =
+         validateText($('#status-text-input').val(), 'Status content');
 
         if (!statusText.isValid) {
             return toastr.error(statusText.message);
@@ -45,7 +46,7 @@ $(() => {
         };
 
         if (image) {
-            uploadToApi(uploadUrl, clientId, image)
+            return uploadToApi(uploadUrl, clientId, image)
                 .then((response) => {
                     statusData.imageUrl = response.data.link;
                     return sendStatusData(statusData);
@@ -56,24 +57,24 @@ $(() => {
                     }
                     $('#modal-loading').modal('close');
                     $('#modal-done').modal('open');
-                    $('#profile-page-wall-posts')
+                    return $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });
         } else if (statusText.result.length > 0) {
-            sendStatusData(statusData)
+            return sendStatusData(statusData)
                 .then((response) => {
                     if (response.errorMessage) {
                         return toastr.error(response.errorMessage);
                     }
                     $('#modal-loading').modal('close');
                     $('#modal-done').modal('open');
-                    $('#profile-page-wall-posts')
+                    return $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });
         }
 
-        $('#status-text-input').val('');
         document.getElementById('status-image-input').value = '';
+        return $('#status-text-input').val('');
     });
 
     $('.message-btn').click((ev) => {
@@ -88,7 +89,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function (data) {
+            success: function(data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }

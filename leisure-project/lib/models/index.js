@@ -20,15 +20,6 @@ module.exports = () => {
 };
 
 const normalizeModuleName = (modulePath) => {
-    // const splittedPath = modulePath.split('\\');
-    // const dataNamePart = splittedPath[splittedPath.length - 1];
-
-    // const cutIndex = dataNamePart.indexOf('-model.js');
-    // let modelName = dataNamePart.substring(0, cutIndex);
-
-    // modelName = modelName.substring(0, 1).toUpperCase() +
-    //     modelName.substring(1);
-
     const modelName = modulePath.replace(/.*models[\/\\](.*)-.*/, '$1');
     const result = modelName.substr(0, 1).toUpperCase() + modelName.substr(1);
 

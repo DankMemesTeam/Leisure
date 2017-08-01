@@ -1,3 +1,5 @@
+/* eslint-disable max-len, no-unused-expressions */
+
 const { expect } = require('chai');
 const sinon = require('sinon');
 
@@ -87,7 +89,7 @@ describe('EventController tests', () => {
                 getEventById: sinon.stub().returns(Promise.resolve({
                     creator: 'az',
                 })),
-            }
+            },
         };
 
         controller = eventController(data, null, hashGenerator);
@@ -130,7 +132,7 @@ describe('EventController tests', () => {
         expect(res.redirect.calledWith('/auth/login')).to.be.true;
     });
     it('loadCreationPage should call res.render with the correct view name if user is logged', () => {
-        controller.loadCreationPage(req, res)
+        controller.loadCreationPage(req, res);
         expect(res.render.calledWith('event/event-create')).to.be.true;
     });
     it('loadEventDetailsPage should call eventData.getEventById with the correct id', (done) => {
@@ -153,7 +155,7 @@ describe('EventController tests', () => {
     it('loadEventDetailsPage should call next when data throws', (done) => {
         req.params.eventId = '69';
         data.eventData.getEventById = sinon.stub().returns(Promise.reject(null));
-        
+
         controller.loadEventDetailsPage(req, res, next)
             .then(() => {
                 expect(next.callCount).to.eql(1);

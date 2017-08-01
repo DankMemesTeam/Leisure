@@ -75,7 +75,8 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return res.json({});
                 })
                 .catch((err) => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res
+                    .json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         dislikeStatus(req, res) {
@@ -85,7 +86,8 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return res.json({});
                 })
                 .catch((err) => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res
+                    .json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
     };

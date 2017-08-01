@@ -11,18 +11,20 @@ module.exports = (logger) => {
 
     return require('../database').connection(config.connectionString)
         .then((db) => {
-            const data = require('../data')(db, validators, loadedModels, logger, dataConfig);
-            const controllers = require('../lib/controllers')(data, hashGenerator, validators);
-            const application = require('./auth-conf')(app, data, db, config.secretString, hashGenerator);
-            const routes = require('../lib/routers')(application, express, controllers);
-            const server = require('./socket-conf')(application, data, controllers.chatController);
+            const data = require('../data')(db, validators,
+                loadedModels, logger, dataConfig);
+            const controllers = require('../lib/controllers')(data,
+                hashGenerator, validators);
+            const application = require('./auth-conf')(app, data,
+                db, config.secretString, hashGenerator);
+            require('../lib/routers')(application,
+                express, controllers);
+            const server = require('./socket-conf')(application, data,
+                controllers.chatController);
 
-            // REMOVE VALIDATORS FUNCTION CALL IF NOT USING VALIDATION LIBRARY
-
-            // Move somewhere appropriate
             app.use((err, req, res, next) => {
-                return res.render('page-not-found', { errorMessage: err.message });
-                // return res.json({ errorMessage: err.message });
+                return res.
+                    render('page-not-found', { errorMessage: err.message });
             });
 
             return Promise.resolve(server);

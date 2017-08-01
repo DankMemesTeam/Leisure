@@ -45,12 +45,14 @@ module.exports = ({ userData, chatData }) => {
 
     return {
         getRecentMessages(req, res) {
-            return Promise.all([chatData.getRecentMessagesFromChat(req.params.chatId),
+            return Promise
+            .all([chatData.getRecentMessagesFromChat(req.params.chatId),
             userData.removeNotification(req.user.username, req.params.chatId)])
                 .then((results) => {
                     return res.json({
                         messages: results[0],
-                        notificationsLength: results[1].value.notifications.length,
+                        notificationsLength:
+                         results[1].value.notifications.length,
                     });
                 });
         },
@@ -61,10 +63,13 @@ module.exports = ({ userData, chatData }) => {
                 return res.redirect('/users/' + req.params.username);
             }
 
-            return Promise.all([chatData.getUserChats(req.user.username, 'private'),
+            return Promise
+            .all([chatData.getUserChats(req.user.username, 'private'),
             chatData.getUserChats(req.user.username, 'event')])
                 .then((chatRooms) => {
-                    return Promise.all([getPrivateChatUserDetails(chatRooms[0], req.user.username),
+                    return Promise
+                    .all([getPrivateChatUserDetails(chatRooms[0],
+                         req.user.username),
                     getEventChatDetails(chatRooms[1], req.user.username)]);
                 })
                 .then((results) => {
@@ -76,7 +81,6 @@ module.exports = ({ userData, chatData }) => {
                 });
         },
         createPersonalChat(req, res) {
-            // Your username and the pageUser username
             const participants = [req.user.username, req.body.pageUser];
             const chatType = 'private';
 

@@ -1,4 +1,5 @@
-/* globals $ */
+/* globals $, validateString, validateText,
+ validateContent, sanitizeStringInput, toastr  */
 const tags = [];
 
 $(document).ready(function() {
@@ -43,7 +44,8 @@ $('#create-article-btn').click((ev) => {
     const title = validateText($('#title').val(), 'Title');
     const description = validateText($('#description').val(), 'Description');
     const content = validateContent($('#article-content').val(), 'Content');
-    const category = sanitizeStringInput($('#category-select option:selected').text());
+    const category =
+     sanitizeStringInput($('#category-select option:selected').text());
 
     if (!title.isValid) {
         return toastr.error(title.message);

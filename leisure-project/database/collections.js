@@ -10,7 +10,12 @@ const getCollection = (db, collectionName) => {
 
     const findPaged =
         (query, projection, pageNumber, pageSize, sort) => {
-            return collection.find(query, projection).sort(sort).skip(pageSize * (pageNumber - 1)).limit(pageSize).toArray();
+            return collection
+            .find(query, projection)
+            .sort(sort)
+            .skip(pageSize * (pageNumber - 1))
+            .limit(pageSize)
+            .toArray();
         };
 
     const count =

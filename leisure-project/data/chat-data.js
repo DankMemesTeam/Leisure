@@ -47,7 +47,8 @@ module.exports = (chatroomCollection, { chatValidator }, models, logger) => {
                 });
         },
         createEventChatroom(participants, chatType, chatTitle, iconImage) {
-            const chatroom = new EventChat(participants, chatType, chatTitle, iconImage);
+            const chatroom =
+             new EventChat(participants, chatType, chatTitle, iconImage);
 
             if (!chatValidator.isValidEventChat(chatroom)) {
                 return Promise.reject();

@@ -1,4 +1,5 @@
-console.log('register js loaded');
+/* globals $, validatePassword,
+ validateEmail, validateUsername, validateName, toastr  */
 
 const registerUser = (userObj) => {
     return new Promise((resolve, reject) => {
@@ -56,7 +57,7 @@ $('#register-btn').click((ev) => {
                 }
 
                 toastr.success('Successfully registered!');
-                window.location.replace(response.redirectUrl);
+                return window.location.replace(response.redirectUrl);
             });
     }
 });

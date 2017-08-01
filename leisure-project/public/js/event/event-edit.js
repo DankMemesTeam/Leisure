@@ -1,12 +1,11 @@
-/* globals $ */
+/* globals $, validateString, validateText,
+ validateContent, sanitizeStringInput, validateComment, toastr  */
 
 $(document).ready(function() {
     $('select').material_select();
 });
 
 $('#header-image').change((ev) => {
-
-
     const selectedUrl = $('#header-image').val();
 
     $('.header-image').attr('src', selectedUrl);
@@ -27,10 +26,10 @@ const editEvent = (postUrl, newEventObj) => {
 
 $('#update-event-btn').click((ev) => {
     const eventTitle = validateText($('#title').val(), 'Event title');
-    const eventDescription = validateText($('#description').val(), 'Event description');
+    const eventDescription =
+     validateText($('#description').val(), 'Event description');
     const headerImage = $('#header-image option:selected').val();
 
-    console.log(headerImage);
     if (!eventTitle.isValid) {
         return toastr.error(eventTitle.message);
     }

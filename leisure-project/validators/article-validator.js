@@ -18,13 +18,18 @@ module.exports = (validator) => {
             const hasValidAuthor = articleModel.author &&
                 validator.isValidString(articleModel.author.username);
 
-            const hasValidTitle = validator.isValidString(articleModel.title, minTitleLen);
+            const hasValidTitle =
+             validator.isValidString(articleModel.title, minTitleLen);
 
-            const hasValidDescription = validator.isValidString(articleModel.description, minDescriptionLen);
+            const hasValidDescription =
+             validator
+             .isValidString(articleModel.description, minDescriptionLen);
 
-            const hasValidContent = validator.isValidString(articleModel.content, minContentLen);
+            const hasValidContent =
+             validator.isValidString(articleModel.content, minContentLen);
 
-            const hasValidCategory = validator.isValidString(articleModel.category);
+            const hasValidCategory =
+             validator.isValidString(articleModel.category);
 
 
             const result = hasValidAuthor &&
@@ -38,11 +43,14 @@ module.exports = (validator) => {
         isValidEdit(id, title, description, content) {
             const isValidId = this.isValidId(id);
 
-            const isValidTitle = validator.isValidString(title, minTitleLen);
+            const isValidTitle =
+             validator.isValidString(title, minTitleLen);
 
-            const isValidDescription = validator.isValidString(description, minDescriptionLen);
+            const isValidDescription =
+             validator.isValidString(description, minDescriptionLen);
 
-            const isValidContent = validator.isValidString(content, minContentLen);
+            const isValidContent =
+             validator.isValidString(content, minContentLen);
 
 
             return isValidId &&

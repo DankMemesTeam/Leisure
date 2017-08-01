@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 // (articleCollection, { articleValidator }, models, logger, { article })
 const articleData = require('../../../data/article-data');
 const model = require('../../../lib/models')().Article;
@@ -9,7 +11,7 @@ describe('ArticleData tests', () => {
     let collection = null;
     let validators = null;
     let models = null;
-    let logger = null;
+    const logger = null;
     let config = null;
     let data = null;
 
@@ -56,7 +58,7 @@ describe('ArticleData tests', () => {
         models = null;
         config = null;
         data = null;
-    })
+    });
 
 
     it('updateArticleFields should call collection.updateMany once', (done) => {

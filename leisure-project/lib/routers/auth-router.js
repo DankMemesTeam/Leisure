@@ -12,7 +12,6 @@ module.exports = ({ app, express, controllers }) => {
         res.redirect('/');
     });
 
-    // Should probably move this to auth-controller and should be handled by res
     router.post('/login', passport.authenticate('local',
         {
             successRedirect: '/',

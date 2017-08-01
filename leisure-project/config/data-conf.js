@@ -24,5 +24,4 @@ module.exports = {
             'Other',
         ],
     },
-    // Export default profile picture etc here?
 };

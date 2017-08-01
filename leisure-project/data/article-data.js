@@ -1,4 +1,5 @@
-module.exports = (articleCollection, { articleValidator }, models, logger, { article }) => {
+module.exports = (articleCollection, { articleValidator },
+     models, logger, { article }) => {
     const { Article } = models;
 
     return {
@@ -19,9 +20,6 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
                 articleObject.tags
             );
 
-            console.log('TEEE HEE');
-            console.log(articleModel);
-
             if (!articleValidator.isValid(articleModel)) {
                 return Promise.reject();
             }
@@ -29,7 +27,8 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
             return articleCollection.insertOne(articleModel);
         },
         editArticle(id, title, description, content) {
-            if (!articleValidator.isValidEdit(id, title, description, content)) {
+            if (!articleValidator
+                .isValidEdit(id, title, description, content)) {
                 return Promise.reject();
             }
 
@@ -58,7 +57,8 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
             const sort = { dateCreated: - 1 };
 
             return Promise.all([
-                articleCollection.findPaged({}, {}, pageNumber, article.defaultPageSize, sort),
+                articleCollection
+                .findPaged({}, {}, pageNumber, article.defaultPageSize, sort),
                 articleCollection.count({}),
                 article.defaultPageSize,
             ]);
@@ -75,7 +75,8 @@ module.exports = (articleCollection, { articleValidator }, models, logger, { art
             };
 
             return Promise.all([
-                articleCollection.findPaged(search, {}, pageNumber, article.defaultPageSize, sort),
+                articleCollection.findPaged(search, {},
+                     pageNumber, article.defaultPageSize, sort),
                 articleCollection.count(search),
             ]);
         },

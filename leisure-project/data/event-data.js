@@ -1,4 +1,5 @@
-module.exports = (eventCollection, { eventValidator }, models, logger, { event }) => {
+module.exports = (eventCollection, { eventValidator },
+     models, logger, { event }) => {
     const { Event } = models;
 
     return {
@@ -8,7 +9,8 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             const sort = {};
 
             return Promise.all([
-                eventCollection.findPaged(query, projection, pageNumber, event.defaultPageSize, sort),
+                eventCollection.findPaged(query, projection,
+                     pageNumber, event.defaultPageSize, sort),
                 eventCollection.count({}),
                 event.defaultPageSize,
             ]);
@@ -32,20 +34,23 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
             const sort = {};
 
             return Promise.all([
-                eventCollection.findPaged(query, projection, pageNumber, event.defaultPageSize, sort),
+                eventCollection.findPaged(query, projection,
+                     pageNumber, event.defaultPageSize, sort),
                 eventCollection.count(query),
                 event.defaultPageSize,
             ]);
         },
         createEvent(eventObject, chatTitle) {
-            const event = new Event(eventObject.title, eventObject.creator,
-                eventObject.description, eventObject.participants, chatTitle, eventObject.location);
+            const eventToCreate = new Event(eventObject.title,
+                 eventObject.creator, eventObject.description,
+                  eventObject.participants,
+                 chatTitle, eventObject.location);
 
-            if (!eventValidator.isValid(event)) {
+            if (!eventValidator.isValid(eventToCreate)) {
                 return Promise.reject();
             }
 
-            return eventCollection.insertOne(event);
+            return eventCollection.insertOne(eventToCreate);
         },
         addCommentToEvent(eventId, comment) {
             if (!eventValidator.isValidId(eventId)) {
@@ -97,7 +102,7 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
                     projection: {
                         'participants': 1,
                         'chatTitle': 1,
-                        'headerImage': 1
+                        'headerImage': 1,
                     },
                     returnOriginal: false,
                 }
@@ -108,7 +113,8 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
                 return Promise.reject();
             }
 
-            if (!eventValidator.isValidEventEdit(title, description, headerImage)) {
+            if (!eventValidator
+                .isValidEventEdit(title, description, headerImage)) {
                 return Promise.reject();
             }
 

@@ -8,7 +8,8 @@ module.exports = ({ userData, statusData, articleData }) => {
             Promise.all([
                 userData.findUserBy({ username: req.params.username }),
                 statusData
-                    .findStatusesByUser(req.params.username, pageNumber, pageSize),
+                    .findStatusesByUser(req.params.username,
+                    pageNumber, pageSize),
             ])
                 .then(([foundUser, [statuses, count]]) => {
                     if (!foundUser) {
@@ -18,7 +19,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                     const isOwner = req.user &&
                         req.user.username === req.params.username;
 
-                    res.render('user/user-profile', {
+                    return res.render('user/user-profile', {
                         pageUser: foundUser,
                         currentUser: req.user,
                         statuses: statuses,
@@ -89,7 +90,11 @@ module.exports = ({ userData, statusData, articleData }) => {
                             ]);
                         })
                         .catch((err) => {
-                            return res.redirect({ errorMessage: 'Oops something went wrong!' });
+                            return res
+                                .redirect({
+                                    errorMessage:
+                                    'Oops something went wrong!',
+                                });
                         })
                         .then(() => {
                             if (req.body.profilePic) {
@@ -110,7 +115,9 @@ module.exports = ({ userData, statusData, articleData }) => {
                     return res.json({});
                 })
                 .catch(() => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res.json({
+                        errorMessage: 'Oops something went wrong!',
+                    });
                 });
         },
         unfollowUser(req, res) {
@@ -123,7 +130,8 @@ module.exports = ({ userData, statusData, articleData }) => {
                     return res.json({});
                 })
                 .catch(() => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res
+                    .json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
     };

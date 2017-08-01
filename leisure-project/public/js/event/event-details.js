@@ -1,4 +1,5 @@
-/* globals $ */
+/* globals $, validateString, validateText,
+ validateContent, sanitizeStringInput, validateComment, toastr  */
 
 const getDistanceFromLatLonInKm = (lat1, lon1, lat2, lon2) => {
     const R = 6371; // Radius of the earth in km
@@ -95,14 +96,14 @@ $(() => {
             return toastr.error($chatTitle.message);
         }
 
-        addChat(postUrl, $chatTitle.result)
+        return addChat(postUrl, $chatTitle.result)
             .then((response) => {
                 if (response.errorMessage) {
                     return toastr.error(response.errorMessage);
                 }
 
-                toastr.success('Successfully created chat!');
                 $('#chat-adding-container').addClass('hidden');
+                return toastr.success('Successfully created chat!');
             })
             .catch((err) => {
                 return toastr.error(err);
@@ -131,13 +132,13 @@ $(() => {
             return toastr.error(commentText.message);
         }
 
-        sendComment(commentText.result)
+        return sendComment(commentText.result)
             .then((response) => {
                 if (response.errorMessage) {
                     return toastr.error(response.errorMessage);
                 }
                 createComment(response.comment);
-                $('#comment-content').val('');
+                return $('#comment-content').val('');
             })
             .catch((err) => {
                 return toastr.error(err);
@@ -150,11 +151,16 @@ $(() => {
                 const userLong = position.coords.longitude;
                 const userLat = position.coords.latitude;
 
-                const eventLong = +document.getElementById('event-long').innerHTML;
-                const eventLat = +document.getElementById('event-lat').innerHTML;
+                const eventLong =
+                 +document.getElementById('event-long').innerHTML;
+                const eventLat =
+                 +document.getElementById('event-lat').innerHTML;
 
-                const distance = getDistanceFromLatLonInKm(userLat, userLong, eventLat, eventLong);
-                document.getElementById('distance-from-user').innerHTML += +distance.toFixed(2) + 'km';
+                const distance =
+                 getDistanceFromLatLonInKm(userLat, userLong,
+                     eventLat, eventLong);
+                document.getElementById('distance-from-user').innerHTML +=
+                 +distance.toFixed(2) + 'km';
             });
         }
     })();

@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 const statusData = require('../../../data/status-data');
 const models = require('../../../lib/models').Status;
 
@@ -7,7 +9,7 @@ const sinon = require('sinon');
 describe('Status tests', () => {
     let collection = null;
     let validators = null;
-    let logger = null;
+    const logger = null;
     let config = null;
     let data = null;
 
@@ -57,7 +59,7 @@ describe('Status tests', () => {
 
         const model = {
             Status: models,
-        }
+        };
 
 
         data = statusData(collection, validators, model, logger, config);

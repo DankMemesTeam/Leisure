@@ -5,7 +5,6 @@ const fs = require('fs');
 
 const collectionsModule = require('../database').collections;
 
-// Should be passed either the db or the specific collection to work with
 module.exports = (db, validators, loadedModels, logger, dataConfig) => {
     const data = {};
 
@@ -29,15 +28,8 @@ module.exports = (db, validators, loadedModels, logger, dataConfig) => {
 };
 
 const normalizeModuleName = (modulePath) => {
-    // const splittedPath = modulePath.split('\\');
-    // const dataNamePart = splittedPath[splittedPath.length - 1];
-
-    // const cutIndex = dataNamePart.indexOf('-data.js');
-    // const dataName = dataNamePart.substring(0, cutIndex);
-
-    // const normalizedName = dataName + 'Data';
-
-    const normalizedName = modulePath.replace(/.*data[\/\\](.*)-.*/, '$1') + 'Data';
+    const normalizedName =
+     modulePath.replace(/.*data[\/\\](.*)-.*/, '$1') + 'Data';
 
     return normalizedName;
 };

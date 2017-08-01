@@ -1,3 +1,5 @@
+/* eslint no-undefined: 0 */
+
 module.exports = (validator) => {
     return {
         isValidString(str, minLen, maxLen) {

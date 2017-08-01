@@ -10,7 +10,6 @@ module.exports = (validator) => {
     fs.readdirSync(__dirname)
         .filter((file) => file.includes('-validator.js'))
         .forEach((file) => {
-            // console.log(file);
             if (file.indexOf('base') === -1) {
                 const requirePath = path.join(__dirname, file);
                 const key = file.replace(/(\w+).*/, '$1') + 'Validator';

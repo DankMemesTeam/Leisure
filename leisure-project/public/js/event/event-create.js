@@ -1,4 +1,5 @@
-/* globals $ */
+/* globals $, validateString, validateText,
+ validateExising, toastr  */
 
 const createEvent = (eventObj) => {
     return new Promise((resolve, reject) => {
@@ -28,7 +29,8 @@ $(document).ready(() => {
 
     $('#create-event-btn').click((ev) => {
         const eventTitle = validateText($('#title').val(), 'Event title');
-        const eventDescription = validateText($('#description').val(), 'Event description');
+        const eventDescription =
+         validateText($('#description').val(), 'Event description');
         const address = validateExising($('#event-addr').val(), 'Location');
         const long = validateExising($('#event-long').val(), 'Location');
         const lat = validateExising($('#event-lat').val(), 'Location');

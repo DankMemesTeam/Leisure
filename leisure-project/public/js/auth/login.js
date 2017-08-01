@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals $, sanitizeStringInput */
 
 const loginUser = (userObj) => {
     return new Promise((resolve, reject) => {

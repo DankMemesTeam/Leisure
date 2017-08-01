@@ -116,7 +116,8 @@ module.exports = ({ userData, eventData, chatData }) => {
                 return res.json({ redirectUrl: '/auth/login' });
             }
 
-            return eventData.addUserToEvent(req.params.eventId, req.user.username)
+            return eventData
+            .addUserToEvent(req.params.eventId, req.user.username)
                 .then((event) => {
                     if (event.lastErrorObject.n === 0) {
                         return next(new Error('Invalid operation'));
@@ -131,10 +132,12 @@ module.exports = ({ userData, eventData, chatData }) => {
                     return Promise.reject();
                 })
                 .then((result) => {
-                    return res.json({ redirectUrl: '/events/' + req.params.eventId });
+                    return res
+                    .json({ redirectUrl: '/events/' + req.params.eventId });
                 })
                 .catch((err) => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res
+                    .json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         addComment(req, res) {
@@ -211,10 +214,12 @@ module.exports = ({ userData, eventData, chatData }) => {
                     }
 
 
-                    return res.json({ redirectUrl: `/events/${req.params.eventId}` });
+                    return res
+                    .json({ redirectUrl: `/events/${req.params.eventId}` });
                 })
                 .catch(() => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res
+                    .json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
     };

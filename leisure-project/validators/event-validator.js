@@ -5,8 +5,6 @@ module.exports = (validator) => {
 
     return {
         isValid(eventModel) {
-            // .title, .creator, .description, .headerImage, .location.|address|longitude|latitude|mapUrl
-
             if (!eventModel) {
                 return false;
             }
@@ -15,20 +13,26 @@ module.exports = (validator) => {
                 return false;
             }
 
-            if (!eventModel.description || !validator.isValidString(eventModel.description, minDescriptionLen)) {
+            if (!eventModel.description ||
+                 !validator
+                 .isValidString(eventModel.description, minDescriptionLen)) {
                 return false;
             }
 
-            if (!eventModel.title || !validator.isValidString(eventModel.title, minTitleLen)) {
+            if (!eventModel.title ||
+                 !validator.isValidString(eventModel.title, minTitleLen)) {
                 return false;
             }
 
-            if (!eventModel.headerImage || !validator.isValidString(eventModel.headerImage)) {
+            if (!eventModel.headerImage ||
+                 !validator.isValidString(eventModel.headerImage)) {
                 return false;
             }
 
-            if (!eventModel.location || !eventModel.location.address ||
-                !eventModel.location.longitude || !eventModel.location.latitude ||
+            if (!eventModel.location ||
+                 !eventModel.location.address ||
+                !eventModel.location.longitude ||
+                 !eventModel.location.latitude ||
                 !eventModel.location.mapUrl) {
                 return false;
             }

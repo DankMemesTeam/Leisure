@@ -1,4 +1,5 @@
-/* globals $ */
+/* globals $, validateString, validateText,
+ validateContent, sanitizeStringInput, validateComment, toastr  */
 
 const getIcon = (type) => {
     return '<i class="material-icons right">' + type + '</i>';
@@ -101,13 +102,13 @@ $('#send-comment-btn').on('click', (ev) => {
         return toastr.error(commentText.message);
     }
 
-    sendComment(commentText.result)
+    return sendComment(commentText.result)
         .then((response) => {
             if (response.errorMessage) {
-                    return toastr.error(response.errorMessage);
-                }
-                createComment(response.comment);
-                $('#comment-content').val('');
+                return toastr.error(response.errorMessage);
+            }
+            createComment(response.comment);
+            return $('#comment-content').val('');
         })
         .catch((err) => {
             return toastr.error(err);
@@ -115,7 +116,8 @@ $('#send-comment-btn').on('click', (ev) => {
 });
 
 $('#article-delete-btn').on('click', (ev) => {
-    const articleId = window.location.href.replace(/.*articles\/([0-9a-zA-Z]+).*/, '$1');
+    const articleId =
+     window.location.href.replace(/.*articles\/([0-9a-zA-Z]+).*/, '$1');
 
     deleteArticle(articleId)
         .then(() => {

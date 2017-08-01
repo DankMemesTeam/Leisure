@@ -18,7 +18,8 @@ module.exports = ({ userData }, renderer, hashGenerator, validator) => {
                     return res.json({ redirectUrl: '/auth/login' });
                 })
                 .catch((err) => {
-                    return res.json({ errorMessage: 'Could not register user!' });
+                    return res
+                    .json({ errorMessage: 'Could not register user!' });
                 });
         },
     };

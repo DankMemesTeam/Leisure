@@ -1,4 +1,5 @@
-/* globals $ */
+/* globals $, validateString, validateText,
+ validateContent, sanitizeStringInput, validateComment, toastr  */
 
 const sendComment = (commentText, url) => {
     const comment = {
@@ -36,7 +37,8 @@ $(() => {
     $('.comment-form').submit((ev) => {
         ev.preventDefault();
 
-        const commentText = validateComment($(ev.target).children('input').val());
+        const commentText =
+         validateComment($(ev.target).children('input').val());
         const url = $(ev.target).attr('action');
 
         if (!commentText.isValid) {
@@ -45,19 +47,20 @@ $(() => {
 
         const statusId = url.split('/')[3];
 
-        sendComment(commentText.result, url)
+        return sendComment(commentText.result, url)
             .then((response) => {
                 const comment = response.comment;
                 const selector = '#' + statusId + 1;
 
                 let $collection = null;
 
-                if ($(selector).length == 0) {
+                if ($(selector).length === 0) {
                     const $ul = $('<ul></ul>');
                     $ul.addClass('collection');
 
                     $collection = $ul;
-                    $(ev.target).parent().parent().parent().next().children().append($ul);
+                    $(ev.target).parent().parent()
+                    .parent().next().children().append($ul);
                 } else {
                     $collection = $(selector).children('ul');
                 }

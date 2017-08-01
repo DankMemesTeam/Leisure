@@ -1,9 +1,9 @@
-/* globals __dirname, undefined*/
+/* globals undefined*/
+/* eslint no-undefined: 0 */
 
 const express = require('express');
 
 const bodyParser = require('body-parser');
-const compress = require('compression');
 const minify = require('express-minify');
 
 module.exports = (config, logger) => {
@@ -30,8 +30,6 @@ module.exports = (config, logger) => {
   app.use(bodyParser.urlencoded({
     extended: true,
   }));
-
-  // app.use(compress());
 
   return app;
 };

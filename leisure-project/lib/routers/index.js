@@ -12,7 +12,6 @@ module.exports = (app, express, controllers) => {
         });
 
     app.use((req, res, next) => {
-        // Should be handled by controler... but for now this is okay
         res.status(404)
             .render('page-not-found');
     });

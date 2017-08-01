@@ -1,4 +1,5 @@
-/* globals $, uploadToApi, uploadUrl, clientId, sendImageUrl, toastr, validateName, validateDate, validateText */
+/* globals $, uploadToApi, uploadUrl, clientId,
+ sendImageUrl, toastr, validateName, validateDate, validateText */
 
 const getPostUrl = () => {
     return window.location.href.match(/\/users.*settings/)[0];
@@ -47,14 +48,14 @@ $('#update-firstName-btn').click((ev) => {
         return toastr.error(newName.message);
     }
 
-    updateField(postUrl, { firstName: newName.result })
+    return updateField(postUrl, { firstName: newName.result })
         .then((response) => {
             if (response.errorMessage) {
                 return toastr.error(response.errorMessage);
             }
 
-            toastr.success('Successfully updated first name!');
             $('#firstName').val('');
+            return toastr.success('Successfully updated first name!');
         });
 });
 
@@ -66,14 +67,14 @@ $('#update-lastname-btn').click((ev) => {
         return toastr.error(newName.message);
     }
 
-    updateField(postUrl, { lastName: newName.result })
+    return updateField(postUrl, { lastName: newName.result })
         .then((response) => {
             if (response.errorMessage) {
                 return toastr.error(response.errorMessage);
             }
 
-            toastr.success('Successfully updated last name!');
             $('#lastName').val('');
+            return toastr.success('Successfully updated last name!');
         });
 });
 
@@ -85,14 +86,14 @@ $('#update-birthDate-btn').click((ev) => {
         return toastr.error(newDate.message);
     }
 
-    updateField(postUrl, { birthDate: newDate.result })
+    return updateField(postUrl, { birthDate: newDate.result })
         .then((response) => {
             if (response.errorMessage) {
                 return toastr.error(response.errorMessage);
             }
 
-            toastr.success('Successfully updated birth date!');
             $('#birthDate').val('');
+            return toastr.success('Successfully updated birth date!');
         });
 });
 
@@ -105,13 +106,13 @@ $('#update-aboutMe-btn').click((ev) => {
         return toastr.error(newDescription.message);
     }
 
-    updateField(postUrl, { aboutMe: newDescription.result })
+    return updateField(postUrl, { aboutMe: newDescription.result })
         .then((response) => {
             if (response.errorMessage) {
                 return toastr.error(response.errorMessage);
             }
 
-            toastr.success('Successfully updated about me!');
             $('#aboutMe').val('');
+            return toastr.success('Successfully updated about me!');
         });
 });

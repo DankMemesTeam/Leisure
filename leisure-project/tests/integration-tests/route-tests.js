@@ -1,4 +1,5 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len, no-unused-expressions */
+
 const request = require('supertest');
 const { expect } = require('chai');
 
@@ -161,8 +162,6 @@ describe('Testing application routes', () => {
                         });
                 });
         });
-
-
     });
 
     describe('AUTH ROUTER', () => {
@@ -343,8 +342,6 @@ describe('Testing application routes', () => {
                         });
                 });
         });
-
-
     });
 
     after(() => {

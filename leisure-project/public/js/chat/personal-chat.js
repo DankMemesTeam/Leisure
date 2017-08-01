@@ -1,4 +1,4 @@
-/* global $, io, socket, updateNotifications */
+/* global $, sanitizeStringInput, socket, updateNotifications */
 let currentChatId = null;
 
 const getRecentMessages = (currentUser, chatId) => {
@@ -111,7 +111,8 @@ $(() => {
     });
 
     socket.on('recieve message', (messageObj) => {
-        const $message = createMessageBox(messageObj.author, messageObj.content);
+        const $message =
+         createMessageBox(messageObj.author, messageObj.content);
 
         $('.message-container').append($message);
     });

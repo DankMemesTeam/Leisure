@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 // (articleCollection, { articleValidator }, models, logger, { article })
 const categoryData = require('../../../data/category-data');
 // const model = require('../../../lib/models')().Category;
@@ -9,7 +11,7 @@ describe('CategoryData tests', () => {
     let collection = null;
     let validators = null;
     let models = null;
-    let logger = null;
+    const logger = null;
     let config = null;
     let data = null;
 

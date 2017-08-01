@@ -7,7 +7,8 @@ module.exports = (validator) => {
                 return false;
             }
 
-            if (!chatModel.participants || chatModel.participants.length !== 2) {
+            if (!chatModel.participants ||
+                 chatModel.participants.length !== 2) {
                 return false;
             }
 
@@ -26,11 +27,13 @@ module.exports = (validator) => {
                 return false;
             }
 
-            if (!chatModel.chatTitle || !validator.isValidString(chatModel.chatTitle)) {
+            if (!chatModel.chatTitle ||
+                 !validator.isValidString(chatModel.chatTitle)) {
                 return false;
             }
 
-            if (!chatModel.chatIcon || !validator.isValidString(chatModel.chatIcon)) {
+            if (!chatModel.chatIcon ||
+                 !validator.isValidString(chatModel.chatIcon)) {
                 return false;
             }
 
@@ -41,11 +44,14 @@ module.exports = (validator) => {
                 return false;
             }
 
-            if (!messageModel.author || !validator.isValidString(messageModel.author)) {
+            if (!messageModel.author ||
+                 !validator.isValidString(messageModel.author)) {
                 return false;
             }
 
-            if (!messageModel.content || !validator.isValidString(messageModel.content, minMessageLen)) {
+            if (!messageModel.content ||
+                 !validator
+                 .isValidString(messageModel.content, minMessageLen)) {
                 return false;
             }
 

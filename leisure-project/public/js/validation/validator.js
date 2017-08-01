@@ -53,8 +53,10 @@ const validateString = (input, objName) => {
         return { message: objName + ' cannot be empty!' };
     }
 
-    if (!validator.isLength(input, { min: minStringLength, max: maxStringLength })) {
-        return { message: `Invalid ${objName.toLowerCase()} length! (${minStringLength};${maxStringLength})` };
+    if (!validator.isLength(input,
+         { min: minStringLength, max: maxStringLength })) {
+        return { message: `Invalid ${objName.toLowerCase()}
+         length! (${minStringLength};${maxStringLength})` };
     }
 
     if (validator.contains(input, ' ')) {
@@ -113,8 +115,10 @@ const validateText = (text, objName) => {
         return { message: objName + ' cannot be empty!' };
     }
 
-    if (!validator.isLength(text, { min: minTextLength, max: maxTextLength })) {
-        return { message: `Invalid ${objName.toLowerCase()} length! (${minTextLength};${maxTextLength})` };
+    if (!validator.isLength(text,
+         { min: minTextLength, max: maxTextLength })) {
+        return { message: `Invalid ${objName.toLowerCase()}
+         length! (${minTextLength};${maxTextLength})` };
     }
 
     return { isValid: true, result: text };
@@ -127,8 +131,10 @@ const validateContent = (content, objName) =>{
         return { message: objName + ' cannot be empty!' };
     }
 
-    if (!validator.isLength(content, { min: minContentLength, max: maxContentLength })) {
-        return { message: `Invalid ${objName.toLowerCase()} length! (${minContentLength};${maxContentLength})` };
+    if (!validator.isLength(content,
+         { min: minContentLength, max: maxContentLength })) {
+        return { message: `Invalid ${objName.toLowerCase()}
+         length! (${minContentLength};${maxContentLength})` };
     }
 
     return { isValid: true, result: content };

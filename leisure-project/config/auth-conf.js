@@ -17,14 +17,14 @@ module.exports = (app, data, db, secretString, hashGenerator) => {
                     return done(null, false,
                         { message: 'User with that name does not exist. ' });
                 }
-                hashGenerator.verify(password, foundUser.hashedPassword)
+
+                return hashGenerator.verify(password, foundUser.hashedPassword)
                     .then((correctPassword) => {
-                        console.log(correctPassword);
                         if (correctPassword) {
                             return done(null, foundUser);
                         }
-                            return done(null, false,
-                                { message: 'Incorrect password.' });
+                        return done(null, false,
+                            { message: 'Incorrect password.' });
                     })
                     .catch((err) => {
                         console.log(err);

@@ -1,4 +1,5 @@
 /* globals $ */
+/* eslint no-invalid-this: 0 */
 
 $(document).ready(function() {
     scaleVideoContainer();
@@ -42,10 +43,12 @@ function scaleBannerVideoSize(element) {
         if (windowWidth < 1000) {
             videoHeight = windowHeight;
             videoWidth = videoHeight / videoAspectRatio;
-            $(this).css({ 'margin-top': 0, 'margin-left': -(videoWidth - windowWidth) / 2 + 'px' });
+            $(this).css({ 'margin-top': 0,
+             'margin-left': -(videoWidth - windowWidth) / 2 + 'px' });
             $(this).width(videoWidth).height(videoHeight);
         }
 
-        $('.homepage-hero-module .video-container video').addClass('fadeIn animated');
+        $('.homepage-hero-module .video-container video')
+        .addClass('fadeIn animated');
     });
 }

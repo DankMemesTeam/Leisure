@@ -16,7 +16,6 @@ module.exports = ({ app, express, controllers }) => {
     router.post('/:username/:statusId/like', statusController.likeStatus);
     router.post('/:username/:statusId/dislike', statusController.dislikeStatus);
 
-
     router.get('/:username', userController.loadProfilePage);
 
     app.use('/users', router);

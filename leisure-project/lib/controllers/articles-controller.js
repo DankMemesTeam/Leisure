@@ -16,7 +16,8 @@ module.exports = ({ articleData, categoryData, userData }) => {
             if (!req.query.query) {
                 articlesPromise = articleData.getAllArticles(pageNumber);
             } else {
-                articlesPromise = articleData.findArticles(req.query.query, pageNumber);
+                articlesPromise =
+                 articleData.findArticles(req.query.query, pageNumber);
             }
 
             return categoryData.initCategories()
@@ -36,10 +37,8 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     });
                 });
         },
-        // CURRENTLY BROKEN AF
         loadCategoryPage(req, res, next) {
             return Promise.all([
-                // Paging here too
                 categoryData.getCategoryArticles(req.params.category),
                 categoryData.getAllCategoryNames(),
             ])
@@ -50,7 +49,8 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     });
 
                     if (!foundCategories) {
-                        return next(new Error(`Category with name ${req.params.category} does not exist`));
+                        return next(new Error(`Category with name
+                         ${req.params.category} does not exist`));
                     }
 
                     return renderArticlesPage(res,
@@ -93,7 +93,8 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     articleObj._id = insertedObject.insertedId;
                     articleObj.author.profilePic = foundUser.profilePic;
 
-                    return categoryData.addArticleToCategory(articleObj, articleObj.category);
+                    return categoryData
+                    .addArticleToCategory(articleObj, articleObj.category);
                 })
                 .then(() => {
                     res.json({ redirectUrl: '/articles' });
@@ -133,7 +134,8 @@ module.exports = ({ articleData, categoryData, userData }) => {
             return userData.findUserBy({ username: req.user.username })
                 .then((foundUser) => {
                     comment.author.profilePic = foundUser.profilePic;
-                    return articleData.addCommentToArticle(req.params.id, comment);
+                    return articleData
+                    .addCommentToArticle(req.params.id, comment);
                 })
                 .then(() => {
                     return res.json({ comment: comment });
@@ -209,14 +211,17 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
-                    if (!article || article.author.username !== req.user.username) {
+                    if (!article ||
+                         article.author.username !== req.user.username) {
                         return next(new Error('Invalid operation'));
                     }
 
                     return Promise.resolve();
                 })
                 .then(() => {
-                    return articleData.editArticle(req.params.id, req.body.title, req.body.description, req.body.content);
+                    return articleData
+                    .editArticle(req.params.id, req.body.title,
+                         req.body.description, req.body.content);
                 })
                 .then((result) => {
                     const article = {
@@ -227,13 +232,15 @@ module.exports = ({ articleData, categoryData, userData }) => {
                         content: req.body.content,
                     };
 
-                    return categoryData.updateCategoryArticle(req.params.id, article);
+                    return categoryData
+                    .updateCategoryArticle(req.params.id, article);
                 })
                 .then((result) => {
                     res.json({ redirectUrl: `/articles/${req.params.id}` });
                 })
                 .catch(() => {
-                    return res.json({ errorMessage: 'Oops something went wrong!' });
+                    return res
+                    .json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
         removeArticle(req, res, next) {
@@ -243,8 +250,10 @@ module.exports = ({ articleData, categoryData, userData }) => {
 
             return articleData.getArticleById(req.params.id)
                 .then((article) => {
-                    if (!article || article.author.username !== req.user.username) {
-                        return next(new Error('You are not the owner of this article'));
+                    if (!article ||
+                         article.author.username !== req.user.username) {
+                        return next(new Error(`You are not the
+                         owner of this article`));
                     }
 
                     return Promise.resolve();

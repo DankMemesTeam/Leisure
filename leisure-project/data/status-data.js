@@ -14,7 +14,8 @@ module.exports = (statusCollection, { statusValidator }, models, logger) => {
             const sort = { dateCreated: -1 };
 
             return Promise.all([
-                statusCollection.findPaged(query, {}, pageNumber, pageSize, sort),
+                statusCollection
+                .findPaged(query, {}, pageNumber, pageSize, sort),
                 statusCollection.count(query),
             ]);
         },
@@ -32,7 +33,8 @@ module.exports = (statusCollection, { statusValidator }, models, logger) => {
             return statusCollection.insertOne(status);
         },
         addStatusComment(statusAuthor, statusId, comment) {
-            if (!statusValidator.isValidStatusComment(statusAuthor, statusId, comment)) {
+            if (!statusValidator
+                .isValidStatusComment(statusAuthor, statusId, comment)) {
                 return Promise.reject();
             }
 
@@ -62,7 +64,8 @@ module.exports = (statusCollection, { statusValidator }, models, logger) => {
             const sort = { dateCreated: -1 };
 
             return Promise.all([
-                statusCollection.findPaged(query, {}, pageNumber, pageSize, sort),
+                statusCollection
+                .findPaged(query, {}, pageNumber, pageSize, sort),
                 statusCollection.count(query),
             ]);
         },
