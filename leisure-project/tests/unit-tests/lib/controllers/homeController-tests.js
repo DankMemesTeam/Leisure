@@ -8,14 +8,9 @@ describe('HomeController tests', () => {
     let controller = null;
     let req = null;
     let res = null;
-    let next = null;
     let data = null;
-    let hashGenerator = null;
 
     beforeEach(() => {
-        hashGenerator = {
-            generateHash: sinon.stub().returns(Promise.resolve('.......')),
-        };
 
         req = {
             user: {},
@@ -30,8 +25,6 @@ describe('HomeController tests', () => {
             json: sinon.stub(),
             sendStatus: sinon.stub(),
         };
-
-        next = sinon.stub();
 
         data = {
             articleData: {

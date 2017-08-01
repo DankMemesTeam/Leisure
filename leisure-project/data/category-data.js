@@ -8,7 +8,6 @@ module.exports = (categoryCollection, validator,
                 .then((result) => {
                     if (result.length === 0) {
                         for (const cat of article.initialCategories) {
-                            console.log(cat);
                             promises.push(
                                 categoryCollection.insertOne({
                                     name: cat,

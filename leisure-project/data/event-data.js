@@ -94,9 +94,11 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
                 { _id: eventCollection.generateId(chatId) },
                 { $set: { chatTitle: chatTitle } },
                 {
-                    projection: { 'participants': 1,
-                     'chatTitle': 1,
-                    'headerImage': 1 },
+                    projection: {
+                        'participants': 1,
+                        'chatTitle': 1,
+                        'headerImage': 1
+                    },
                     returnOriginal: false,
                 }
             );

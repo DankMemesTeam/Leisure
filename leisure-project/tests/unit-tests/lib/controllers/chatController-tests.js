@@ -8,7 +8,6 @@ describe('ChatController tests', () => {
     let controller = null;
     let req = null;
     let res = null;
-    let next = null;
     let data = null;
     let hashGenerator = null;
 
@@ -31,7 +30,6 @@ describe('ChatController tests', () => {
             sendStatus: sinon.stub(),
         };
 
-        next = sinon.stub();
 
         data = {
             articleData: {
@@ -89,7 +87,6 @@ describe('ChatController tests', () => {
     afterEach(() => {
         req = null;
         res = null;
-        next = null;
         data = null;
         controller = null;
     });
