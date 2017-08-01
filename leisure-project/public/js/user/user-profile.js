@@ -17,7 +17,7 @@ const followOrUnfollow = (action) => {
 
 const sendStatusData = (statusData) => {
     const postUrl =
-     window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
+        window.location.href.replace(/.*(\/users\/\w+).*/, '$1/statuses');
 
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -77,7 +77,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }

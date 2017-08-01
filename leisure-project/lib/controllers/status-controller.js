@@ -58,7 +58,7 @@ module.exports = ({ statusData, userData }, renderer) => {
                     return statusData.addStatusComment(
                         req.params.username,
                         req.params.statusId,
-                        comment,
+                        comment
                     );
                 })
                 .then(() => {

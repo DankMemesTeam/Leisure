@@ -44,7 +44,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 categoryData.getAllCategoryNames(),
             ])
                 .then(([categoryContent, categories]) => {
-                    console.log(categories);
                     const foundCategories = categories.find((cat) => {
                         return req.params.category.toLowerCase() ===
                             cat.name.toLowerCase();

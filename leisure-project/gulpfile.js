@@ -5,6 +5,8 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const mocha = require('gulp-mocha');
 const minify = require('gulp-minify');
+const plumber = require('gulp-plumber');
+const istanbul = require('gulp-istanbul');
 
 const app = require('./config')(logger);
 let server = null;
@@ -41,11 +43,22 @@ gulp.task('dev', ['server:restart'], () => {
 	});
 });
 
-gulp.task('test:unit', () => {
-	gulp.src('tests/**/*.js')
+gulp.task('test:unit', ['pre-test'], () => {
+	return gulp.src('./tests/unit-tests/**/*.js', { read: false })
 		.pipe(mocha({
-			reporter: 'nyan',
-		}));
+			colors: true,
+			reporter: 'spec',
+		}))
+		.pipe(istanbul.writeReports());
+});
+
+gulp.task('pre-test', () => {
+	return gulp
+		.src('./lib/**/*.js')
+		.pipe(istanbul({
+			includeUntested: true,
+		}))
+		.pipe(istanbul.hookRequire());
 });
 
 // Useless atm
