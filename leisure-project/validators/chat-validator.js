@@ -3,7 +3,6 @@ module.exports = (validator) => {
 
     return {
         isValidPrivateChat(chatModel) {
-            // type
             if (!chatModel) {
                 return false;
             }
@@ -27,7 +26,7 @@ module.exports = (validator) => {
                 return false;
             }
 
-            if (!chatModel.title || !validator.isValidString(chatModel.title)) {
+            if (!chatModel.chatTitle || !validator.isValidString(chatModel.chatTitle)) {
                 return false;
             }
 

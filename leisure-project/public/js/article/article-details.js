@@ -96,15 +96,21 @@ $('#rate-btn').on('click', (ev) => {
 });
 
 $('#send-comment-btn').on('click', (ev) => {
-    const commentText = $('#comment-content').val().trim();
+    const commentText = validateComment($('#comment-content').val());
+    if (!commentText.isValid) {
+        return toastr.error(commentText.message);
+    }
 
-    sendComment(commentText)
-        .then((comment) => {
-            createComment(comment);
-            $('#comment-content').val('');
+    sendComment(commentText.result)
+        .then((response) => {
+            if (response.errorMessage) {
+                    return toastr.error(response.errorMessage);
+                }
+                createComment(response.comment);
+                $('#comment-content').val('');
         })
         .catch((err) => {
-            console.log('Error');
+            return toastr.error(err);
         });
 });
 

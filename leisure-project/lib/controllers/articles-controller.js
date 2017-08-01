@@ -44,7 +44,6 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 categoryData.getAllCategoryNames(),
             ])
                 .then(([categoryContent, categories]) => {
-                    console.log(categories);
                     const foundCategories = categories.find((cat) => {
                         return req.params.category.toLowerCase() ===
                             cat.name.toLowerCase();
@@ -84,7 +83,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                 username: req.user.username,
             };
 
-            articleObj.tags = req.body.tags.split(/[ ,]+/);
+            articleObj.tags = req.body.tags;
 
             return Promise.all([
                 articleData.createArticle(articleObj),
@@ -137,7 +136,7 @@ module.exports = ({ articleData, categoryData, userData }) => {
                     return articleData.addCommentToArticle(req.params.id, comment);
                 })
                 .then(() => {
-                    return res.json(comment);
+                    return res.json({ comment: comment });
                 })
                 .catch(() => {
                     return res.json({ errorMessage: 'Invalid comment!' });

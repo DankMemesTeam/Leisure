@@ -32,7 +32,7 @@ const sendStatusData = (statusData) => {
 };
 $(() => {
     $('#post-status-btn').click((ev) => {
-        const statusText = $('#status-text-input').val();
+        const statusText = validateText($('#status-text-input').val(), 'Status content');
         const image = document.getElementById('status-image-input').files[0];
         const statusData = {
             content: statusText,

@@ -98,7 +98,7 @@ $(() => {
     const currentUsername = $('#username').text();
 
     $('#replyBtn').click((ev) => {
-        const messageText = $('#replyInput').val();
+        const messageText = sanitizeStringInput($('#replyInput').val());
 
         socket.emit('send message',
             {

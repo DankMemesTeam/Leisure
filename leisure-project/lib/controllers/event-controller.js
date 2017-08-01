@@ -91,10 +91,10 @@ module.exports = ({ userData, eventData, chatData }) => {
                         .createEvent(eventObj, req.body.chatTitle || null);
                 })
                 .then((event) => {
-                    res.json({ redirectUrl: '/events' });
+                    return res.json({ redirectUrl: '/events' });
                 })
                 .catch((err) => {
-                    res.json({ errorMessage: 'Invalid event!' });
+                    return res.json({ errorMessage: 'Invalid event!' });
                 });
         },
         addEventChat(req, res) {
@@ -102,7 +102,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                 .then((event) => {
                     return chatData
                         .createEventChatroom(event.value.participants,
-                        'event', req.body.chatTitle);
+                        'event', req.body.chatTitle, event.value.headerImage);
                 })
                 .then((chat) => {
                     res.json({ redirectUrl: '/events/' + req.params.eventId });
@@ -137,6 +137,28 @@ module.exports = ({ userData, eventData, chatData }) => {
                     return res.json({ errorMessage: 'Oops something went wrong!' });
                 });
         },
+        addComment(req, res) {
+            if (!req.user) {
+                return res.redirect('/auth/login');
+            }
+
+            const comment = req.body;
+            comment.author = {
+                username: req.user.username,
+            };
+
+            return userData.findUserBy({ username: req.user.username })
+                .then((foundUser) => {
+                    comment.author.profilePic = foundUser.profilePic;
+                    return eventData.addCommentToEvent(req.params.id, comment);
+                })
+                .then(() => {
+                    return res.json({ comment: comment });
+                })
+                .catch(() => {
+                    return res.json({ errorMessage: 'Invalid comment!' });
+                });
+        },
         loadEventEditPage(req, res, next) {
             if (!req.user) {
                 return res.redirect('/auth/login');
@@ -157,6 +179,8 @@ module.exports = ({ userData, eventData, chatData }) => {
                         currentUser: req.user
                             ? req.user.username
                             : null,
+                        headerImages:
+                        require('../../config/data-conf').event.headerPictures,
                     });
                 })
                 .catch(() => {

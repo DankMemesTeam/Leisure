@@ -1,6 +1,8 @@
 module.exports = (validator) => {
     const minTitleLen = 5;
     const minDescriptionLen = 5;
+    const minCommentLen = 2;
+
     return {
         isValid(eventModel) {
             // .title, .creator, .description, .headerImage, .location.|address|longitude|latitude|mapUrl
@@ -42,8 +44,11 @@ module.exports = (validator) => {
         },
         isValidUserAdding(username) {
             return validator.isValidString(username);
-        },
 
+        },
+        isValidComment(comment) {
+            return validator.isValidString(comment.text, minCommentLen);
+        },
         isValidChatAdding(chatTitle) {
             return validator.isValidString(chatTitle);
         },

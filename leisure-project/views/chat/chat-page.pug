@@ -11,7 +11,7 @@ block append page-content
             .col.s12
                 .chat-list.col.s12.m4.card-panel.z-depth-1.chats-container
                     ul.collection.with-header
-                        li.collection-header.center.green.lighten-3
+                        li.collection-header.center.blue-grey.darken-4
                             h6.flow-text.white-text Conversations
                         each details in privateDetails
                             if user.notifications.includes(details.chatId)
@@ -19,9 +19,9 @@ block append page-content
                             else
                                 +avatar(details.chatId, details.profilePic, details.fullName)
                         else
-                            li.collection-header.center.green.lighten-3.white-text
+                            li.collection-header.center.blue-grey.darken-4.white-text
                                 | No conversations
-                        li.collection-header.center.green.lighten-3
+                        li.collection-header.center.blue-grey.darken-4
                             h6.flow-text.white-text Events
                         each event in eventDetails
                             if user.notifications.includes(event.chatId)
@@ -29,11 +29,11 @@ block append page-content
                             else
                                 +avatar(event.chatId, event.chatIcon, event.chatTitle)
                         else
-                            li.collection-header.center.green.lighten-3.white-text
+                            li.collection-header.center.blue-grey.darken-4.white-text
                                 | No events
                 #chat-details.col.s12.m8.card-panel.hidden
                     .row.messages-row
-                        div#person-name.collection-header.center.green.lighten-3.flow-text.white-text
+                        div#person-name.collection-header.center.blue-grey.darken-4.flow-text.white-text
                         .col.s12.m12.message-container.messages
                     .row
                         .col.s7.m9.reply-container

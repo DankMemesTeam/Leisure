@@ -36,13 +36,16 @@ $(() => {
     $('.comment-form').submit((ev) => {
         ev.preventDefault();
 
-        const commentText = $(ev.target).children('input').val().trim();
+        const commentText = validateComment($(ev.target).children('input').val());
         const url = $(ev.target).attr('action');
 
-        // damn
+        if (!commentText.isValid) {
+            return toastr.error(commentText.message);
+        }
+
         const statusId = url.split('/')[3];
 
-        sendComment(commentText, url)
+        sendComment(commentText.result, url)
             .then((comment) => {
                 const selector = '#' + statusId + 1;
 

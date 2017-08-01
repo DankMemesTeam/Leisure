@@ -1,43 +1,45 @@
 extends ../shared/_master
-
-block append page-content
-
-    div.row
-        form.col.s12#article-submit-form(method='POST')
-            div.row
-                div.input-field
-                    select(name='category')
-                        each cat in categories
-                            option(value=cat.name)
-                                | #{cat.name}
-                    label(for='category-selection')
-                        | Select category
-            div.row
-                div.chips-placeholder.input-field.col.s6
-            
-            div.row
-                div.input-field.col.s6
-                    input#title(type='text' name='title')
-                    label(for='title')
-                        | Title            
-            div.row
-                div.input-field.col.s6
-                    input#description(type='text' name='description')
-                    label(for='description')
-                        | Description
-            div.row
-                div.input-field.col.s12
-                    textarea.materialize-textarea#article-content(name='content')
-                    label(for='article-content')
-                        | Text
-            div.row
-                button.btn.waves-effect.waves-light(type='submit')
-                    | Publish
-                    i.material-icons.right
-                        | send
-
-
+block append styles
+    link(rel='stylesheet', href='/css/event/create-page.css')
 block append footer
     script(src='/js/article/add-article.js')
-
-                        
+block append page-content
+    .row.center-align
+        .col.s12.m8.offset-m2.z-depth-4.card-panel
+            #article-submit-form.col.s12
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        h4.blue-grey-text.lighten-3
+                            | Create article
+                        p.blue-grey-text.lighten-5.center
+                            | We want to hear your story
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        p.blue-grey-text.lighten-4
+                            | Category
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        select#category-select(name='category')
+                            each cat in categories
+                                option(value=cat.name)
+                                    | #{cat.name}
+                        label(for='category-selection')
+                            | Select category
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        div.chips-placeholder.input-field
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        input#title(type='text' name='title' placeholder='Title')
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        input#description(type='text' name='description' placeholder='Short description')
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        textarea.materialize-textarea#article-content(name='content' placeholder='Content')
+                .row
+                    .col.s6.offset-m3.offset-s3.m6
+                        #create-article-btn.btn.waves-effect.waves-light
+                            | Publish
+                            i.material-icons.right
+                                | send

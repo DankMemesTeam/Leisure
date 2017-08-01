@@ -1,37 +1,42 @@
 extends ../shared/_master
+block append styles
+    link(rel='stylesheet', href='/css/event/create-page.css')
+block append footer
+    script(src='/js/article/article-edition.js')
+block append page-content
+    .row.center-align
+        .col.s12.m8.offset-m2.z-depth-4.card-panel
+            h1
+                | #{article.title}
+            p
+                | Published by: 
+                a(href='/users/' + article.author.username)
+                    | #{article.author.username}
+            hr
+            .form-container
+                .row
+                    label(for='title')
+                        | Edit title
+                    .input-field.col.s12             
+                        input#title(value=article.title name='title')
+                .row
+                    label(for='description')
+                        | Edit description
+                    .input-field.col.s12             
+                        input#description(value=article.description name='description')
 
-block append page-content  
-    h1
-        | Title: #{article.title}
-    p
-        | Published by: 
-        a(href='/users/' + article.author.username)
-            | #{article.author.username}  -> #{article.author.firstName} #{article.author.lastName}
-    hr
-    form(action='/articles/' + article._id + '/edit' method='POST')
-        .row
-            label(for='title')
-                | Edit title
-            .input-field.col.s12             
-                input#title(value=article.title name='title')
-        .row
-            label(for='description')
-                | Edit description
-            .input-field.col.s12             
-                input#description(value=article.description name='description')
+                .row
+                    label(for='content')
+                        | Edit content
+                    .input-field.col.s12             
+                        textarea#content(name='content').materialize-textarea
+                            | #{article.content} 
 
-        .row
-            label(for='content')
-                | Edit content
-            .input-field.col.s12             
-                textarea#content(name='content').materialize-textarea
-                    | #{article.content} 
-
-        .row
-            button.btn.right(type='submit')
-                | Save changes
-            a.btn.left(href='/articles')
-                | Cancel
+                .row
+                    #edit-article-btn.btn.right
+                        | Save changes
+                    a.btn.left(href='/articles')
+                        | Cancel
 
 block append footer
     script(src='/js/article/article-edition.js')

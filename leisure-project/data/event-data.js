@@ -47,6 +47,27 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
 
             return eventCollection.insertOne(event);
         },
+        addCommentToEvent(eventId, comment) {
+            if (!eventValidator.isValidId(eventId)) {
+                return Promise.reject();
+            }
+
+            if (!eventValidator.isValidComment(comment)) {
+                return Promise.reject();
+            }
+
+            const filter = {
+                _id: eventCollection.generateId(eventId),
+            };
+
+            const update = {
+                $addToSet: {
+                    comments: comment,
+                },
+            };
+
+            return eventCollection.findAndModify(filter, update);
+        },
         addUserToEvent(eventId, username) {
             if (!eventValidator.isValidUserAdding(username)) {
                 return Promise.reject();
@@ -73,8 +94,10 @@ module.exports = (eventCollection, { eventValidator }, models, logger, { event }
                 { _id: eventCollection.generateId(chatId) },
                 { $set: { chatTitle: chatTitle } },
                 {
-                    projection: { 'participants': 1, 'chatTitle': 1 },
-                    returnNewDocument: true,
+                    projection: { 'participants': 1,
+                     'chatTitle': 1,
+                    'headerImage': 1 },
+                    returnOriginal: false,
                 }
             );
         },

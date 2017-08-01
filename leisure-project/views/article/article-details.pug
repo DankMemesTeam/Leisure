@@ -14,11 +14,31 @@ block append page-content
         h4
             a.white-text(href='/users/' + article.author.username)
                 | #{article.author.username}
+        
         .row.center
-            each tag in article.tags
-                .col.s1.m1.chip.tags.z-depth-3
-                    | ##{tag}
-
+            .col.s12.m6.offset-m3
+                if locals.user
+                    if locals.user.username == article.author.username
+                        a#article-delete-btn.btn.orange
+                            | Delete article
+                    if locals.user.username == article.author.username
+                        a(href='/articles/' + article._id + '/edit').btn.orange
+                            | Edit article
+        .row.center
+            .col.s12.m6.offset-m3
+                if currentUser
+                    if article.likes.includes(currentUser)                  
+                        button.btn.waves-effect.waves-light#rate-btn.small-margin(type='submit')
+                            | Unlike
+                            i.material-icons.right
+                                | thumb_down
+                    else 
+                        button.btn.waves-effect.waves-light#rate-btn.small-margin(type='submit')
+                            | Like
+                            i.material-icons.right
+                                | thumb_up
+                    p#likes-count.bold.btn.grey.lighten-5.grey-text.darken-5
+                        | #{article.likes.length} likes.
     //-Page content
     .row.page-info.center.z-depth-3
         .col.s12.m12.center-align.content-container
@@ -28,33 +48,23 @@ block append page-content
                         | #{article.content}
                     p.blue-grey-text.lighten-4.right
                         | Author: #{article.author.username}
-    .row.interactions-row.center.z-depth-3
+    .row.center
+        .col.s12.m6.offset-m3
+            h4.blue-grey-text.lighten-3
+                | Tags
+    .row.center
+        .col.s12.m12.center-align.offset-m1
+                each tag in article.tags
+                    .col.s1.m1.chip.tags.z-depth-3
+                        a(href='/articles?query=' + tag)
+                            | ##{tag}
+    .row.interactions-row.center
         .col.s12.m12.center-align.interactions-container
             .row.center-align
                 .col.s12.m12
-                    if locals.user
-                        if locals.user.username == article.author.username
-                            a#article-delete-btn.btn.right
-                                | Delete article
-                        if locals.user.username == article.author.username
-                            a(href='/articles/' + article._id + '/edit').btn.right
-                                | Edit article
+                    p.mini-title
+                        | Comment section:
                     if currentUser
-                        div.row
-                            .col.s3.s2
-                                if article.likes.includes(currentUser)                  
-                                    button.btn.waves-effect.waves-light#rate-btn(type='submit')
-                                        | Unlike
-                                        i.material-icons.right
-                                            | thumb_down
-                                else 
-                                    button.btn.waves-effect.waves-light#rate-btn(type='submit')
-                                        | Like
-                                        i.material-icons.right
-                                            | thumb_up
-                            .col.s3.m2
-                                p#likes-count.bold
-                                    | #{article.likes.length} likes.
                         div.row
                             div.row
                                 div.input-field.col.s6
@@ -66,8 +76,7 @@ block append page-content
                                         | Send
                                         i.material-icons.right
                                             | send
-                    p
-                        | Comment section: 
+                     
                     ul#comments-list.collection
                         each comment in article.comments
                             li.collection-item.avatar
