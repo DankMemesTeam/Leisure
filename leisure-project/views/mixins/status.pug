@@ -24,19 +24,17 @@ mixin status(status, currentUser)
                         .col.s12.m12.card-action-share
                             .row
                                 if currentUser && status.likes.includes(currentUser.username)
-                                    .col.s2.m2.btn.rate-btn.liked
+                                    .col.s3.m2.btn.rate-btn.liked
                                         | Unlike
                                 else
-                                    .col.s2.m2.btn.rate-btn
+                                    .col.s3.m2.btn.rate-btn
                                         | Like
                                 div.hidden
                                     | #{'/users/' + status.author.username + '/' + status._id}
-                                .col.s3.m3.flow-text.likes-text
+                                .col.s4.m3.flow-text.likes-text
                                     | #{status.likes.length} likes
-                                .col.s2.m2.btn.small-margin
+                                .col.s3.m2.btn.small-margin
                                     | Share
-                                .col.s4.m3.flow-text
-                                    | 0 shares
                     .row.comment-container
                         .commentInput-field.col.s8.margin
                             form.comment-form(action='/users/' + status.author.username + '/' + status._id, method='POST')
