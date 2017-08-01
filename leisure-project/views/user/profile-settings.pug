@@ -4,65 +4,68 @@ include ../mixins/loading-modal
 block append styles
   link(rel='stylesheet', href='/css/user-profile/style-horizontal.css')
   link(rel='stylesheet', href='/css/user-profile/style.css')
+  link(rel='stylesheet', href='/css/event/create-page.css')
 block append page-content
-  +loadingModal('Uploading image', 'Uploaded.')
-  .row
-    .col-md-8
-      .well
-        h2
-          | #{firstName} #{lastName}
-        p.text-muted
-          | @#{username}
-        ul.list-group
-          li.list-group-item
-            strong
-              | Profile picture URL: 
-            form.form-inline#profile-picture-form
-              div.form-group
-                input#profile-picture-input(type='file' style='display: none' accept='image/*').form-control
-                label(for='profile-picture-input').btn.btn-primary
-                  | Choose image
-                button(type='submit').btn.btn-primary
-                  i.material-icons
-                    | send
-          li.list-group-item
-            strong
-              | First name: 
-            | #{firstName}
-            .form-inline
-              div.form-group
-                input#firstName(type='text' name='firstName' placeholder='Edit first name').form-control
-                #update-firstName-btn.btn.btn-primary
-                  | Edit
-        ul.list-group
-          li.list-group-item
-            strong
-              | Last name: 
-            | #{lastName}
-            .form-inline
-              div.form-group
-                input#lastName(type='text' name='lastName' placeholder='Edit last name').form-control
-                #update-lastname-btn.btn.btn-primary
-                  | Edit
-        ul.list-group
-          li.list-group-item
-            strong
-              | Birth date: 
-            | #{birthDate}
-            .form-inline
-              div.form-group
-                input#birthDate(type='text' name='birthDate' placeholder='Edit birth date').form-control
-                #update-birthDate-btn.btn.btn-primary
-                  | Edit
-          li.list-group-item
-            strong
-              | About me: 
-            | #{highSchool}
-            .form-inline
-              div.form-group
-                input#aboutMe(type='text' name='aboutMe' placeholder='Edit about me').form-control
-                #update-aboutMe-btn.btn.btn-primary
-                  | Edit
+  .row.center-align
+    .col.s12.m8.offset-m2.z-depth-4.card-panel
+      +loadingModal('Uploading image', 'Uploaded.')
+      .row
+        .col-md-8
+          .well
+            h2
+              | #{firstName} #{lastName}
+            p.text-muted
+              | @#{username}
+            ul.list-group
+              li.list-group-item
+                strong
+                  | Profile picture URL: 
+                form.form-inline#profile-picture-form
+                  div.form-group
+                    input#profile-picture-input(type='file' style='display: none' accept='image/*').form-control
+                    label(for='profile-picture-input').btn.btn-primary.btn-wide
+                      | Choose image
+                    button(type='submit').btn.btn-primary.btn-wide
+                      i.material-icons
+                        | send
+              li.list-group-item
+                strong
+                  | First name: 
+                | #{firstName}
+                .form-inline
+                  div.form-group
+                    input#firstName(type='text' name='firstName' placeholder='Edit first name').form-control
+                    #update-firstName-btn.btn.btn-primary.btn-wide
+                      | Edit
+            ul.list-group
+              li.list-group-item
+                strong
+                  | Last name: 
+                | #{lastName}
+                .form-inline
+                  div.form-group
+                    input#lastName(type='text' name='lastName' placeholder='Edit last name').form-control
+                    #update-lastname-btn.btn.btn-primary.btn-wide
+                      | Edit
+            ul.list-group
+              li.list-group-item
+                strong
+                  | Birth date: 
+                | #{birthDate}
+                .form-inline
+                  div.form-group
+                    input#birthDate(type='text' name='birthDate' placeholder='Edit birth date').form-control
+                    #update-birthDate-btn.btn.btn-primary.btn-wide
+                      | Edit
+              li.list-group-item
+                strong
+                  | About me: 
+                | #{highSchool}
+                .form-inline
+                  div.form-group
+                    input#aboutMe(type='text' name='aboutMe' placeholder='Edit about me').form-control
+                    #update-aboutMe-btn.btn.btn-primary.btn-wide
+                      | Edit
 
 block append footer
   script(src='/js/user/user-profile.js')

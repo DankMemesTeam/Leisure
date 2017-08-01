@@ -33,3 +33,7 @@ header .brand-logo img{
 .message-btn{
   width: 100%;
 }
+
+.btn-wide{
+  padding: 0 2% !important;
+}
