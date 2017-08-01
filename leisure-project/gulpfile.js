@@ -52,6 +52,15 @@ gulp.task('test:unit', ['pre-test'], () => {
 		.pipe(istanbul.writeReports());
 });
 
+gulp.task('test:integration', ['pre-test'], () => {
+	return gulp.src('./tests/integration-tests/**/*.js', { read: false })
+		.pipe(mocha({
+			colors: true,
+			reporter: 'spec',
+		}))
+		.pipe(istanbul.writeReports());
+});
+
 gulp.task('pre-test', () => {
 	return gulp
 		.src('./lib/**/*.js')

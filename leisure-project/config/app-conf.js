@@ -9,7 +9,6 @@ module.exports = (logger) => {
     const loadedModels = require('../lib/models')();
     const dataConfig = require('./data-conf');
 
-
     return require('../database').connection(config.connectionString)
         .then((db) => {
             const data = require('../data')(db, validators, loadedModels, logger, dataConfig);
