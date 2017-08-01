@@ -38,7 +38,7 @@ module.exports = ({ userData, statusData, articleData }) => {
                         return next(new Error('Invalid username'));
                     }
 
-                    if (foundUser.username !== req.user.username) {
+                    if (req.user && foundUser.username !== req.user.username) {
                         return res.redirect(`/users/${req.params.username}`);
                     }
 
