@@ -22,8 +22,6 @@ module.exports = ({ app, express, controllers }) => {
 
     router.post('/register', authController.registerUser);
 
-    router.get('/test', authController.getUser);
-
     app.use('/auth', router);
 };
 
