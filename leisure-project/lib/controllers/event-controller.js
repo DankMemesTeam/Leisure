@@ -12,7 +12,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                 loadEvents = eventData.getEventsBy(req.query.query, pageNumber);
             }
 
-            loadEvents
+            return loadEvents
                 .then(([events, count, pageSize]) => {
                     res.render('event/event-page', {
                         currentUser: req.user || null,
@@ -31,7 +31,7 @@ module.exports = ({ userData, eventData, chatData }) => {
             return res.render('event/event-create');
         },
         loadEventDetailsPage(req, res, next) {
-            eventData.getEventById(req.params.eventId)
+            return eventData.getEventById(req.params.eventId)
                 .then((event) => {
                     if (!event) {
                         return next(new Error('Invalid event id'));
@@ -85,7 +85,7 @@ module.exports = ({ userData, eventData, chatData }) => {
                     'event', req.body.chatTitle);
             }
 
-            chatPromise
+            return chatPromise
                 .then((chat) => {
                     return eventData
                         .createEvent(eventObj, req.body.chatTitle || null);

@@ -5,7 +5,6 @@ const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const mocha = require('gulp-mocha');
 const minify = require('gulp-minify');
-const plumber = require('gulp-plumber');
 const istanbul = require('gulp-istanbul');
 
 const app = require('./config')(logger);
@@ -44,11 +43,8 @@ gulp.task('dev', ['server:restart'], () => {
 });
 
 gulp.task('test:unit', ['pre-test'], () => {
-	return gulp.src('./tests/unit-tests/**/*.js', { read: false })
-		.pipe(mocha({
-			colors: true,
-			reporter: 'spec',
-		}))
+	return gulp.src(['./tests/unit-tests/**/*.js'])
+		.pipe(mocha())
 		.pipe(istanbul.writeReports());
 });
 
@@ -63,7 +59,7 @@ gulp.task('test:integration', ['pre-test'], () => {
 
 gulp.task('pre-test', () => {
 	return gulp
-		.src('./lib/**/*.js')
+		.src(['./lib/**/*.js'])
 		.pipe(istanbul({
 			includeUntested: true,
 		}))
