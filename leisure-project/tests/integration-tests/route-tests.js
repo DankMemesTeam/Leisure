@@ -156,7 +156,6 @@ describe('Testing application routes', () => {
                                 })
                                 .set('cookie', cookie)
                                 .end((errrr, resss) => {
-                                    console.log(ress.body);
                                     done();
                                 });
                         });
@@ -207,8 +206,6 @@ describe('Testing application routes', () => {
                 .send({ username: 'lllevski', password: 'bi4a4os' })
                 .expect(302)
                 .end((err, res) => {
-                    console.log(res.body);
-
                     if (err) {
                         return done(err);
                     }
@@ -249,7 +246,6 @@ describe('Testing application routes', () => {
                                 .set('cookie', cookie)
                                 .expect(200)
                                 .end((errrr, resss) => {
-                                    console.log(resss);
                                     done();
                                 });
                         });

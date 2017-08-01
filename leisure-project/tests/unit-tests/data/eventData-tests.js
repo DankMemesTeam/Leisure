@@ -10,7 +10,7 @@ describe('EventData tests', () => {
     let collection = null;
     let validators = null;
 
-    const logger = null;
+    let logger = null;
     let config = null;
     let data = null;
 
@@ -67,7 +67,6 @@ describe('EventData tests', () => {
 
         collection = null;
         validators = null;
-        models = null;
         config = null;
         data = null;
     });
