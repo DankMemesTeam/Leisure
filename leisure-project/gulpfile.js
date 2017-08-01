@@ -4,7 +4,6 @@ const logger = require('./config/logger-conf');
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const mocha = require('gulp-mocha');
-const minify = require('gulp-minify');
 const istanbul = require('gulp-istanbul');
 
 const app = require('./config')(logger);
@@ -36,7 +35,7 @@ gulp.task('dev', ['server:restart'], () => {
 	return nodemon({
 		ext: 'js',
 		tasks: ['server:restart'],
-		script: 'server.js',
+		script: 'app.js',
 	});
 });
 
@@ -73,12 +72,6 @@ gulp.task('test', ['pre-test'], () => {
 		])
 		.pipe(mocha())
 		.pipe(istanbul.writeReports());
-});
-
-gulp.task('minify:js', () => {
-	gulp.src(['app/**/*.js', 'config/**/*.js'])
-		.pipe(minify())
-		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('default', [
