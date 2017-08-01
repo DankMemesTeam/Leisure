@@ -45,7 +45,7 @@ module.exports = ({ userData, chatData }) => {
 
     return {
         getRecentMessages(req, res) {
-            Promise.all([chatData.getRecentMessagesFromChat(req.params.chatId),
+            return Promise.all([chatData.getRecentMessagesFromChat(req.params.chatId),
             userData.removeNotification(req.user.username, req.params.chatId)])
                 .then((results) => {
                     return res.json({
@@ -56,12 +56,12 @@ module.exports = ({ userData, chatData }) => {
         },
         loadChats(req, res) {
             if (!req.user) {
-                res.redirect('/auth/login');
+                return res.redirect('/auth/login');
             } else if (req.user.username !== req.params.username) {
-                res.redirect('/users/' + req.params.username);
+                return res.redirect('/users/' + req.params.username);
             }
 
-            Promise.all([chatData.getUserChats(req.user.username, 'private'),
+            return Promise.all([chatData.getUserChats(req.user.username, 'private'),
             chatData.getUserChats(req.user.username, 'event')])
                 .then((chatRooms) => {
                     return Promise.all([getPrivateChatUserDetails(chatRooms[0], req.user.username),
