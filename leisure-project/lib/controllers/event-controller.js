@@ -128,8 +128,6 @@ module.exports = ({ userData, eventData, chatData }) => {
                             .addUserToChat(event.value.chatTitle,
                             req.user.username);
                     }
-
-                    return Promise.reject();
                 })
                 .then((result) => {
                     return res

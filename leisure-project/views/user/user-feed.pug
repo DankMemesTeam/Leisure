@@ -10,13 +10,14 @@ block append page-content
         h4.center
             | You have nothing to view, visit 
             a(href='/contacts')
-                | Users page    
-    .container.feed-container
-        each stat in statuses
-            +status(stat, locals.user)
-        if statuses.length > 0
-            .row.center
-                +pagination(null, pageNumber, pagesCount, '')
+                | Users page
+    .row
+        .col.s12.m6.offset-m3.feed-container
+            each stat in statuses
+                +status(stat, locals.user)
+            if statuses.length > 0
+                .row.center
+                    +pagination(null, pageNumber, pagesCount, '')
 
 block append footer
     script(src='js/status/status-comment.js')

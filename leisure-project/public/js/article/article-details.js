@@ -121,6 +121,7 @@ $('#article-delete-btn').on('click', (ev) => {
     deleteArticle(articleId)
         .then(() => {
             window.location.replace('/articles');
+            return toastr.success('Successfully deleted article!');
         });
 });
 

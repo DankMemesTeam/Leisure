@@ -63,7 +63,6 @@ const sendComment = (commentText) => {
 };
 
 const createComment = (comment) => {
-    console.log(comment);
     const $li = $('<li></li>');
     $li.addClass('collection-item avatar');
 
@@ -114,13 +113,13 @@ $(() => {
 
         addPersonToEvent(postUrl)
             .then((data) => {
-                if (data.redirecturl) {
-                    window.location.replace(data.redirecturl);
+                if (data.redirectUrl) {
+                    $('#join-event-btn').addClass('hidden');
+                    return toastr.success('Successfully joined event!');
                 }
             })
             .catch((err) => {
-                // add toastr message
-                console.log(err);
+                return toastr.error('Oops something happened!');
             });
     });
 
@@ -137,7 +136,7 @@ $(() => {
                     return toastr.error(response.errorMessage);
                 }
                 createComment(response.comment);
-                return $('#comment-content').val('');
+                $('#comment-content').val('');
             })
             .catch((err) => {
                 return toastr.error(err);

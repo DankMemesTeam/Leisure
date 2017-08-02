@@ -8,7 +8,7 @@
 #profile-page-header .card-profile-image {
   width: 110px;
   position: absolute;
-  top: 54%;
+  top: 50%;
   z-index: 1;
   left: 40px;
   cursor: pointer;

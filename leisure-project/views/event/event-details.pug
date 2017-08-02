@@ -38,17 +38,15 @@ block append page-content
                         | Event description
                     h5.description
                         | #{event.description}
-            .row.center-align
-                .col.s12.m12.col.moffset-2
-                    if event.location.address.length > 0
+            if event.location.address.length > 0
+                .row.center-align.map-row.z-depth-4
+                    .col.s12.m8
                         img.map-image(src=event.location.mapUrl)
-                        p
-                            | Location: #{event.location.address}
-                        p#distance-from-user
-                            | Distance from you:
-                    else
-                        p
-                            | Location: Not specified
+                    .col.s12.m4
+                        p.flow-text
+                            | #{event.location.address}
+                        p#distance-from-user.flow-text
+                            | Distance from you: 
             hr.content-divider
             if currentUser && !event.chatTitle && event.creator === currentUser.username
                 #chat-adding-container.row.center-align
@@ -63,14 +61,14 @@ block append page-content
                                     input#chatTitle(type='text', placeholder='Chat title')
                                 div#create-chat-btn.btn.col.s4.m4
                                     | Create event chat
-                hr.content-divider
+                    hr.content-divider
             .row.center-align
                 .col.s12.m12.col.moffset-2
                     h4.mini-title
                         | Comment section
                     if currentUser
                         div.row
-                            div.input-field.col.s6
+                            div.input-field.col.s7
                                 input#comment-content(type='text' name='text')
                                 label(for='comment-content')
                                     | Add comment
@@ -87,7 +85,3 @@ block append page-content
                                     | #{comment.author.username}
                                 p
                                     | #{comment.text}
-
-                        else
-                            h5
-                                | There are currently no comments on this event

@@ -1,8 +1,10 @@
 extends ../shared/_master
 
 include ../mixins/pagination.pug
+block append styles
+    link(rel='stylesheet', href='/css/article/article-page.css')
 block append page-content        
-    div.row
+    .row
         ul.dropdown-content#categories-dropdown            
             li
                 a(href='/articles')
@@ -15,18 +17,18 @@ block append page-content
                 li
                     a(href='/articles')
                         | No categories found
-
     .row
         .col.s12.m10.offset-m1
             if locals.user
-                a.waves-effect.waves-light.btn.left(href='/articles/add')
+                a.waves-effect.waves-light.btn.create-article-btn(href='/articles/add')
                     | Create article
                     i.material-icons.right
                         | add
-            a.btn.dropdown-button.right(data-activates='categories-dropdown')
+            a.btn.dropdown-button.create-article-btn(data-activates='categories-dropdown')
                 | Categories
                 i.material-icons.right
                     | arrow_drop_down
+    if articles.length > 0
         .row
             .col.s12.m10.offset-m1
                 nav
@@ -44,24 +46,31 @@ block append page-content
                 each article in articles
                     .col.s12.m6
                         .card.z-depth-3
-                            .card.grey.lighten-1
+                            .card.blue-grey.lighten-5
                                 .card-content.white-text
                                     span.card-title
-                                    if locals.user && article.author.username == locals.user.username
-                                        a(href='/articles/' + article._id).grey-text.darken-4
+                                        a(href='/articles/' + article._id).grey-text.darken-5
                                             | #{article.title}
-                                    a(href='/articles/' + article._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
-                                        i.material-icons edit
-                                    p
-                                        | By #{article.author.username}
-                                    p
+                                    if locals.user && article.author.username == locals.user.username
+                                        a(href='/articles/' + article._id + '/edit').btn-floating.halfway-fab.waves-effect.waves-light.red
+                                            i.material-icons edit
+                                    p.grey-text.darken-5
+                                        | By 
+                                        a(href='/users/' + article.author.username).deep-orange-text.darken-4
+                                            | #{article.author.username}
+                                    p.grey-text.darken-5
                                         | #{article.description}
                                 .card-action
-                                    a(href='#')
+                                    a(href='#').deep-orange-text.darken-4
                                         | #{article.category}
                 else
                     h4.center
                         | No articles found.
         if articles.length > 0
             .row
-                +pagination(query, pageNumber, pagesCount, 'articles')            
+                +pagination(query, pageNumber, pagesCount, 'articles')    
+    else
+        h4.center
+            | No articles avaliable 
+        h5.center.blue-grey-text.lighten-5
+            | Click the 'Create article' button to create one!        

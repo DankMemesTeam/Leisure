@@ -8,11 +8,11 @@ block append page-content
     .row.center-align
         .col.s12.m8.offset-m2.z-depth-4.card-panel
             .row
-                .col.s6.m6.offset-s3.offset-m3
-                    h1
+                .col.s12.m6.offset-m3
+                    h3
                         | #{event.title}
             .row
-                .col.s6.m6.offset-s3.offset-m3
+                .col.s12.m6.offset-m3
                     p
                         | Created by: 
                         a(href='/users/' + event.creator)
@@ -23,19 +23,19 @@ block append page-content
                     .col.s12.m12.l12.blue-grey.darken-4
                         img.header-image(src=event.headerImage)
                 .row
-                    .col.s6.m6.offset-s3.offset-m3
+                    .col.s12.m6.offset-m3
                         select#header-image(name='headerImage')
                             each headerImg in headerImages
                                 option(value=headerImg.image)
                                     | #{headerImg.name}
                 .row
-                    .col.s6.m6.offset-s3.offset-m3
+                    .col.s12.m6.offset-m3
                         label(for='title')
                             | Edit title
                         .input-field.col.s12             
                             input#title(value=event.title name='title')
                 .row
-                    .col.s6.m6.offset-s3.offset-m3
+                    .col.s12.m6.offset-m3
                         label(for='description')
                             | Edit description
                         .input-field.col.s12             
@@ -43,7 +43,7 @@ block append page-content
                                 =event.description 
 
                 .row
-                    .col.s6.m6.offset-s3.offset-m3
+                    .col.s12.m6.offset-m3
                         #update-event-btn.btn.right
                             | Save changes
                         a.btn.left(href='/events')

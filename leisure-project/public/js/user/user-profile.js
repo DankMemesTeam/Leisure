@@ -33,7 +33,7 @@ const sendStatusData = (statusData) => {
 $(() => {
     $('#post-status-btn').click((ev) => {
         const statusText =
-         validateText($('#status-text-input').val(), 'Status content');
+            validateText($('#status-text-input').val(), 'Status content');
 
         if (!statusText.isValid) {
             return toastr.error(statusText.message);
@@ -55,9 +55,13 @@ $(() => {
                     if (response.errorMessage) {
                         return toastr.error(response.errorMessage);
                     }
+
+                    document.getElementById('status-image-input').value = '';
+                    document.getElementById('status-text-input').value = '';
+
                     $('#modal-loading').modal('close');
                     $('#modal-done').modal('open');
-                    return $('#profile-page-wall-posts')
+                    $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });
         } else if (statusText.result.length > 0) {
@@ -66,15 +70,16 @@ $(() => {
                     if (response.errorMessage) {
                         return toastr.error(response.errorMessage);
                     }
+
+                    document.getElementById('status-image-input').value = '';
+                    document.getElementById('status-text-input').value = '';
+
                     $('#modal-loading').modal('close');
                     $('#modal-done').modal('open');
-                    return $('#profile-page-wall-posts')
+                    $('#profile-page-wall-posts')
                         .prepend(response.compiledTemplate);
                 });
         }
-
-        document.getElementById('status-image-input').value = '';
-        return $('#status-text-input').val('');
     });
 
     $('.message-btn').click((ev) => {
@@ -89,7 +94,7 @@ $(() => {
             data: {
                 pageUser: username,
             },
-            success: function(data) {
+            success: function (data) {
                 if (data.redirect) {
                     window.location.replace(data.redirect);
                 }

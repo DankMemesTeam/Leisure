@@ -15,7 +15,7 @@ mixin status(status, currentUser)
                         p
                             | #{status.content}
             if status.imageUrl.length > 0
-                .row
+                .row.center
                     .col.s12                            
                         img(src=status.imageUrl).responsive-img
             .card-action
@@ -24,39 +24,39 @@ mixin status(status, currentUser)
                         .col.s12.m12.card-action-share
                             .row
                                 if currentUser && status.likes.includes(currentUser.username)
-                                    .col.s3.m2.btn.rate-btn.liked
+                                    .col.s3.m2.btn.rate-btn.liked.btn-wide
                                         | Unlike
                                 else
-                                    .col.s3.m2.btn.rate-btn
+                                    .col.s3.m2.btn.rate-btn.btn-wide
                                         | Like
                                 div.hidden
                                     | #{'/users/' + status.author.username + '/' + status._id}
                                 .col.s4.m3.flow-text.likes-text
                                     | #{status.likes.length} likes
-                                .col.s3.m2.btn.small-margin
+                                .col.s3.m2.btn.small-margin.btn-wide
                                     | Share
                     .row.comment-container
                         .commentInput-field.col.s8.margin
                             form.comment-form(action='/users/' + status.author.username + '/' + status._id, method='POST')
                                 input.commentInput#profile-comments.validate.margin(name='commentContent', type='text' placeholder='Write a comment')
-            if status.comments.length > 0
-                .row
-                    .col.s12
-                        - var tabSize = 5
-                        - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
-                        
-                        - var k = 1
-                        - var index = 0
-                        while k <= tabsNeeded
-                            div(id=status._id + k).col.s12                            
-                                ul.collection
-                                    while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
-                                        li.collection-item
-                                            a.comment-username(href='/users/' + status.comments[index].author.username)
-                                                | #{status.comments[index].author.username} 
-                                            | said: #{status.comments[index].content}
-                                            - index++
-                                - k++
+            .row
+                .col.s12
+                    - var tabSize = 5
+                    - var tabsNeeded = Math.ceil(status.comments.length / tabSize)
+                    
+                    - var k = 1
+                    - var index = 0
+                    while k <= tabsNeeded
+                        div(id=status._id + k).col.s12                            
+                            ul.collection
+                                while index <= tabSize * (k - 1) + tabSize - 1 && index < status.comments.length
+                                    li.collection-item
+                                        a.comment-username(href='/users/' + status.comments[index].author.username)
+                                            | #{status.comments[index].author.username} 
+                                        | said: #{status.comments[index].content}
+                                        - index++
+                            - k++
+                    if status.comments.length > 0
                         if tabsNeeded > 0
                             - var n = 1
                             ul.tabs.pagination.center

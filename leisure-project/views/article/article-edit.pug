@@ -5,34 +5,41 @@ block append footer
     script(src='/js/article/article-edition.js')
 block append page-content
     .row.center-align
-        .col.s12.m8.offset-m2.z-depth-4.card-panel
-            h1
-                | #{article.title}
-            p
-                | Published by: 
-                a(href='/users/' + article.author.username)
-                    | #{article.author.username}
-            hr
-            .form-container
-                .row
+        .col.s12.m8.offset-m2.card-panel.z-depth-4
+            .row
+                .col.s12
+                    h2
+                        | #{article.title}
+            .row
+                .col.s12
+                    p
+                        | Published by: 
+                        a(href='/users/' + article.author.username)
+                            | #{article.author.username}
+                    hr
+            .row
+                .col.s12
                     label(for='title')
                         | Edit title
                     .input-field.col.s12             
                         input#title(value=article.title name='title')
-                .row
+            .row
+                .col.s12
                     label(for='description')
                         | Edit description
                     .input-field.col.s12             
                         input#description(value=article.description name='description')
 
-                .row
+            .row
+                .col.s12
                     label(for='content')
                         | Edit content
                     .input-field.col.s12             
                         textarea#content(name='content').materialize-textarea
                             | #{article.content} 
 
-                .row
+            .row
+                .col.s12
                     #edit-article-btn.btn.right
                         | Save changes
                     a.btn.left(href='/articles')

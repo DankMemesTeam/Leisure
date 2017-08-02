@@ -48,6 +48,10 @@ $(() => {
 
         return sendComment(commentText.result, url)
             .then((response) => {
+                if(response.errorMessage) {
+                    return toastr.error(response.errorMessage);
+                }
+
                 const comment = response.comment;
                 const selector = '#' + statusId + 1;
 
