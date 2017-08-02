@@ -12,9 +12,6 @@ const envConnString = process.env.MONGO;
 // eslint-disable-next-line no-process-env
 const envDbSecret = process.env.SECRET;
 
-
-// Probably contants should be automaticaly adjusted
-// to environment ( not explicitly named .dev or .prod )
 const config = {
 	dev: {
 		root: rootPath,

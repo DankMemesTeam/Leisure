@@ -51,18 +51,18 @@ block append page-content
                             | Location: Not specified
             hr.content-divider
             if currentUser && !event.chatTitle && event.creator === currentUser.username
-            #chat-adding-container.row.center-align
-                .col.s12.m12.col.moffset-2
-                    .center-align
-                        .col.s12.m12.col.moffset-2
-                            h4.mini-title
-                                | Admin Panel
-                    .row.center-align
-                        .col.s12.m12.col.moffset-2
-                            div#chatTitleContainer.col.s6.m6
-                                input#chatTitle(type='text', placeholder='Chat title')
-                            div#create-chat-btn.btn.col.s4.m4
-                                | Create event chat
+                #chat-adding-container.row.center-align
+                    .col.s12.m12.col.moffset-2
+                        .center-align
+                            .col.s12.m12.col.moffset-2
+                                h4.mini-title
+                                    | Admin Panel
+                        .row.center-align
+                            .col.s12.m12.col.moffset-2
+                                div#chatTitleContainer.col.s6.m6
+                                    input#chatTitle(type='text', placeholder='Chat title')
+                                div#create-chat-btn.btn.col.s4.m4
+                                    | Create event chat
                 hr.content-divider
             .row.center-align
                 .col.s12.m12.col.moffset-2

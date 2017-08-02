@@ -1,11 +1,10 @@
 /*eslint-disable*/
 
 const minStringLength = 3;
-const maxStringLength = 20;
-const minTextLength = 10;
+const maxStringLength = 50;
+const minTextLength = 5;
 const maxTextLength = 50;
 const minContentLength = 20;
-const maxContentLength = 500;
 
 const sanitizeStringInput = (input) => {
     input = validator.escape(input);
@@ -132,9 +131,9 @@ const validateContent = (content, objName) =>{
     }
 
     if (!validator.isLength(content,
-         { min: minContentLength, max: maxContentLength })) {
+         { min: minContentLength })) {
         return { message: `Invalid ${objName.toLowerCase()}
-         length! (${minContentLength};${maxContentLength})` };
+         length! (${minContentLength})` };
     }
 
     return { isValid: true, result: content };
