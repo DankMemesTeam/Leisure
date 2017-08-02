@@ -8,9 +8,8 @@ block append styles
 block append page-content
     if statuses.length == 0
         h4.center
-            | You have nothing to view, visit 
-            a(href='/contacts')
-                | Users page
+            | You have nothing to view
+            | Explore and find people to follow
     .row
         .col.s12.m6.offset-m3.feed-container
             each stat in statuses
