@@ -2,8 +2,8 @@
 
 const minStringLength = 3;
 const maxStringLength = 50;
-const minTextLength = 5;
-const maxTextLength = 50;
+const minTextLength = 3;
+const maxTextLength = 80;
 const minContentLength = 20;
 
 const sanitizeStringInput = (input) => {

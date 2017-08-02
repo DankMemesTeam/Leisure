@@ -18,7 +18,6 @@ $('.chips').on('chip.delete', (ev, chip) => {
 });
 
 const createArticle = (articleObj) => {
-    console.log(articleObj);
     return new Promise((resolve, reject) => {
         $.ajax({
             url: '/articles/add',
