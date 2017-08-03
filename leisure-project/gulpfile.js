@@ -77,7 +77,6 @@ gulp.task('test', ['pre-test'], () => {
 gulp.task('test:no-report', () => {
 	return gulp
 		.src([
-			'./tests/integration-tests/**/*.js',
 			'./tests/unit-tests/**/*.js',
 		])
 		.pipe(mocha());
