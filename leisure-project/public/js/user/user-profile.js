@@ -56,7 +56,7 @@ $(() => {
                         return toastr.error(response.errorMessage);
                     }
 
-                    window.location.replace(window.location.href);
+                    window.location.href = window.location.href;
                     
                     // $('#modal-done').modal('open');
                     // document.getElementById('status-image-input').value = '';
@@ -72,7 +72,7 @@ $(() => {
                         return toastr.error(response.errorMessage);
                     }
 
-                    window.location.replace(window.location.href);
+                    window.location.href = window.location.href;
                     
                     // $('#modal-done').modal('open');
 
