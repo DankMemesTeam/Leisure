@@ -1,12 +1,13 @@
-const config = require('./config/config');
-const logger = require('./config/logger-conf');
+// const config = require('./config/config');
+// const logger = require('./config/logger-conf');
+// will get uncommented later
 
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const mocha = require('gulp-mocha');
 const istanbul = require('gulp-istanbul');
 
-const app = require('./config')(logger);
+// const app = require('./config')(logger);
 let server = null;
 
 gulp.task('start', () => {
