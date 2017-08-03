@@ -1,16 +1,15 @@
-// const config = require('./config/config');
-// const logger = require('./config/logger-conf');
-// will get uncommented later
-
 const gulp = require('gulp');
 const nodemon = require('gulp-nodemon');
 const mocha = require('gulp-mocha');
 const istanbul = require('gulp-istanbul');
 
-// const app = require('./config')(logger);
 let server = null;
 
 gulp.task('start', () => {
+	const config = require('./config/config');
+	const logger = require('./config/logger-conf');
+	const app = require('./config')(logger);
+
 	return app
 		.then((application) => {
 			application.listen(config.port, () =>
@@ -73,6 +72,15 @@ gulp.task('test', ['pre-test'], () => {
 		])
 		.pipe(mocha())
 		.pipe(istanbul.writeReports());
+});
+
+gulp.task('test:no-report', () => {
+	return gulp
+		.src([
+			'./tests/integration-tests/**/*.js',
+			'./tests/unit-tests/**/*.js',
+		])
+		.pipe(mocha());
 });
 
 gulp.task('default', [

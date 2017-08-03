@@ -1,2 +1,2 @@
 #!/bin/sh
-gulp test
+gulp test:no-report
