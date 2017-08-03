@@ -1,3 +1,5 @@
+/* globals __dirname */
+
 module.exports = () => {
     const pug = require('pug');
     const path = require('path');

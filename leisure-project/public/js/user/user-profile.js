@@ -56,14 +56,15 @@ $(() => {
                         return toastr.error(response.errorMessage);
                     }
 
-                    document.getElementById('status-image-input').value = '';
-                    document.getElementById('status-text-input').value = '';
-
                     $('#modal-loading').modal('close');
-                    $('#modal-done').modal('open');
+                    window.location.replace(window.location.href);
+                    
+                    // $('#modal-done').modal('open');
+                    // document.getElementById('status-image-input').value = '';
+                    // document.getElementById('status-text-input').value = '';
 
-                    $('#profile-page-wall-posts')
-                        .prepend(response.compiledTemplate);
+                    // $('#profile-page-wall-posts')
+                    //     .prepend(response.compiledTemplate);
                 });
         } else if (statusText.result.length > 0) {
             return sendStatusData(statusData)
@@ -72,14 +73,20 @@ $(() => {
                         return toastr.error(response.errorMessage);
                     }
 
-                    document.getElementById('status-image-input').value = '';
-                    document.getElementById('status-text-input').value = '';
-
                     $('#modal-loading').modal('close');
-                    $('#modal-done').modal('open');
+                    window.location.replace(window.location.href);
+                    
+                    // $('#modal-done').modal('open');
 
-                    $('#profile-page-wall-posts')
-                        .prepend(response.compiledTemplate);
+
+                    // document.getElementById('status-image-input').value = '';
+                    // document.getElementById('status-text-input').value = '';
+
+                    // $('#modal-loading').modal('close');
+                    // $('#modal-done').modal('open');
+
+                    // $('#profile-page-wall-posts')
+                    //     .prepend(response.compiledTemplate);
                 });
         }
     });
