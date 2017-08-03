@@ -56,7 +56,6 @@ $(() => {
                         return toastr.error(response.errorMessage);
                     }
 
-                    $('#modal-loading').modal('close');
                     window.location.replace(window.location.href);
                     
                     // $('#modal-done').modal('open');
@@ -73,7 +72,6 @@ $(() => {
                         return toastr.error(response.errorMessage);
                     }
 
-                    $('#modal-loading').modal('close');
                     window.location.replace(window.location.href);
                     
                     // $('#modal-done').modal('open');
