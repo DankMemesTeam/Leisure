@@ -59,13 +59,11 @@ $(() => {
                     document.getElementById('status-image-input').value = '';
                     document.getElementById('status-text-input').value = '';
 
-                    // $('#modal-loading').modal('close');
-                    // $('#modal-done').modal('open');
+                    $('#modal-loading').modal('close');
+                    $('#modal-done').modal('open');
 
-                    window.location.replace(window.location.href);
-                    // compiled template doesnt append on hosted website , only on localhost
-                    // $('#profile-page-wall-posts')
-                    //     .prepend(response.compiledTemplate);
+                    $('#profile-page-wall-posts')
+                        .prepend(response.compiledTemplate);
                 });
         } else if (statusText.result.length > 0) {
             return sendStatusData(statusData)
@@ -77,12 +75,11 @@ $(() => {
                     document.getElementById('status-image-input').value = '';
                     document.getElementById('status-text-input').value = '';
 
-                    // $('#modal-loading').modal('close');
-                    // $('#modal-done').modal('open');
+                    $('#modal-loading').modal('close');
+                    $('#modal-done').modal('open');
 
-                    window.location.replace(window.location.href)
-                    // $('#profile-page-wall-posts')
-                    //     .prepend(response.compiledTemplate);
+                    $('#profile-page-wall-posts')
+                        .prepend(response.compiledTemplate);
                 });
         }
     });
