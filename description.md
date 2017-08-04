@@ -1,4 +1,4 @@
-# Leisure project (XIANXIA)
+# Leisure project
 ----
 - ## Items:
 	- ### `Post`
